@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 function FormComponent() {
 
-  // These are the inputs stored as state variables.
+  /* These are the inputs stored as state variables.
+  We had to import { useState } to do this.
+  */
   const [inputs, setInputs] = useState({
     os: "",
     datetime: "",
