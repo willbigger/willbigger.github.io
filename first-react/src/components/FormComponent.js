@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 
 function FormComponent() {
 
-  // These are the inputs stored as state variables.
+  /* These are the inputs stored as state variables.
+  We had to import { useState } to do this.
+  */
   const [inputs, setInputs] = useState({
     os: "",
     datetime: "",
@@ -172,9 +174,9 @@ function FormComponent() {
 
       <form className="nicu-form" onSubmit={handleSubmit}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
-        {submitted && valid ? <div className="success-message">Success!</div> : null}
+        {submitted && valid ? <div className="success-message" style={{color:"green"}}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
-        {submitted && !valid ? <div className="failure-message">Form is incomplete.</div> : null}
+        {submitted && !valid ? <div className="failure-message" style={{color:"red"}}>Form is incomplete.</div> : null}
 
         <h2>Early-onset (EOS) or Late-onset (LOS)</h2>
         <input
@@ -199,7 +201,7 @@ function FormComponent() {
         <label>LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
-        {submitted && !inputs.os ? <span>Please specify onset conditions.</span> : null}
+        {submitted && !inputs.os ? <span  style={{color:"red"}}>Please specify onset conditions.</span> : null}
         <hr />
 
         <h2>Date and Time of Culture</h2>
@@ -212,7 +214,7 @@ function FormComponent() {
           name="datetime" />
         <br />
         {/* If the form is submitted and the datetime input is missing, print this. */}
-        {submitted && !inputs.datetime ? <span>Please provide the date and time when the cultures were sent.</span> : null}
+        {submitted && !inputs.datetime ? <span style={{color:"red"}}>Please provide the date and time when the cultures were sent.</span> : null}
         <hr />
 
         <h2>Cultures Sent</h2>
@@ -247,7 +249,7 @@ function FormComponent() {
 
         <br />
         {/* If the form is submitted and no culture type is selected, print this. */}
-        {submitted && !inputs.cultureSentBlood && !inputs.cultureSentUrine && !inputs.cultureSentCSF ? <span>Please select at least one type of culture.</span> : null}
+        {submitted && !inputs.cultureSentBlood && !inputs.cultureSentUrine && !inputs.cultureSentCSF ? <span style={{color:"red"}}>Please select at least one type of culture.</span> : null}
         <hr />
 
         <h2>Pathogen Isolation</h2>
@@ -272,7 +274,7 @@ function FormComponent() {
 
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
-        {submitted && !inputs.pathogen ? <span>Please specify whether the pathogen was isolated.</span> : null}
+        {submitted && !inputs.pathogen ?  <span style={{color:"red"}}>Please specify whether the pathogen was isolated.</span> : null}
         <hr />
 
         <h2>Site of Infection</h2>
@@ -327,7 +329,7 @@ function FormComponent() {
 
         <br />
         {/* If the form is submitted and no infection site is selected, print this. */}
-        {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span>Please select at least one infection site.</span> : null}
+        {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{color:"red"}}>Please select at least one infection site.</span> : null}
         <hr />
 
         <h2>NEC Present</h2>
@@ -348,7 +350,7 @@ function FormComponent() {
         <label>No</label>
         <br />
         {/* If the form is submitted and NEC present isn't specified, print this. */}
-        {submitted && !inputs.nec ? <span>Please specify whether NEC is present.</span> : null}
+        {submitted && !inputs.nec ? <span style={{color:"red"}}>Please specify whether NEC is present.</span> : null}
         <br />
         <br />
 
