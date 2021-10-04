@@ -5,6 +5,7 @@ import Footer from "./components/Footer"; // Importing the footer
 import About from "./components/About"; // Importing the about page
 import Header from "./components/Header"; // Importing the header
 import DataTrends from "./components/DataTrends"; // Importing the data trends page
+import OutputWidget from "./components/OutputWidget"; // Importing the widget
 
 
 function App() {

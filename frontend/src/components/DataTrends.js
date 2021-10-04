@@ -5,7 +5,6 @@ function DataTrends() {
   return (
     <div>
         <h3>Data is trending</h3>
-        <Link to='/'>Back</Link>
     </div>
   );
 }

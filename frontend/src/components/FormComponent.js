@@ -170,8 +170,6 @@ function FormComponent() {
 
   return (
     <div className="form-container">
-      <h1>Evaluation Criteria</h1>
-
       <form className="nicu-form" onSubmit={handleSubmit}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
         {submitted && valid ? <div className="success-message" style={{color:"green"}}>Success!</div> : null}
