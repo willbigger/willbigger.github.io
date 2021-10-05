@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route} from 'react-router-dom' // Importing the router
+import { BrowserRouter as Router, Route} from 'react-router-dom'; // Importing the router
 import FormComponent from "./components/FormComponent"; // Importing the form
 import Footer from "./components/Footer"; // Importing the footer
 import About from "./components/About"; // Importing the about page
@@ -16,6 +16,7 @@ function App() {
         <Route path='/' exact component={FormComponent}/>
         <Route path='/about' component={About}/>
         <Route path='/datatrends' component={DataTrends}/>
+        <Route path='/outputwidget' component={OutputWidget}/>
         <Footer />
       </div>
     </Router>
