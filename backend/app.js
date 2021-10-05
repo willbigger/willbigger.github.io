@@ -3,11 +3,15 @@ const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
 
+app.use(express.json());
+
 require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
-app.use(express.json());
+mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
+  console.log("Connected to the database");
+});
 
 app.get("/", (req, res) => {
   res.send("First request");
@@ -30,10 +34,6 @@ app.post("/create-user", async (req, res) => {
   }
 });
 
-mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
-  console.log("Connected to the database");
-});
-
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+app.listen(8000, () => {
+  console.log("Listening on port 8000");
 });
