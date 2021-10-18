@@ -1,10 +1,19 @@
 import React from "react";
-import Link from 'react-router-dom';
 
-function OutputWidget() {
+function OutputWidget({ time, path, siteBlood, siteUrine, siteCSF, sitePeritoneal, siteSkin, infec }) {
   return (
     <div>
-        <p>There has been input</p>
+      <hr/>
+      <hr/>
+      <h1>RESULTS</h1>
+      <p>{ time }</p>
+      <p>{ path }</p>
+      <p>{ siteBlood ? "blood" : ""}</p>
+      <p>{ siteUrine ? "urine" : ""}</p>
+      <p>{ siteCSF ? "CSF" : ""}</p>
+      <p>{ sitePeritoneal ? "Peritoneal" : ""}</p>
+      <p>{ siteSkin ? "Skin" : ""}</p>
+      <p>{ infec }</p>
     </div>
   );
 }

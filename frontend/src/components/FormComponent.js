@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import OutputWidget from './OutputWidget';
+import SubmitButton from './SubmitButton';
 
 function FormComponent() {
 
@@ -7,10 +9,6 @@ function FormComponent() {
   */
   const [inputs, setInputs] = useState({
     os: "",
-    datetime: "",
-    cultureSentBlood: "",
-    cultureSentUrine: "",
-    cultureSentCSF: "",
     pathogen: "",
     infectionSiteBlood: "",
     infectionSiteUrine: "",
@@ -41,42 +39,6 @@ function FormComponent() {
   */
   const handleOS = (event) => {
     setInputs({ ...inputs, os: event.target.value })
-  }
-
-  /*
-  Handler for the datetime variable.
-  Sets 'datetime' state variable to what was inputted 
-  by the user.
-  */
-  const handleDateTime = (event) => {
-    setInputs({ ...inputs, datetime: event.target.value })
-  }
-
-  /*
-  Handler for the cultureSent:blood variable.
-  Sets 'cultureSentBlood' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentBlood = (event) => {
-    setInputs({ ...inputs, cultureSentBlood: event.target.checked })
-  }
-
-  /*
-  Handler for the cultureSent:urine variable.
-  Sets 'cultureSentUrine' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentUrine = (event) => {
-    setInputs({ ...inputs, cultureSentUrine: event.target.checked })
-  }
-
-  /*
-  Handler for the cultureSent:CSF variable.
-  Sets 'cultureSentCSF' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentCSF = (event) => {
-    setInputs({ ...inputs, cultureSentCSF: event.target.checked })
   }
 
   /*
@@ -157,20 +119,21 @@ function FormComponent() {
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-  const handleSubmit = (event) => {
+
+  const [showResults, setResults] = useState(false); // state for displaying the output widget
+  const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.os && inputs.datetime && (inputs.cultureSentBlood || inputs.cultureSentUrine || inputs.infectionSiteCSF) && inputs.pathogen && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && inputs.nec) {
+    if (inputs.os && inputs.pathogen && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && inputs.nec) {
       setValid(true)
+      setResults(!showResults); // changes to display only if valid input
     }
     setSubmitted(true);
-    console.log(inputs)
   }
-
 
 
   return (
     <div className="form-container">
-      <form className="nicu-form" onSubmit={handleSubmit}>
+      <form className="nicu-form" onSubmit={onClick}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
         {submitted && valid ? <div className="success-message" style={{color:"green"}}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
@@ -200,54 +163,6 @@ function FormComponent() {
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
         {submitted && !inputs.os ? <span  style={{color:"red"}}>Please specify onset conditions.</span> : null}
-        <hr />
-
-        <h2>Date and Time of Culture</h2>
-
-        <input
-          value={inputs.datetime}
-          onChange={handleDateTime}
-          type="datetime-local"
-          className="form-field"
-          name="datetime" />
-        <br />
-        {/* If the form is submitted and the datetime input is missing, print this. */}
-        {submitted && !inputs.datetime ? <span style={{color:"red"}}>Please provide the date and time when the cultures were sent.</span> : null}
-        <hr />
-
-        <h2>Cultures Sent</h2>
-
-        <input
-          value={inputs.cultureSentBlood}
-          onChange={handleCultureSentBlood}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentBlood" />
-        <label>Blood</label>
-
-        <br />
-
-        <input
-          value={inputs.cultureSentUrine}
-          onChange={handleCultureSentUrine}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentUrine" />
-        <label>Urine</label>
-
-        <br />
-
-        <input
-          value={inputs.cultureSentCSF}
-          onChange={handleCultureSentCSF}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentCSF" />
-        <label>CSF</label>
-
-        <br />
-        {/* If the form is submitted and no culture type is selected, print this. */}
-        {submitted && !inputs.cultureSentBlood && !inputs.cultureSentUrine && !inputs.cultureSentCSF ? <span style={{color:"red"}}>Please select at least one type of culture.</span> : null}
         <hr />
 
         <h2>Pathogen Isolation</h2>
@@ -352,13 +267,15 @@ function FormComponent() {
         <br />
         <br />
 
-        <input
-          value={inputs.submit}
-          onChange={handleSubmit}
-          type="submit"
-          className="form-field"
-          name="submit"
-        />
+        <SubmitButton onClick={onClick}/>
+        {showResults && <OutputWidget time={inputs.os} 
+        path={inputs.pathogen} 
+        siteBlood={inputs.infectionSiteBlood} 
+        siteUrine={inputs.infectionSiteUrine}
+        siteCSF={inputs.infectionSiteCSF}
+        sitePeritoneal={inputs.infectionSitePeritoneal}
+        siteSkin={inputs.infectionSiteSkin}
+        infec={inputs.nec}/>}
       </form>
     </div>
   )
