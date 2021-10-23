@@ -2,14 +2,14 @@ import React from "react";
 
 function Footer() {
   return (
-    <div>
+    <div >
       <head>
         <meta charset="utf-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
       </head>
       
-      <body>
+      <body style={{backgroundColor: '#F1F1EF'}}>
         <footer class="page-footer font-small">
           <div class="footer-copyright text-center">
             <p>Created by: Morgan Hale, William Bigger</p>
