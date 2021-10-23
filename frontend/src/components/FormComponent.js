@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
 import SubmitButton from './SubmitButton';
+import ClearButton from './ClearButton';
 
 function FormComponent() {
 
@@ -125,11 +126,17 @@ function FormComponent() {
     event.preventDefault(); // stops refresh
     if (inputs.os && inputs.pathogen && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && inputs.nec) {
       setValid(true)
-      setResults(!showResults); // changes to display only if valid input
+      setResults(true); // changes to display only if valid input
     }
     setSubmitted(true);
   }
 
+  const onClear = (event) => {
+    event.preventDefault(); // stops refresh
+    setValid(false);
+    setResults(false);
+    setSubmitted(false);
+  }
 
   return (
     <div className="form-container">
@@ -276,6 +283,7 @@ function FormComponent() {
         sitePeritoneal={inputs.infectionSitePeritoneal}
         siteSkin={inputs.infectionSiteSkin}
         infec={inputs.nec}/>}
+        <ClearButton onClear={onClear}/>
       </form>
     </div>
   )
