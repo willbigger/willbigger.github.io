@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
 import SubmitButton from './SubmitButton';
-// import PathogenIsolationInput from './PathogenIsolationInput';
+import ClearButton from './ClearButton';
+
 
 function FormComponent() {
 
@@ -172,11 +173,17 @@ function FormComponent() {
     event.preventDefault(); // stops refresh
     if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection)|| (inputs.pathogen === "No" && !inputs.pathogenDropdownSelection)) && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No" && !inputs.necDropdownSelection))) {
       setValid(true)
-      setResults(!showResults); // changes to display only if valid input
+      setResults(true); // changes to display only if valid input
     }
     setSubmitted(true);
   }
 
+  const onClear = (event) => {
+    event.preventDefault(); // stops refresh
+    setValid(false);
+    setResults(false);
+    setSubmitted(false);
+  }
 
   return (
       <div className="form-container" style={{backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex'}}>
@@ -434,6 +441,8 @@ function FormComponent() {
           siteSkin={inputs.infectionSiteSkin}
           infec={inputs.nec}
           necDropdown={inputs.necDropdownSelection} />}
+        
+        <ClearButton onClear={onClear}/>
       </form>
     </div>
   )
