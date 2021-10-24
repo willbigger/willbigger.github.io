@@ -2,7 +2,7 @@ import React from "react";
 
 function DataTrends() {
   return (
-    <div>
+    <div style={{backgroundColor: '#F1F1EF'}}>
         <h3>Data is trending</h3>
     </div>
   );

@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 function SubmitButton({ onClick }) {
     return (
         <div>
-            <Button variant='success' onClick={onClick} >Submit</Button>
+            <Button onClick={onClick} style={{backgroundColor: '#E57200', borderColor: '#E57200'}}>Submit</Button>
         </div>
     );
 }
