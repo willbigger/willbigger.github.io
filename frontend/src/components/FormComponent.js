@@ -171,7 +171,7 @@ function FormComponent() {
   const [showResults, setResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection)|| (inputs.pathogen === "No" && !inputs.pathogenDropdownSelection)) && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No" && !inputs.necDropdownSelection))) {
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection)|| (inputs.pathogen === "No")) && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
       setResults(true); // changes to display only if valid input
     }
@@ -223,7 +223,7 @@ function FormComponent() {
         {submitted && !inputs.postnatalAge ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
-        <label>Birth Weight (in grams))</label>
+        <label>Birth Weight (in grams)</label>
         <br />
 
         <input
@@ -393,7 +393,7 @@ function FormComponent() {
         {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2>NEC Present</h2>
+        <h2>Abdominal Involvement Present?</h2>
         <input
           value="Yes"
           onChange={handleNEC}
