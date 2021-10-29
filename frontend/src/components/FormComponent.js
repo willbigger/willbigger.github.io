@@ -183,18 +183,25 @@ function FormComponent() {
     setValid(false);
     setResults(false);
     setSubmitted(false);
+    document.getElementById("input-form").reset();
+    setInputs({
+      gestationalAge: "",
+      postnatalAge: "",
+      birthWeight: "",
+      currentWeight: "",
+    })
   }
 
   return (
       <div className="form-container" style={{backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex'}}>
 
-      <form className="nicu-form" onSubmit={onClick}>
+      <form className="nicu-form" id="input-form" onSubmit={onClick}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
         {submitted && valid ? <div className="success-message" style={{ color: "green" }}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {submitted && !valid ? <div className="failure-message" style={{ color: "red" }}>Form is incomplete.</div> : null}
 
-        <h2>Age and Weight</h2>
+        <h2 style={{textAlign: "center"}}>Age and Weight</h2>
         <label>Gestational Age (in weeks)</label>
 
         <br />
@@ -209,7 +216,7 @@ function FormComponent() {
         {submitted && !inputs.gestationalAge ? <span style={{ color: "red" }}> Please fill in this field.</span> : null}
 
         <br />
-        <label>Postnatal Age (in weeks)</label>
+        <label>Postnatal Age (in days)</label>
 
         <br />
         <input
@@ -252,7 +259,7 @@ function FormComponent() {
 
         <hr />
 
-        <h2>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        <h2 style={{textAlign: "center"}}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
         <input
           value="EOS"
           onChange={handleOS} // Event handling
@@ -278,7 +285,7 @@ function FormComponent() {
         {submitted && !inputs.os ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2>Pathogen Isolation</h2>
+        <h2 style={{textAlign: "center"}}>Pathogen Isolated</h2>
 
         {/* <PathogenIsolationInput pathogen={inputs.pathogen}/> */}
         <input
@@ -338,7 +345,8 @@ function FormComponent() {
         <hr />
 
 
-        <h2>Site of Infection</h2>
+        <h2 style={{textAlign: "center"}}>Site of Infection</h2>
+        <h6 style={{textAlign: "center"}}>(check all that apply)</h6>
 
         <input
           value={inputs.infectionSiteBlood}
@@ -393,7 +401,7 @@ function FormComponent() {
         {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2>Abdominal Involvement Present?</h2>
+        <h2 style={{textAlign: "center"}}>Abdominal Involvement Present?</h2>
         <input
           value="Yes"
           onChange={handleNEC}
