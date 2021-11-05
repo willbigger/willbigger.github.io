@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const InputSet = require("./models/inputSet");
 
 require("dotenv/config");
 
@@ -20,6 +21,15 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.get("/input-sets-data", async (req, res) => {
+  try {
+    const docs = await InputSet.find({});
+    res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
 app.post("/create-user", async (req, res) => {
   try {
     const myuser = new User(req.body);
@@ -30,10 +40,21 @@ app.post("/create-user", async (req, res) => {
   }
 });
 
+app.post("/input-sets", async (req, res) => {
+  try {
+    const my_input_set = new InputSet(req.body);
+    await my_input_set.save();
+    //req.query.age
+    res.send(`Created your user ${my_input_set}`);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
 mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
   console.log("Connected to the database");
 });
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+app.listen(5000, () => {
+  console.log("Listening on port 5000");
 });
