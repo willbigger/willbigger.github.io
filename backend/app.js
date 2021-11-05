@@ -45,7 +45,7 @@ app.post("/input-sets", async (req, res) => {
     const my_input_set = new InputSet(req.body);
     await my_input_set.save();
     //req.query.age
-    res.send(`Created your user ${my_input_set}`);
+    res.send(`Created your inputSet ${my_input_set}`);
   } catch (err) {
     res.send({ message: err });
   }

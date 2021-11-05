@@ -1,41 +1,37 @@
 const mongoose = require("mongoose");
 
 const inputSet = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   gestational_age: {
     type: Number,
-    required: true,
+    required: false,
   },
   podynatal_age: {
     type: Number,
-    required: true,
+    required: false,
   },
   birth_weight: {
     type: Number,
-    required: true,
+    required: false,
   },
   current_weight: {
     type: Number,
-    required: true,
+    required: false,
   },
   time_cultures_sent: {
     type: String,
-    required: true,
+    required: false,
   },
   pathogen: {
     type: String,
-    required: true,
+    required: false,
   },
   site_of_infection: {
     type: String,
-    required: true,
+    required: false,
   },
   abdominal_involvement: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 module.exports = mongoose.model("inputSet", inputSet);
