@@ -12,8 +12,7 @@ function Footer() {
       <body style={{backgroundColor: '#F1F1EF'}}>
         <footer class="page-footer font-small">
           <div class="footer-copyright text-center">
-            <p>Created by: Morgan Hale, William Bigger</p>
-            <p>&copy;Stardate: -302725.28</p>
+            {/* <p>&copy;Stardate: -302725.28</p> */}
           </div>
         </footer>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
