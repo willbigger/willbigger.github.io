@@ -21,9 +21,9 @@ app.get("/users", (req, res) => {
   });
 });
 
-app.get("/input-sets-data", async (req, res) => {
+app.get("/input-sets", async (req, res) => {
   try {
-    const docs = await InputSet.find({});
+    const docs = await InputSet.find({ birth_weight: { $gt: 8 } });
     res.send(docs);
   } catch (err) {
     res.send({ message: err });

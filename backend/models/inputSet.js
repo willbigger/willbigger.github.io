@@ -32,6 +32,8 @@ const inputSet = new mongoose.Schema({
   abdominal_involvement: {
     type: String,
     required: false,
+    
   },
+  
 });
 module.exports = mongoose.model("inputSet", inputSet);
