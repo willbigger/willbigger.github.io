@@ -295,57 +295,73 @@ function FormComponent() {
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6>(can enter gram stain or specific species)</h6>
 
-        <input
-          value="Yes"
-          onChange={handlePathogen}
-          type="radio"
-          className="form-field"
-          name="pathogen" />
-        <label className="form-field">Yes</label>
-
-        <br />
-        <select onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }}>
-          <option value=""></option>
-          <option value="Acinetobacter species">Acinetobacter species</option>
-          <option value="Bacteroides species">Bacteroides species</option>
-          <option value="Burkholderia species">Burkholderia species</option>
-          <option value="Campylobacter species">Campylobacter species</option>
-          <option value="Citrobacter species">Citrobacter species</option>
-          <option value="E coli">E coli</option>
-          <option value="Enterobacter species">Enterobacter species</option>
-          <option value="Enterococcus species">Enterococcus species</option>
-          <option value="GBS">GBS</option>
-          <option value="Haemophilus species">Haemophilus species</option>
-          <option value="Klebsiella species">Klebsiella species</option>
-          <option value="Listeria monocytogenes">Listeria monocytogenes</option>
-          <option value="Moraxella species">Moraxella species</option>
-          <option value="Morganella morganii">Morganella morganii</option>
-          <option value="Neisseria species">Neisseria species</option>
-          <option value="Pantoea species">Pantoea species</option>
-          <option value="Proteus species">Proteus species</option>
-          <option value="Pseudomonas species">Pseudomonas species</option>
-          <option value="Serratia species">Serratia species</option>
-          <option value="Staphylococcus Aureus (MRSA)">Staphylococcus Aureus (MRSA)</option>
-          <option value="Staphylococcus Aureus (MSSA)">Staphylococcus Aureus (MSSA)</option>
-          <option value="Streptococcus anginosus">Streptococcus anginosus</option>
-          <option value="Streptococcus pneumoniae">Streptococcus pneumoniae</option>
-          <option value="Streptococcus pyogenes">Streptococcus pyogenes</option>
-        </select>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="Yes"
+                onChange={handlePathogen}
+                type="radio"
+                className="form-field"
+                name="pathogen" />
+              <label className="form-field">Yes</label>
+            </div>
+            <div class="col">
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection}/>
+              {/* Uncomment this line to toggle visibilty
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }}/> */}
+              <datalist id="datalistOptions">
+                <option value=""></option>
+                <option value="Acinetobacter species">Acinetobacter species</option>
+                <option value="Bacteroides species">Bacteroides species</option>
+                <option value="Burkholderia species">Burkholderia species</option>
+                <option value="Campylobacter species">Campylobacter species</option>
+                <option value="Citrobacter species">Citrobacter species</option>
+                <option value="E coli">E coli</option>
+                <option value="Enterobacter species">Enterobacter species</option>
+                <option value="Enterococcus species">Enterococcus species</option>
+                <option value="GBS">GBS</option>
+                <option value="Haemophilus species">Haemophilus species</option>
+                <option value="Klebsiella species">Klebsiella species</option>
+                <option value="Listeria monocytogenes">Listeria monocytogenes</option>
+                <option value="Moraxella species">Moraxella species</option>
+                <option value="Morganella morganii">Morganella morganii</option>
+                <option value="Neisseria species">Neisseria species</option>
+                <option value="Pantoea species">Pantoea species</option>
+                <option value="Proteus species">Proteus species</option>
+                <option value="Pseudomonas species">Pseudomonas species</option>
+                <option value="Serratia species">Serratia species</option>
+                <option value="Staphylococcus Aureus (MRSA)">Staphylococcus Aureus (MRSA)</option>
+                <option value="Staphylococcus Aureus (MSSA)">Staphylococcus Aureus (MSSA)</option>
+                <option value="Streptococcus anginosus">Streptococcus anginosus</option>
+                <option value="Streptococcus pneumoniae">Streptococcus pneumoniae</option>
+                <option value="Streptococcus pyogenes">Streptococcus pyogenes</option>
+              </datalist>
+            </div>
+          </div>
+        </div>
         {submitted && (inputs.pathogen == "Yes") && !inputs.pathogenDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
 
-        <input
-          value="No"
-          onChange={handlePathogen}
-          type="radio"
-          className="form-field"
-          name="pathogen" />
-        {' '}<label className="form-field">No</label>
-
-
-
-
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="No"
+                onChange={handlePathogen}
+                type="radio"
+                className="form-field"
+                name="pathogen" />
+              {' '}<label className="form-field">No</label>
+            </div>
+            <div class="col">
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility:'hidden'}}/>
+              <datalist id="datalistOptions">
+              </datalist>
+            </div>
+          </div>
+        </div>
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {submitted && !inputs.pathogen ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
