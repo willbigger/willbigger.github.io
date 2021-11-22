@@ -3,7 +3,6 @@ import OutputWidget from './OutputWidget';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import './FormComponent.css';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 
 
 function FormComponent() {
@@ -189,21 +188,12 @@ function FormComponent() {
     setResults(false);
     setSubmitted(false);
     document.getElementById("input-form").reset();
-    setInputs({
+
+    setInputs({ ...inputs,
       gestationalAge: "",
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
-      os: "",
-      pathogen: "",
-      pathogenDropdownSelection: "",
-      infectionSiteBlood: "",
-      infectionSiteUrine: "",
-      infectionSiteCSF: "",
-      infectionSitePeritoneal: "",
-      infectionSiteSkin: "",
-      nec: "",
-      necDropdownSelection: "",
     })
   }
 
@@ -450,7 +440,7 @@ function FormComponent() {
 
 
             <div class="col">
-              <input class="form-control" list="datalistOptions2" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+              <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions2">
                 <option value=""></option>
                 <option value="Medical NEC">Medical NEC</option>
