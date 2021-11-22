@@ -194,6 +194,16 @@ function FormComponent() {
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
+      os: "",
+      pathogen: "",
+      pathogenDropdownSelection: "",
+      infectionSiteBlood: "",
+      infectionSiteUrine: "",
+      infectionSiteCSF: "",
+      infectionSitePeritoneal: "",
+      infectionSiteSkin: "",
+      nec: "",
+      necDropdownSelection: "",
     })
   }
 
@@ -293,7 +303,7 @@ function FormComponent() {
         <hr />
 
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
-        <h6>(can enter gram stain or specific species)</h6>
+        <h6 style={{ textAlign: "center" }}>(can enter gram stain or specific species)</h6>
 
         <div class="container">
           <div class="row">
@@ -304,12 +314,12 @@ function FormComponent() {
                 type="radio"
                 className="form-field"
                 name="pathogen" />
-              <label className="form-field">Yes</label>
+              {' '}<label className="form-field">Yes</label>
             </div>
             <div class="col">
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection}/>
-              {/* Uncomment this line to toggle visibilty
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }}/> */}
+              {/* <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} /> */}
+              {/* Uncomment this line to toggle visibilty*/}
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
                 <option value="Acinetobacter species">Acinetobacter species</option>
@@ -356,7 +366,7 @@ function FormComponent() {
               {' '}<label className="form-field">No</label>
             </div>
             <div class="col">
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility:'hidden'}}/>
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: 'hidden' }} />
               <datalist id="datalistOptions">
               </datalist>
             </div>
@@ -423,35 +433,56 @@ function FormComponent() {
         {/* If the form is submitted and no infection site is selected, print this. */}
         {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
-
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
-        <input
-          value="Yes"
-          onChange={handleNEC}
-          type="radio"
-          className="form-field"
-          name="nec" />
-        <label className="form-field">Yes</label>
 
-        <br />
-        <select onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }}>
-          <option value=""></option>
-          <option value="Medical NEC">Medical NEC</option>
-          <option value="Surgical NEC">Surgical NEC</option>
-          <option value="SIP">SIP</option>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="Yes"
+                onChange={handleNEC}
+                type="radio"
+                className="form-field"
+                name="nec" />
+              <label className="form-field">Yes</label>
 
-        </select>
+            </div>
+
+
+            <div class="col">
+              <input class="form-control" list="datalistOptions2" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+              <datalist id="datalistOptions2">
+                <option value=""></option>
+                <option value="Medical NEC">Medical NEC</option>
+                <option value="Surgical NEC">Surgical NEC</option>
+                <option value="SIP">SIP</option>
+              </datalist>
+
+            </div>
+          </div>
+        </div>
         {submitted && (inputs.nec == "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
-        <input
-          value="No"
-          onChange={handleNEC}
-          type="radio"
-          className="form-field"
-          name="nec" />
-        {' '}<label className="form-field">No</label>
-        <br />
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              {/* <br /> */}
+              <input
+                value="No"
+                onChange={handleNEC}
+                type="radio"
+                className="form-field"
+                name="nec" />
+              <label className="form-field">No</label>
+              <br />
+            </div>
+          </div>
+        </div>
+
+
+
+
         {/* If the form is submitted and NEC present isn't specified, print this. */}
         {submitted && !inputs.nec ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <br />
@@ -474,7 +505,7 @@ function FormComponent() {
             infec={inputs.nec}
             necDropdown={inputs.necDropdownSelection} />}
           <ClearButton onClear={onClear} className="form-button" />
-    
+
         </div>
       </form>
     </div>
