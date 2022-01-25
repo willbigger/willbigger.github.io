@@ -4,11 +4,15 @@ const mongoose = require("mongoose");
 const User = require("./models/user");
 const InputSet = require("./models/inputSet");
 
+app.use(express.json());
+
 require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
-app.use(express.json());
+mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
+  console.log("Connected to the database");
+});
 
 app.get("/", (req, res) => {
   res.send("First request");
