@@ -23,7 +23,7 @@ app.get("/users", (req, res) => {
 
 app.get("/input-sets", async (req, res) => {
   try {
-    const docs = await InputSet.find({ birth_weight: { $gt: 8 } });
+    const docs = await InputSet.find();
     res.send(docs);
   } catch (err) {
     res.send({ message: err });
@@ -51,8 +51,11 @@ app.post("/input-sets", async (req, res) => {
   }
 });
 
-mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
+mongoose.connect(DB_CONNECTION_STRING)
+.then(() => {
   console.log("Connected to the database");
+}).catch(() => {
+  console.log("Failed to connect to database.")
 });
 
 app.listen(5000, () => {
