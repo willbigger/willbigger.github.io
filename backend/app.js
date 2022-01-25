@@ -10,10 +10,6 @@ require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
-mongoose.connect(DB_CONNECTION_STRING, (req, res) => {
-  console.log("Connected to the database");
-});
-
 app.get("/", (req, res) => {
   res.send("First request");
 });
