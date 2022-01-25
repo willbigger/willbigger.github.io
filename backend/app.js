@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const InputSet = require("./models/inputSet");
 
 app.use(express.json());
 
@@ -24,6 +25,15 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.get("/input-sets", async (req, res) => {
+  try {
+    const docs = await InputSet.find();
+    res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
 app.post("/create-user", async (req, res) => {
   try {
     const myuser = new User(req.body);
@@ -34,6 +44,24 @@ app.post("/create-user", async (req, res) => {
   }
 });
 
-app.listen(8000, () => {
-  console.log("Listening on port 8000");
+app.post("/input-sets", async (req, res) => {
+  try {
+    const my_input_set = new InputSet(req.body);
+    await my_input_set.save();
+    //req.query.age
+    res.send(`Created your inputSet ${my_input_set}`);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
+mongoose.connect(DB_CONNECTION_STRING)
+.then(() => {
+  console.log("Connected to the database");
+}).catch(() => {
+  console.log("Failed to connect to database.")
+});
+
+app.listen(5000, () => {
+  console.log("Listening on port 5000");
 });
