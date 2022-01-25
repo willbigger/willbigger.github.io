@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import OutputWidget from './OutputWidget';
+import SubmitButton from './SubmitButton';
+import ClearButton from './ClearButton';
+import './FormComponent.css';
+
 
 function FormComponent() {
 
@@ -6,18 +11,20 @@ function FormComponent() {
   We had to import { useState } to do this.
   */
   const [inputs, setInputs] = useState({
+    gestationalAge: "",
+    postnatalAge: "",
+    birthWeight: "",
+    currentWeight: "",
     os: "",
-    datetime: "",
-    cultureSentBlood: "",
-    cultureSentUrine: "",
-    cultureSentCSF: "",
     pathogen: "",
+    pathogenDropdownSelection: "",
     infectionSiteBlood: "",
     infectionSiteUrine: "",
     infectionSiteCSF: "",
     infectionSitePeritoneal: "",
     infectionSiteSkin: "",
     nec: "",
+    necDropdownSelection: "",
   });
 
   /*
@@ -25,11 +32,32 @@ function FormComponent() {
    */
   const [submitted, setSubmitted] = useState(false); // Initially false
 
+  const [pathogenToggle, setPathogenToggle] = useState(false); // Initially false
+
+  const [necToggle, setnecToggle] = useState(false); // Initially false
+
   /*
   This is the variable 'valid' stored as a state variable,
   which will be used ot make sure all inputs are filled out.
    */
   const [valid, setValid] = useState(false); // Initially false
+
+  const handleGestationalAge = (event) => {
+    setInputs({ ...inputs, gestationalAge: event.target.value })
+  }
+
+  const handlePostnatalAge = (event) => {
+    setInputs({ ...inputs, postnatalAge: event.target.value })
+  }
+
+  const handleBirthWeight = (event) => {
+    setInputs({ ...inputs, birthWeight: event.target.value })
+  }
+
+  const handleCurrentWeight = (event) => {
+    setInputs({ ...inputs, currentWeight: event.target.value })
+  }
+
 
   /* 
   This is the handler for the onset variable. 
@@ -43,41 +71,6 @@ function FormComponent() {
     setInputs({ ...inputs, os: event.target.value })
   }
 
-  /*
-  Handler for the datetime variable.
-  Sets 'datetime' state variable to what was inputted 
-  by the user.
-  */
-  const handleDateTime = (event) => {
-    setInputs({ ...inputs, datetime: event.target.value })
-  }
-
-  /*
-  Handler for the cultureSent:blood variable.
-  Sets 'cultureSentBlood' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentBlood = (event) => {
-    setInputs({ ...inputs, cultureSentBlood: event.target.checked })
-  }
-
-  /*
-  Handler for the cultureSent:urine variable.
-  Sets 'cultureSentUrine' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentUrine = (event) => {
-    setInputs({ ...inputs, cultureSentUrine: event.target.checked })
-  }
-
-  /*
-  Handler for the cultureSent:CSF variable.
-  Sets 'cultureSentCSF' state variable to true
-  when the box is checked.
-  */
-  const handleCultureSentCSF = (event) => {
-    setInputs({ ...inputs, cultureSentCSF: event.target.checked })
-  }
 
   /*
   Handler for the pathogen variable.
@@ -87,6 +80,19 @@ function FormComponent() {
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
+    if (event.target.value === "Yes") {
+      setPathogenToggle(true)
+    }
+    else {
+      setPathogenToggle(false)
+    }
+  }
+
+  const handleSelection = (event) => {
+    setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
+  }
+  const handleSelection2 = (event) => {
+    setInputs({ ...inputs, necDropdownSelection: event.target.value })
   }
 
   /*
@@ -142,6 +148,12 @@ function FormComponent() {
   */
   const handleNEC = (event) => {
     setInputs({ ...inputs, nec: event.target.value })
+    if (event.target.value === "Yes") {
+      setnecToggle(true)
+    }
+    else {
+      setnecToggle(false)
+    }
   }
 
   /*
@@ -157,35 +169,111 @@ function FormComponent() {
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-  const handleSubmit = (event) => {
+
+  const [showResults, setResults] = useState(false); // state for displaying the output widget
+  const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.os && inputs.datetime && (inputs.cultureSentBlood || inputs.cultureSentUrine || inputs.infectionSiteCSF) && inputs.pathogen && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && inputs.nec) {
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
+      setResults(true); // changes to display only if valid input
     }
     setSubmitted(true);
-    console.log(inputs)
   }
 
 
 
+  const onClear = (event) => {
+    event.preventDefault(); // stops refresh
+    setValid(false);
+    setResults(false);
+    setSubmitted(false);
+    document.getElementById("input-form").reset();
+
+    setInputs({ ...inputs,
+      gestationalAge: "",
+      postnatalAge: "",
+      birthWeight: "",
+      currentWeight: "",
+    })
+  }
+
+
   return (
-    <div className="form-container">
-      <h1>Evaluation Criteria</h1>
+    <div className="form-container" style={{ backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex' }}>
 
-      <form className="nicu-form" onSubmit={handleSubmit}>
+      <form className="nicu-form" id="input-form" onSubmit={onClick}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
-        {submitted && valid ? <div className="success-message" style={{color:"green"}}>Success!</div> : null}
+        {submitted && valid ? <div className="success-message" style={{ color: "green" }}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
-        {submitted && !valid ? <div className="failure-message" style={{color:"red"}}>Form is incomplete.</div> : null}
+        {submitted && !valid ? <div className="failure-message" style={{ color: "red" }}>Form is incomplete.</div> : null}
 
-        <h2>Early-onset (EOS) or Late-onset (LOS)</h2>
+        <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
+        <label className="form-field">Gestational Age (in weeks)</label>
+
+        <br />
+        <input
+          textAlign={'center'}
+          value={inputs.gestationalAge}
+          onChange={handleGestationalAge}
+          type="text"
+          className="form-field"
+          name="gestationalAge"
+        />
+        <br />
+        {submitted && !inputs.gestationalAge ? <span style={{ color: "red" }}> Please fill in this field.</span> : null}
+
+        <br />
+        <label className="form-field">Postnatal Age (in days)</label>
+
+        <br />
+        <input
+          value={inputs.postnatalAge}
+          onChange={handlePostnatalAge}
+          type="text"
+          className="form-field"
+          name="postnatalAge"
+        />
+        < br />
+        {submitted && !inputs.postnatalAge ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
+        <br />
+        <label className="form-field">Birth Weight (in grams)</label>
+        <br />
+
+        <input
+          value={inputs.birthWeight}
+          onChange={handleBirthWeight}
+          type="text"
+          className="form-field"
+          name="birthWeight"
+        />
+        <br />
+        {submitted && !inputs.birthWeight ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
+        <br />
+        <label className="form-field">Current Weight (in grams)</label>
+
+        <br />
+        <input
+          value={inputs.currentWeight}
+          onChange={handleCurrentWeight}
+          type="text"
+          className="form-field"
+          name="currentWeight"
+        />
+        <br />
+        {submitted && !inputs.currentWeight ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
+        <hr />
+
+        <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
         <input
           value="EOS"
           onChange={handleOS} // Event handling
           type="radio"
           className="form-field"
           name="os" />
-        <label>EOS (less than 72 hours after birth) </label>
+        {' '}<label className="form-field">EOS (less than 72 hours after birth) </label>
 
         <br />
 
@@ -198,86 +286,90 @@ function FormComponent() {
         // Notice that these radio buttons have the same name 
         //so that only one can be selected at a time
         />
-        <label>LOS (72 or more hours after birth)</label>
+        {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
-        {submitted && !inputs.os ? <span  style={{color:"red"}}>Please specify onset conditions.</span> : null}
+        {submitted && !inputs.os ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2>Date and Time of Culture</h2>
+        <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
+        <h6 style={{ textAlign: "center" }}>(can enter gram stain or specific species)</h6>
 
-        <input
-          value={inputs.datetime}
-          onChange={handleDateTime}
-          type="datetime-local"
-          className="form-field"
-          name="datetime" />
-        <br />
-        {/* If the form is submitted and the datetime input is missing, print this. */}
-        {submitted && !inputs.datetime ? <span style={{color:"red"}}>Please provide the date and time when the cultures were sent.</span> : null}
-        <hr />
-
-        <h2>Cultures Sent</h2>
-
-        <input
-          value={inputs.cultureSentBlood}
-          onChange={handleCultureSentBlood}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentBlood" />
-        <label>Blood</label>
-
-        <br />
-
-        <input
-          value={inputs.cultureSentUrine}
-          onChange={handleCultureSentUrine}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentUrine" />
-        <label>Urine</label>
-
-        <br />
-
-        <input
-          value={inputs.cultureSentCSF}
-          onChange={handleCultureSentCSF}
-          type="checkbox"
-          className="form-field"
-          name="cultureSentCSF" />
-        <label>CSF</label>
-
-        <br />
-        {/* If the form is submitted and no culture type is selected, print this. */}
-        {submitted && !inputs.cultureSentBlood && !inputs.cultureSentUrine && !inputs.cultureSentCSF ? <span style={{color:"red"}}>Please select at least one type of culture.</span> : null}
-        <hr />
-
-        <h2>Pathogen Isolation</h2>
-
-        <input
-          value="Yes"
-          onChange={handlePathogen}
-          type="radio"
-          className="form-field"
-          name="pathogen" />
-        <label>Yes</label>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="Yes"
+                onChange={handlePathogen}
+                type="radio"
+                className="form-field"
+                name="pathogen" />
+              {' '}<label className="form-field">Yes</label>
+            </div>
+            <div class="col">
+              {/* <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} /> */}
+              {/* Uncomment this line to toggle visibilty*/}
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
+              <datalist id="datalistOptions">
+                <option value=""></option>
+                <option value="Acinetobacter species">Acinetobacter species</option>
+                <option value="Bacteroides species">Bacteroides species</option>
+                <option value="Burkholderia species">Burkholderia species</option>
+                <option value="Campylobacter species">Campylobacter species</option>
+                <option value="Citrobacter species">Citrobacter species</option>
+                <option value="E coli">E coli</option>
+                <option value="Enterobacter species">Enterobacter species</option>
+                <option value="Enterococcus species">Enterococcus species</option>
+                <option value="GBS">GBS</option>
+                <option value="Haemophilus species">Haemophilus species</option>
+                <option value="Klebsiella species">Klebsiella species</option>
+                <option value="Listeria monocytogenes">Listeria monocytogenes</option>
+                <option value="Moraxella species">Moraxella species</option>
+                <option value="Morganella morganii">Morganella morganii</option>
+                <option value="Neisseria species">Neisseria species</option>
+                <option value="Pantoea species">Pantoea species</option>
+                <option value="Proteus species">Proteus species</option>
+                <option value="Pseudomonas species">Pseudomonas species</option>
+                <option value="Serratia species">Serratia species</option>
+                <option value="Staphylococcus Aureus (MRSA)">Staphylococcus Aureus (MRSA)</option>
+                <option value="Staphylococcus Aureus (MSSA)">Staphylococcus Aureus (MSSA)</option>
+                <option value="Streptococcus anginosus">Streptococcus anginosus</option>
+                <option value="Streptococcus pneumoniae">Streptococcus pneumoniae</option>
+                <option value="Streptococcus pyogenes">Streptococcus pyogenes</option>
+              </datalist>
+            </div>
+          </div>
+        </div>
+        {submitted && (inputs.pathogen == "Yes") && !inputs.pathogenDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
 
-        <input
-          value="No"
-          onChange={handlePathogen}
-          type="radio"
-          className="form-field"
-          name="pathogen" />
-        <label>No</label>
-
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="No"
+                onChange={handlePathogen}
+                type="radio"
+                className="form-field"
+                name="pathogen" />
+              {' '}<label className="form-field">No</label>
+            </div>
+            <div class="col">
+              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: 'hidden' }} />
+              <datalist id="datalistOptions">
+              </datalist>
+            </div>
+          </div>
+        </div>
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
-        {submitted && !inputs.pathogen ?  <span style={{color:"red"}}>Please specify whether the pathogen was isolated.</span> : null}
+        {submitted && !inputs.pathogen ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2>Site of Infection</h2>
+
+        <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
+        <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
 
         <input
           value={inputs.infectionSiteBlood}
@@ -285,7 +377,7 @@ function FormComponent() {
           type="checkbox"
           className="form-field"
           name="infectionSiteBlood" />
-        <label>Blood</label>
+        {' '}<label className="form-field">Blood</label>
 
         <br />
 
@@ -295,7 +387,7 @@ function FormComponent() {
           type="checkbox"
           className="form-field"
           name="infectionSiteUrine" />
-        <label>Urine</label>
+        {' '}<label className="form-field">Urine</label>
 
         <br />
 
@@ -305,7 +397,7 @@ function FormComponent() {
           type="checkbox"
           className="form-field"
           name="infectionSiteCSF" />
-        <label>CSF</label>
+        {' '}<label className="form-field">CSF</label>
 
         <br />
 
@@ -315,7 +407,7 @@ function FormComponent() {
           type="checkbox"
           className="form-field"
           name="infectionSitePeritoneal" />
-        <label>Peritoneal</label>
+        {' '}<label className="form-field">Peritoneal</label>
 
         <br />
 
@@ -325,42 +417,86 @@ function FormComponent() {
           type="checkbox"
           className="form-field"
           name="infectionSiteSkin" />
-        <label>Skin</label>
+        {' '}<label className="form-field">Skin with Cellulitis</label>
 
         <br />
         {/* If the form is submitted and no infection site is selected, print this. */}
-        {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{color:"red"}}>Please select at least one infection site.</span> : null}
+        {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
+        <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
 
-        <h2>NEC Present</h2>
-        <input
-          value="Yes"
-          onChange={handleNEC}
-          type="radio"
-          className="form-field"
-          name="nec" />
-        <label>Yes</label>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <input
+                value="Yes"
+                onChange={handleNEC}
+                type="radio"
+                className="form-field"
+                name="nec" />
+              {' '}<label className="form-field">Yes</label>
 
-        <input
-          value="No"
-          onChange={handleNEC}
-          type="radio"
-          className="form-field"
-          name="nec" />
-        <label>No</label>
+            </div>
+
+
+            <div class="col">
+              <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+              <datalist id="datalistOptions2">
+                <option value=""></option>
+                <option value="Medical NEC">Medical NEC</option>
+                <option value="Surgical NEC">Surgical NEC</option>
+                <option value="SIP">SIP</option>
+              </datalist>
+
+            </div>
+          </div>
+        </div>
+        {submitted && (inputs.nec == "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
         <br />
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              {/* <br /> */}
+              <input
+                value="No"
+                onChange={handleNEC}
+                type="radio"
+                className="form-field"
+                name="nec" />
+              {' '}<label className="form-field">No</label>
+              <br />
+            </div>
+          </div>
+        </div>
+
+
+
+
         {/* If the form is submitted and NEC present isn't specified, print this. */}
-        {submitted && !inputs.nec ? <span style={{color:"red"}}>Please specify whether NEC is present.</span> : null}
+        {submitted && !inputs.nec ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <br />
         <br />
 
-        <input
-          value={inputs.submit}
-          onChange={handleSubmit}
-          type="submit"
-          className="form-field"
-          name="submit"
-        />
+        <div className="btn-group">
+          <SubmitButton onClick={onClick} className="form-button" />
+          {showResults && <OutputWidget time={inputs.os}
+            gestAge={inputs.gestationalAge}
+            postnatAge={inputs.postnatalAge}
+            birthWght={inputs.birthWeight}
+            currWght={inputs.currentWeight}
+            path={inputs.pathogen}
+            pathDropdown={inputs.pathogenDropdownSelection}
+            siteBlood={inputs.infectionSiteBlood}
+            siteUrine={inputs.infectionSiteUrine}
+            siteCSF={inputs.infectionSiteCSF}
+            sitePeritoneal={inputs.infectionSitePeritoneal}
+            siteSkin={inputs.infectionSiteSkin}
+            infec={inputs.nec}
+            necDropdown={inputs.necDropdownSelection} />}
+          <ClearButton onClear={onClear} className="form-button" />
+
+        </div>
       </form>
     </div>
   )
