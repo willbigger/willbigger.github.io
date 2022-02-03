@@ -30,6 +30,16 @@ app.get("/input-sets", async (req, res) => {
   }
 });
 
+app.get("/outputs", async (req, res) => {
+  try {
+    const docs = await Output.find();
+    res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
+
 app.post("/create-user", async (req, res) => {
   try {
     const myuser = new User(req.body);
