@@ -58,6 +58,8 @@ mongoose.connect(DB_CONNECTION_STRING)
   console.log("Failed to connect to database.")
 });
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Listening on port " + process.env.PORT);
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, () => {
+  console.log("Listening on port " + PORT);
 });
