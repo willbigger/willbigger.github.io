@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const Output = new mongoose.Schema({
-  time_cultures_sent: {
+const output = new mongoose.Schema({
+  time_sent: {
     type: String,
     required: true,
   },
@@ -13,27 +13,27 @@ const Output = new mongoose.Schema({
     type: String,
     required: true,
   },
-  abdominal_involvement_present: {
+  abdominal_involvement: {
     type: String,
     required: true,
   },
-  treatment_pending_susceptibility: {
+  antibiotic_treatment: {
     type: String,
     required: true,
   },
-  treatment1: {
+  antibiotic_treatment_1: {
     type: String,
     required: true,
   },
-  treatment2: {
+  antibiotic_treatment_2: {
     type: String,
     required: true,
   },
-  treatment3: {
+  antibiotic_treatment_3: {
     type: String,
     required: true,
   },
-  treatment4: {
+  antibiotic_treatment_4: {
     type: String,
     required: true,
   },
@@ -46,4 +46,4 @@ const Output = new mongoose.Schema({
     required: false,
   },
 });
-module.exports = mongoose.model("output", Output);
+module.exports = mongoose.model("output", output);

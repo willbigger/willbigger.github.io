@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const InputSet = require("./models/inputSet");
+const Output = require("./models/output");
+
 
 app.use(express.json());
 
