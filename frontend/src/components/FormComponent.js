@@ -340,7 +340,7 @@ function FormComponent() {
             </div>
           </div>
         </div>
-        {submitted && (inputs.pathogen == "Yes") && !inputs.pathogenDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && (inputs.pathogen === "Yes") && !inputs.pathogenDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
 
@@ -451,7 +451,7 @@ function FormComponent() {
             </div>
           </div>
         </div>
-        {submitted && (inputs.nec == "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && (inputs.nec === "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
         <div class="container">

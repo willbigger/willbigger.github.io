@@ -3,6 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const InputSet = require("./models/inputSet");
+const Output = require("./models/output");
+
 
 app.use(express.json());
 
@@ -30,6 +32,19 @@ app.get("/input-sets", async (req, res) => {
   }
 });
 
+app.get("/outputs", async (req, res) => {
+  try {
+    // const docs = await Output.find();
+    // const docs = await Output.find({ time_sent: "EOS", pathogen_isolated: "No", site_of_infection: "No", abdominal_involvement: "No" });
+    const docs = await Output.find({time_sent:req.query.time_sent, pathogen_isolated:req.query.pathogen_isolated, site_of_infection:req.query.site_of_infection, abdominal_involvement:req.query.abdominal_involvement });
+
+    res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
+
 app.post("/create-user", async (req, res) => {
   try {
     const myuser = new User(req.body);
@@ -52,11 +67,11 @@ app.post("/input-sets", async (req, res) => {
 });
 
 mongoose.connect(DB_CONNECTION_STRING)
-.then(() => {
-  console.log("Connected to the database");
-}).catch(() => {
-  console.log("Failed to connect to database.")
-});
+  .then(() => {
+    console.log("Connected to the database");
+  }).catch(() => {
+    console.log("Failed to connect to database.")
+  });
 
 const PORT = process.env.PORT || 5000
 
