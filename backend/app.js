@@ -34,7 +34,11 @@ app.get("/input-sets", async (req, res) => {
 
 app.get("/outputs", async (req, res) => {
   try {
-    const docs = await Output.find();
+    // const docs = await Output.find();
+    // const docs = await Output.find({ time_sent: "EOS", pathogen_isolated: "No", site_of_infection: "No", abdominal_involvement: "No" });
+    //const docs = await Output.find({time_sent:req.params.time_sent, pathogen_isolated:req.params.pathogen_isolated, site_of_infection:req.params.site_of_infection, abdominal_involvement:req.params.abdominal_involvement });
+    const docs = await Output.find({"time_sent":req.params.time_sent});
+
     res.send(docs);
   } catch (err) {
     res.send({ message: err });
@@ -64,11 +68,11 @@ app.post("/input-sets", async (req, res) => {
 });
 
 mongoose.connect(DB_CONNECTION_STRING)
-.then(() => {
-  console.log("Connected to the database");
-}).catch(() => {
-  console.log("Failed to connect to database.")
-});
+  .then(() => {
+    console.log("Connected to the database");
+  }).catch(() => {
+    console.log("Failed to connect to database.")
+  });
 
 const PORT = process.env.PORT || 5000
 
