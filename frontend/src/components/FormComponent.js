@@ -480,20 +480,7 @@ function FormComponent() {
 
         <div className="btn-group">
           <SubmitButton onClick={onClick} className="form-button" />
-          {showResults && <OutputWidget time={inputs.os}
-            gestAge={inputs.gestationalAge}
-            postnatAge={inputs.postnatalAge}
-            birthWght={inputs.birthWeight}
-            currWght={inputs.currentWeight}
-            path={inputs.pathogen}
-            pathDropdown={inputs.pathogenDropdownSelection}
-            siteBlood={inputs.infectionSiteBlood}
-            siteUrine={inputs.infectionSiteUrine}
-            siteCSF={inputs.infectionSiteCSF}
-            sitePeritoneal={inputs.infectionSitePeritoneal}
-            siteSkin={inputs.infectionSiteSkin}
-            infec={inputs.nec}
-            necDropdown={inputs.necDropdownSelection} />}
+          {showResults && <OutputWidget inputs={inputs} />}
           <ClearButton onClear={onClear} className="form-button" />
 
         </div>
