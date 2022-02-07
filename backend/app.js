@@ -6,7 +6,7 @@ const User = require("./models/user");
 const InputSet = require("./models/inputSet");
 const Output = require("./models/output");
 
-const whitelist = ["http://localhost:3000", "https://nicu-backend-development.herokuapp.com/"]
+const whitelist = ["http://localhost:3000", "https://nicu-frontend-development.herokuapp.com/"]
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
