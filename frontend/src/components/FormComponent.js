@@ -18,11 +18,7 @@ function FormComponent() {
     os: "",
     pathogen: "",
     pathogenDropdownSelection: "",
-    infectionSiteBlood: "",
-    infectionSiteUrine: "",
-    infectionSiteCSF: "",
-    infectionSitePeritoneal: "",
-    infectionSiteSkin: "",
+    infectionSite: "",
     nec: "",
     necDropdownSelection: "",
   });
@@ -96,49 +92,52 @@ function FormComponent() {
   }
 
   /*
-  Handler for the infectionSite:blood variable.
-  Sets 'infectionSiteBlood' state variable to true
-  when the box is checked.
+  Handler for the infectionSite variable.
+  Sets 'infectionSite' state variable to the value
+  of the selected site.
   */
-  const handleInfectionSiteBlood = (event) => {
-    setInputs({ ...inputs, infectionSiteBlood: event.target.checked })
+  const handleInfectionSite = (event) => {
+    setInputs({ ...inputs, infectionSite: event.target.value })
   }
+  // const handleInfectionSiteBlood = (event) => {
+  //   setInputs({ ...inputs, infectionSiteBlood: event.target.checked })
+  // }
 
   /*
   Handler for the infectionSite:urine variable.
   Sets 'infectionSiteUrine' state variable to true
   when the box is checked.
   */
-  const handleInfectionSiteUrine = (event) => {
-    setInputs({ ...inputs, infectionSiteUrine: event.target.checked })
-  }
+  // const handleInfectionSiteUrine = (event) => {
+  //   setInputs({ ...inputs, infectionSiteUrine: event.target.checked })
+  // }
 
   /*
   Handler for the infectionSite:CSF variable.
   Sets 'infectionSiteCSF' state variable to true
   when the box is checked.
   */
-  const handleInfectionSiteCSF = (event) => {
-    setInputs({ ...inputs, infectionSiteCSF: event.target.checked })
-  }
+  // const handleInfectionSiteCSF = (event) => {
+  //   setInputs({ ...inputs, infectionSiteCSF: event.target.checked })
+  // }
 
   /*
   Handler for the infectionSite:peritoneal variable.
   Sets 'infectionSitePeritoneal' state variable to true
   when the box is checked.
   */
-  const handleInfectionSitePeritoneal = (event) => {
-    setInputs({ ...inputs, infectionSitePeritoneal: event.target.checked })
-  }
+  // const handleInfectionSitePeritoneal = (event) => {
+  //   setInputs({ ...inputs, infectionSitePeritoneal: event.target.checked })
+  // }
 
   /*
   Handler for the infectionSite:skin variable.
   Sets 'infectionSiteSkin' state variable to true
   when the box is checked.
   */
-  const handleInfectionSiteSkin = (event) => {
-    setInputs({ ...inputs, infectionSiteSkin: event.target.checked })
-  }
+  // const handleInfectionSiteSkin = (event) => {
+  //   setInputs({ ...inputs, infectionSiteSkin: event.target.checked })
+  // }
 
   /*
   Handler for the NEC variable.
@@ -173,7 +172,7 @@ function FormComponent() {
   const [showResults, setResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSiteBlood || inputs.infectionSiteUrine || inputs.infectionSiteCSF || inputs.infectionSitePeritoneal || inputs.infectionSiteSkin) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && inputs.infectionSite && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
       setResults(true); // changes to display only if valid input
     }
@@ -369,59 +368,68 @@ function FormComponent() {
 
 
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
-        <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
-
+       
+        {/* <h6 style={{ textAlign: "center" }}>(check all that apply)</h6> */}
         <input
-          value={inputs.infectionSiteBlood}
-          onChange={handleInfectionSiteBlood}
-          type="checkbox"
+          value="No"
+          onChange={handleInfectionSite}
+          type="radio"
           className="form-field"
-          name="infectionSiteBlood" />
+          name="infectionSite" />
+        {' '}<label className="form-field">No</label>
+
+        <br />
+        <input
+          value="Blood"
+          onChange={handleInfectionSite}
+          type="radio"
+          className="form-field"
+          name="infectionSite" />
         {' '}<label className="form-field">Blood</label>
 
         <br />
 
         <input
-          value={inputs.infectionSiteUrine}
-          onChange={handleInfectionSiteUrine}
-          type="checkbox"
+          value="Urine"
+          onChange={handleInfectionSite}
+          type="radio"
           className="form-field"
-          name="infectionSiteUrine" />
+          name="infectionSite" />
         {' '}<label className="form-field">Urine</label>
 
         <br />
 
         <input
-          value={inputs.infectionSiteCSF}
-          onChange={handleInfectionSiteCSF}
-          type="checkbox"
+          value="CSF"
+          onChange={handleInfectionSite}
+          type="radio"
           className="form-field"
-          name="infectionSiteCSF" />
+          name="infectionSite" />
         {' '}<label className="form-field">CSF</label>
 
         <br />
 
         <input
-          value={inputs.infectionSitePeritoneal}
-          onChange={handleInfectionSitePeritoneal}
-          type="checkbox"
+          value="Peritoneal"
+          onChange={handleInfectionSite}
+          type="radio"
           className="form-field"
-          name="infectionSitePeritoneal" />
+          name="infectionSite" />
         {' '}<label className="form-field">Peritoneal</label>
 
         <br />
 
         <input
-          value={inputs.infectionSiteSkin}
-          onChange={handleInfectionSiteSkin}
-          type="checkbox"
+          value="Skin with Cellulitis"
+          onChange={handleInfectionSite}
+          type="radio"
           className="form-field"
-          name="infectionSiteSkin" />
+          name="infectionSite" />
         {' '}<label className="form-field">Skin with Cellulitis</label>
 
         <br />
         {/* If the form is submitted and no infection site is selected, print this. */}
-        {submitted && !inputs.infectionSiteBlood && !inputs.infectionSiteUrine && !inputs.infectionSiteCSF && !inputs.infectionSitePeritoneal && !inputs.infectionSiteSkin ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && !inputs.infectionSite ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
 
