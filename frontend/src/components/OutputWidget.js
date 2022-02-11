@@ -1,67 +1,7 @@
-import axios from "axios";
 import React, { useState } from 'react';
 
 
-function OutputWidget({ inputs }) {
-
-  const [outputDisplay, setOutputDisplay] = useState({
-    treatment: "n/a",
-    treatment1: "n/a",
-    treatment2: "n/a",
-    treatment3: "n/a",
-    treatment4: "n/a",
-    duration: "n/a",
-    addRecs: "n/a",
-    noMatch: false,
-  });
-
-
-  React.useEffect(() => {
-
-    // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-
-    let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-    axios.get(url).then((response) => {
-      console.log(response)
-      if (response.data.length == 1) {
-        setOutputDisplay({
-          //  treatment: response.data[3],
-          treatment: response.data[0].antibiotic_treatment,
-
-          // treatment1: response.data[4],
-          treatment1: response.data[0].antibiotic_treatment_1,
-
-          treatment2: response.data[0].antibiotic_treatment_2,
-          treatment3: response.data[0].antibiotic_treatment_3,
-          treatment4: response.data[0].antibiotic_treatment_4,
-          duration: response.data[0].antibiotic_duration,
-          addRecs: response.data[0].additional_recommendations,
-        });
-      } else {
-        setOutputDisplay({
-          ...outputDisplay,
-          noMatch: true,
-        });
-
-      }
-
-    })
-    //});
-  }, [inputs]);
-  // axios.get(url)
-  //   .then(function (response) {
-  //     console.log(response);
-  //     setOutputDisplay.treatment = response[0];
-  //     setOutputDisplay.treatment1 = response[1];
-  //     setOutputDisplay.treatment2 = response[2];
-  //     setOutputDisplay.treatment3 = response[3];
-  //     setOutputDisplay.treatment4 = response[4];
-  //     setOutputDisplay.duration = response[5];
-  //     setOutputDisplay.addRecs = response[6];
-
-  //   }, [inputs]);
-
-
+function OutputWidget({ inputs, outputDisplay }) {
 
   return (
     <div className="row">
