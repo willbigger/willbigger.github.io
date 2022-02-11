@@ -1,11 +1,11 @@
 import React from "react";
 
-function DataTrends() {
+function FAQ() {
   return (
     <div style={{backgroundColor: '#F1F1EF'}}>
-        <h3>Data is trending</h3>
+        <h3>Frequently Asked Questions</h3>
     </div>
   );
 }
 
-export default DataTrends;
+export default FAQ;

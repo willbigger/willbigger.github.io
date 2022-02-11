@@ -349,7 +349,7 @@ function FormComponent() {
         <hr />
 
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
-        <h6 style={{ textAlign: "center" }}>(can enter gram stain or specific species)</h6>
+        <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
 
         <div class="container">
           <div class="row">

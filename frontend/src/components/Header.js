@@ -19,7 +19,7 @@ function Header() {
           <Nav className="me-auto">
             <Nav.Link href="/" style={{color: '#F1F1EF'}}>Home</Nav.Link>
             <Nav.Link href="/about" style={{color: 'white'}}>About</Nav.Link>
-            <Nav.Link href="/datatrends" style={{color: 'white'}}>Data Trends</Nav.Link>
+            <Nav.Link href="/faq" style={{color: 'white'}}>FAQ</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         </Container>
