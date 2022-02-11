@@ -18,7 +18,7 @@ function FormComponent() {
     os: "",
     pathogen: "",
     pathogenDropdownSelection: "",
-    infectionSite: "",
+    infectionSite: [],
     nec: "",
     necDropdownSelection: "",
   });
@@ -96,9 +96,20 @@ function FormComponent() {
   Sets 'infectionSite' state variable to the value
   of the selected site.
   */
+  // const handleInfectionSite = (event) => {
+  //   setInputs({ ...inputs, infectionSite: event.target.value })
+  // }
+
+
   const handleInfectionSite = (event) => {
-    setInputs({ ...inputs, infectionSite: event.target.value })
+    if (event.target.checked) {
+      if (!inputs.infectionSite.includes(event.target.value)) {
+        inputs.infectionSite.push(event.target.value)
+      }
+    } 
+    console.log(inputs.infectionSite)
   }
+
   // const handleInfectionSiteBlood = (event) => {
   //   setInputs({ ...inputs, infectionSiteBlood: event.target.checked })
   // }
@@ -172,7 +183,7 @@ function FormComponent() {
   const [showResults, setResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && inputs.infectionSite && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length!==0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
       setResults(true); // changes to display only if valid input
     }
@@ -188,11 +199,13 @@ function FormComponent() {
     setSubmitted(false);
     document.getElementById("input-form").reset();
 
-    setInputs({ ...inputs,
+    setInputs({
+      ...inputs,
       gestationalAge: "",
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
+      infectionSite: [],
     })
   }
 
@@ -311,12 +324,26 @@ function FormComponent() {
               <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
-                <option value="Acinetobacter species">Acinetobacter species</option>
+                <option value="E Coli">E Coli</option>
+                <option value="Klebsiella">Klebsiella</option>
+                <option value="CoNS">CoNS</option>
+                <option value="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</option>
+                <option value="GBS">GBS</option>
+                <option value="MSSA">MSSA</option>
+                <option value="MRSA">MRSA</option>
+                <option value="Pseudomonas">Pseudomonas</option>
+                <option value="Enterobacter">Enterobacter</option>
+                <option value="Enterococcus">Enterococcus</option>
+
+
+                {/* OLD PATHOGEN DROPDOWN: */}
+
+                {/* <option value="Acinetobacter species">Acinetobacter species</option>
                 <option value="Bacteroides species">Bacteroides species</option>
                 <option value="Burkholderia species">Burkholderia species</option>
                 <option value="Campylobacter species">Campylobacter species</option>
                 <option value="Citrobacter species">Citrobacter species</option>
-                <option value="E coli">E coli</option>
+                <option value="E coli">E coli</option>  
                 <option value="Enterobacter species">Enterobacter species</option>
                 <option value="Enterococcus species">Enterococcus species</option>
                 <option value="GBS">GBS</option>
@@ -334,7 +361,7 @@ function FormComponent() {
                 <option value="Staphylococcus Aureus (MSSA)">Staphylococcus Aureus (MSSA)</option>
                 <option value="Streptococcus anginosus">Streptococcus anginosus</option>
                 <option value="Streptococcus pneumoniae">Streptococcus pneumoniae</option>
-                <option value="Streptococcus pyogenes">Streptococcus pyogenes</option>
+                <option value="Streptococcus pyogenes">Streptococcus pyogenes</option> */}
               </datalist>
             </div>
           </div>
@@ -368,21 +395,21 @@ function FormComponent() {
 
 
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
-       
+
         {/* <h6 style={{ textAlign: "center" }}>(check all that apply)</h6> */}
         <input
           value="No"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
-        {' '}<label className="form-field">No</label>
+        {' '}<label className="form-field">None</label>
 
         <br />
         <input
           value="Blood"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
         {' '}<label className="form-field">Blood</label>
@@ -392,7 +419,7 @@ function FormComponent() {
         <input
           value="Urine"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
         {' '}<label className="form-field">Urine</label>
@@ -402,7 +429,7 @@ function FormComponent() {
         <input
           value="CSF"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
         {' '}<label className="form-field">CSF</label>
@@ -412,7 +439,7 @@ function FormComponent() {
         <input
           value="Peritoneal"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
         {' '}<label className="form-field">Peritoneal</label>
@@ -422,14 +449,14 @@ function FormComponent() {
         <input
           value="Skin with Cellulitis"
           onChange={handleInfectionSite}
-          type="radio"
+          type="checkbox"
           className="form-field"
           name="infectionSite" />
         {' '}<label className="form-field">Skin with Cellulitis</label>
 
         <br />
         {/* If the form is submitted and no infection site is selected, print this. */}
-        {submitted && !inputs.infectionSite ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && (inputs.infectionSite.length === 0) ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
 

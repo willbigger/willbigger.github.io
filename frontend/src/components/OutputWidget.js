@@ -12,12 +12,41 @@ function OutputWidget({ inputs }) {
     treatment4: "n/a",
     duration: "n/a",
     addRecs: "n/a",
+    noMatch: false,
   });
 
 
   React.useEffect(() => {
+
+    // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+
     let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-    axios.get(url).then((response) => console.log(response));
+    axios.get(url).then((response) => {
+      console.log(response)
+      if (response.data.length == 1) {
+        setOutputDisplay({
+          //  treatment: response.data[3],
+          treatment: response.data[0].antibiotic_treatment,
+
+          // treatment1: response.data[4],
+          treatment1: response.data[0].antibiotic_treatment_1,
+
+          treatment2: response.data[0].antibiotic_treatment_2,
+          treatment3: response.data[0].antibiotic_treatment_3,
+          treatment4: response.data[0].antibiotic_treatment_4,
+          duration: response.data[0].antibiotic_duration,
+          addRecs: response.data[0].additional_recommendations,
+        });
+      } else {
+        setOutputDisplay({
+          ...outputDisplay,
+          noMatch: true,
+        });
+
+      }
+
+    })
+    //});
   }, [inputs]);
   // axios.get(url)
   //   .then(function (response) {
@@ -57,7 +86,7 @@ function OutputWidget({ inputs }) {
         <br />
         <h3>Site of Infection</h3>
         {/* Site(s) identified: {inputs.infectionSiteBlood ? <br /> : ""}{inputs.infectionSiteBlood ? "Blood " : ""}{inputs.infectionSiteUrine ? <br /> : ""}{inputs.infectionSiteUrine ? "Urine " : ""}{inputs.infectionSiteCSF ? <br /> : ""}{inputs.infectionSiteCSF ? "CSF " : ""}{inputs.infectionSitePeritoneal ? <br /> : ""}{inputs.infectionSitePeritoneal ? "Peritoneal " : ""}{inputs.infectionSiteSkin ? <br /> : ""}{inputs.infectionSiteSkin ? "Skin with Cellulitis" : ""} */}
-      Site identified: {inputs.infectionSite}
+      Site identified: {inputs.infectionSite[0]}
         <br />
         <h3>Abdominal Involvement</h3>
         {inputs.nec === "Yes" ? "Abdominal involvement is present: " + inputs.necDropdownSelection : "Abdominal involvement is not present"}
@@ -66,35 +95,50 @@ function OutputWidget({ inputs }) {
       <div className="column">
         <hr />
         <hr />
-        <h1> | </h1>
+        <h1> </h1>
       </div>
       <div className="column" >
         <hr />
         <hr />
         <h1>Recommended Treatment</h1>
-        <h3>Antibiotic Treatment</h3>
-        {outputDisplay.treatment}
+        <div>
+          <div style={{ visibility: outputDisplay.noMatch ? 'visible' : 'hidden' }}>
+            There is no item in our database that matches your input. < br />
+        We’re expanding our database daily. Please stay tuned for updates!
 
-        <h3>Antibiotic Treatment Alternative Option 1</h3>
-        {outputDisplay.treatment1}
+        </div>
+          <div style={{ visibility: outputDisplay.noMatch ? 'hidden' : 'visible' }}>
+            <h3>Antibiotic Treatment</h3>
+            {outputDisplay.treatment}
 
-        <h3>Antibiotic Treatment Alternative Option 2</h3>
-        {outputDisplay.treatment2}
+            <h3>Antibiotic Treatment Alternative Option 1</h3>
+            {outputDisplay.treatment1}
 
-        <h3>Antibiotic Treatment Alternative Option 3</h3>
-        {outputDisplay.treatment3}
+            <h3>Antibiotic Treatment Alternative Option 2</h3>
+            {outputDisplay.treatment2}
 
-        <h3>Antibiotic Treatment Alternative Option 4</h3>
-        {outputDisplay.treatment4}
+            <h3>Antibiotic Treatment Alternative Option 3</h3>
+            {outputDisplay.treatment3}
 
-        <h3>Antibiotic Treatment Duration</h3>
-        {outputDisplay.duration}
+            <h3>Antibiotic Treatment Alternative Option 4</h3>
+            {outputDisplay.treatment4}
 
-        <h3>Additional Recommendations</h3>
-        {outputDisplay.addRecs}
+            <h3>Antibiotic Treatment Duration</h3>
+            {outputDisplay.duration}
 
+            <h3>Additional Recommendations</h3>
+            {outputDisplay.addRecs}
+          </div>
+        </div>
 
       </div>
+      <div>
+        <br />
+        <em>
+          The contents of this website are intended for informational and educational purposes only and not for the purpose of rendering medical advice. The contents of this website are not intended to substitute for professional medical advice, diagnosis, or treatment. We cannot guarantee that the information on this website reflects the most-up-to-date research. We cannot be held responsible for any damages suffered as a result of using this website.
+        </em>
+      </div>
+
     </div>
   );
 }
