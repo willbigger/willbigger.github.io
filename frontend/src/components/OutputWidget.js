@@ -1,7 +1,59 @@
 import React, { useState } from 'react';
+import axios from "axios"; // for get request for output data
 
 
-function OutputWidget({ inputs, outputDisplay }) {
+
+function OutputWidget({ inputs }) {
+
+  /* These are the output we will fetch to be
+  stored as state variables.
+  */
+  const [outputDisplay, setOutputDisplay] = useState({
+    treatment: "n/a",
+    treatment1: "n/a",
+    treatment2: "n/a",
+    treatment3: "n/a",
+    treatment4: "n/a",
+    duration: "n/a",
+    addRecs: "n/a",
+    noMatch: false, // a toggle for whether we had an output match or not
+  });
+
+   /*
+  Function to retrieve the correct output from the database.
+  */
+  React.useEffect(() => {
+
+    // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+
+    let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+    axios.get(url).then((response) => {
+      // console.log(response)
+      if (response.data.length == 1) {
+        setOutputDisplay({
+          //  treatment: response.data[3],
+          treatment: response.data[0].antibiotic_treatment,
+
+          // treatment1: response.data[4],
+          treatment1: response.data[0].antibiotic_treatment_1,
+
+          treatment2: response.data[0].antibiotic_treatment_2,
+          treatment3: response.data[0].antibiotic_treatment_3,
+          treatment4: response.data[0].antibiotic_treatment_4,
+          duration: response.data[0].antibiotic_duration,
+          addRecs: response.data[0].additional_recommendations,
+        });
+      } else {
+        setOutputDisplay({
+          ...outputDisplay,
+          noMatch: true,
+        });
+
+      }
+
+    })
+}, [inputs]);
+
 
   return (
     <div className="row">
@@ -73,7 +125,6 @@ function OutputWidget({ inputs, outputDisplay }) {
 
       </div>
       <div>
-        <br />
         <em>
           The contents of this website are intended for informational and educational purposes only and not for the purpose of rendering medical advice. The contents of this website are not intended to substitute for professional medical advice, diagnosis, or treatment. We cannot guarantee that the information on this website reflects the most-up-to-date research. We cannot be held responsible for any damages suffered as a result of using this website.
         </em>

@@ -3,7 +3,6 @@ import OutputWidget from './OutputWidget';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import './FormComponent.css';
-import axios from "axios";
 
 
 function FormComponent() {
@@ -24,49 +23,8 @@ function FormComponent() {
     necDropdownSelection: "",
   });
 
-  const [outputDisplay, setOutputDisplay] = useState({
-    treatment: "n/a",
-    treatment1: "n/a",
-    treatment2: "n/a",
-    treatment3: "n/a",
-    treatment4: "n/a",
-    duration: "n/a",
-    addRecs: "n/a",
-    noMatch: false,
-  });
-
-  React.useEffect(() => {
-
-    // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-
-    let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-    axios.get(url).then((response) => {
-      console.log(response)
-      if (response.data.length == 1) {
-        setOutputDisplay({
-          //  treatment: response.data[3],
-          treatment: response.data[0].antibiotic_treatment,
-
-          // treatment1: response.data[4],
-          treatment1: response.data[0].antibiotic_treatment_1,
-
-          treatment2: response.data[0].antibiotic_treatment_2,
-          treatment3: response.data[0].antibiotic_treatment_3,
-          treatment4: response.data[0].antibiotic_treatment_4,
-          duration: response.data[0].antibiotic_duration,
-          addRecs: response.data[0].additional_recommendations,
-        });
-      } else {
-        setOutputDisplay({
-          ...outputDisplay,
-          noMatch: true,
-        });
-
-      }
-
-    })
-}, [inputs]);
-
+ 
+ 
   /*
   This is the variable 'submitted' stored as a state variable.
    */
@@ -151,7 +109,7 @@ function FormComponent() {
         inputs.infectionSite.push(event.target.value)
       }
     } 
-    console.log(inputs.infectionSite)
+    // console.log(inputs.infectionSite)
   }
 
   // const handleInfectionSiteBlood = (event) => {
@@ -351,9 +309,9 @@ function FormComponent() {
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
 
-        <div class="container">
-          <div class="row">
-            <div class="col">
+        <div className="container">
+          <div className="row">
+            <div className="col">
               <input
                 value="Yes"
                 onChange={handlePathogen}
@@ -362,10 +320,10 @@ function FormComponent() {
                 name="pathogen" />
               {' '}<label className="form-field">Yes</label>
             </div>
-            <div class="col">
+            <div className="col">
               {/* <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} /> */}
               {/* Uncomment this line to toggle visibilty*/}
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
+              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
                 <option value="E Coli">E Coli</option>
@@ -414,9 +372,9 @@ function FormComponent() {
 
         <br />
 
-        <div class="container">
-          <div class="row">
-            <div class="col">
+        <div className="container">
+          <div className="row">
+            <div className="col">
               <input
                 value="No"
                 onChange={handlePathogen}
@@ -425,8 +383,8 @@ function FormComponent() {
                 name="pathogen" />
               {' '}<label className="form-field">No</label>
             </div>
-            <div class="col">
-              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: 'hidden' }} />
+            <div className="col">
+              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: 'hidden' }} />
               <datalist id="datalistOptions">
               </datalist>
             </div>
@@ -504,9 +462,9 @@ function FormComponent() {
         <hr />
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
 
-        <div class="container">
-          <div class="row">
-            <div class="col">
+        <div className="container">
+          <div className="row">
+            <div className="col">
               <input
                 value="Yes"
                 onChange={handleNEC}
@@ -518,8 +476,8 @@ function FormComponent() {
             </div>
 
 
-            <div class="col">
-              <input class="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+            <div className="col">
+              <input className="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions2">
                 <option value=""></option>
                 <option value="Medical NEC">Medical NEC</option>
@@ -533,9 +491,9 @@ function FormComponent() {
         {submitted && (inputs.nec === "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
-        <div class="container">
-          <div class="row">
-            <div class="col">
+        <div className="container">
+          <div className="row">
+            <div className="col">
               {/* <br /> */}
               <input
                 value="No"
@@ -559,7 +517,7 @@ function FormComponent() {
 
         <div className="btn-group">
           <SubmitButton onClick={onClick} className="form-button" />
-          {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} />}
+          {showResults && <OutputWidget inputs={inputs} />}
           <ClearButton onClear={onClear} className="form-button" />
 
         </div>
