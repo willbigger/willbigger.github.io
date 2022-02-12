@@ -1,5 +1,6 @@
 import React from "react";
 
+// About page
 function About() {
   return (
     <div style={{ backgroundColor: '#F1F1EF' }}>

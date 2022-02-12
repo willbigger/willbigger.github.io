@@ -23,39 +23,60 @@ function FormComponent() {
     necDropdownSelection: "",
   });
 
- 
- 
+
+
   /*
   This is the variable 'submitted' stored as a state variable.
    */
   const [submitted, setSubmitted] = useState(false); // Initially false
 
+  /*
+  This is a toggle for the pathogen input to determine whether to display the dropdown.
+   */
   const [pathogenToggle, setPathogenToggle] = useState(false); // Initially false
 
+  /*
+  This is a toggle for the abdominal involvement input to determine whether to display the dropdown.
+   */
   const [necToggle, setnecToggle] = useState(false); // Initially false
 
   /*
   This is the variable 'valid' stored as a state variable,
-  which will be used ot make sure all inputs are filled out.
+  which will be used to make sure all inputs are filled out.
    */
   const [valid, setValid] = useState(false); // Initially false
 
+  /* 
+  This is the handler for the gestationalAge variable, setting
+  the variable to whatever text was inputted.
+  */
   const handleGestationalAge = (event) => {
     setInputs({ ...inputs, gestationalAge: event.target.value })
   }
 
+  /* 
+ This is the handler for the postnatalAge variable, setting
+ the variable to whatever text was inputted.
+ */
   const handlePostnatalAge = (event) => {
     setInputs({ ...inputs, postnatalAge: event.target.value })
   }
-
+  /* 
+ 
+   This is the handler for the birthWeiht variable, setting
+   the variable to whatever text was inputted.
+   */
   const handleBirthWeight = (event) => {
     setInputs({ ...inputs, birthWeight: event.target.value })
   }
 
+  /* 
+ This is the handler for the currentWeight variable, setting
+ the variable to whatever text was inputted.
+ */
   const handleCurrentWeight = (event) => {
     setInputs({ ...inputs, currentWeight: event.target.value })
   }
-
 
   /* 
   This is the handler for the onset variable. 
@@ -72,7 +93,7 @@ function FormComponent() {
 
   /*
   Handler for the pathogen variable.
-  Similar to the onset variable, this one
+  Similar to the onset variable, it
   toggles the pathogen variable between yes
   and no depending on which radio button is clicked.
   */
@@ -86,76 +107,38 @@ function FormComponent() {
     }
   }
 
+  /*
+  Handler for the pathogenDropdownSelection variable,
+  setting it to whatever is selected from the dropdown.
+  */
   const handleSelection = (event) => {
     setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
   }
+
+  /*
+  Handler for the necDropdownSelection variable,
+  setting it to whatever is selected from the dropdown.
+  */
   const handleSelection2 = (event) => {
     setInputs({ ...inputs, necDropdownSelection: event.target.value })
   }
 
   /*
-  Handler for the infectionSite variable.
-  Sets 'infectionSite' state variable to the value
-  of the selected site.
+  Handler for the infectionSite array. If the checked
+  item isn't already in the array, it gets pushed on.
   */
-  // const handleInfectionSite = (event) => {
-  //   setInputs({ ...inputs, infectionSite: event.target.value })
-  // }
-
-
   const handleInfectionSite = (event) => {
     if (event.target.checked) {
       if (!inputs.infectionSite.includes(event.target.value)) {
         inputs.infectionSite.push(event.target.value)
       }
-    } 
+    }
     // console.log(inputs.infectionSite)
   }
 
-  // const handleInfectionSiteBlood = (event) => {
-  //   setInputs({ ...inputs, infectionSiteBlood: event.target.checked })
-  // }
-
-  /*
-  Handler for the infectionSite:urine variable.
-  Sets 'infectionSiteUrine' state variable to true
-  when the box is checked.
-  */
-  // const handleInfectionSiteUrine = (event) => {
-  //   setInputs({ ...inputs, infectionSiteUrine: event.target.checked })
-  // }
-
-  /*
-  Handler for the infectionSite:CSF variable.
-  Sets 'infectionSiteCSF' state variable to true
-  when the box is checked.
-  */
-  // const handleInfectionSiteCSF = (event) => {
-  //   setInputs({ ...inputs, infectionSiteCSF: event.target.checked })
-  // }
-
-  /*
-  Handler for the infectionSite:peritoneal variable.
-  Sets 'infectionSitePeritoneal' state variable to true
-  when the box is checked.
-  */
-  // const handleInfectionSitePeritoneal = (event) => {
-  //   setInputs({ ...inputs, infectionSitePeritoneal: event.target.checked })
-  // }
-
-  /*
-  Handler for the infectionSite:skin variable.
-  Sets 'infectionSiteSkin' state variable to true
-  when the box is checked.
-  */
-  // const handleInfectionSiteSkin = (event) => {
-  //   setInputs({ ...inputs, infectionSiteSkin: event.target.checked })
-  // }
-
   /*
   Handler for the NEC variable.
-  Similar to the onset and pathogen variables, 
-  this one toggles the NEC variable between yes
+  Toggles the NEC variable between yes
   and no depending on which radio button is clicked.
   */
   const handleNEC = (event) => {
@@ -181,11 +164,10 @@ function FormComponent() {
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-
   const [showResults, setResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length!==0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
       setResults(true); // changes to display only if valid input
     }
@@ -193,7 +175,15 @@ function FormComponent() {
   }
 
 
+  /*
+  Handler for clicking the Clear button.
+  First it prevents the automatic refresh so 
+  that the user gets visual confirmation of submission.
 
+  Then it resets Valid, Results, and Submitted and resets
+  the form. It also sets all the inputs back to empty
+  strings/arrays.
+  */
   const onClear = (event) => {
     event.preventDefault(); // stops refresh
     setValid(false);
@@ -225,6 +215,7 @@ function FormComponent() {
         <label className="form-field">Gestational Age (in weeks)</label>
 
         <br />
+        {/* Gestational Age input */}
         <input
           textAlign={'center'}
           value={inputs.gestationalAge}
@@ -234,12 +225,16 @@ function FormComponent() {
           name="gestationalAge"
         />
         <br />
-        {submitted && !inputs.gestationalAge ? <span style={{ color: "red" }}> Please fill in this field.</span> : null}
+        {/* Providing an error message if the user tries to submit 
+        while the Gestational Age input is empty */}
+        {submitted && !inputs.gestationalAge ?
+          <span style={{ color: "red" }}> Please fill in this field. </span> : null}
 
         <br />
         <label className="form-field">Postnatal Age (in days)</label>
 
         <br />
+        {/* Postnatal Age input */}
         <input
           value={inputs.postnatalAge}
           onChange={handlePostnatalAge}
@@ -248,12 +243,15 @@ function FormComponent() {
           name="postnatalAge"
         />
         < br />
-        {submitted && !inputs.postnatalAge ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {/* Providing an error message if the user tries to submit 
+        while the Postnatal Age input is empty */}
+        {submitted && !inputs.postnatalAge ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
         <label className="form-field">Birth Weight (in grams)</label>
         <br />
-
+        {/* Birth Weight input */}
         <input
           value={inputs.birthWeight}
           onChange={handleBirthWeight}
@@ -262,12 +260,16 @@ function FormComponent() {
           name="birthWeight"
         />
         <br />
-        {submitted && !inputs.birthWeight ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {/* Providing an error message if the user tries to submit 
+        while the Birth Weight input is empty */}
+        {submitted && !inputs.birthWeight ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
         <label className="form-field">Current Weight (in grams)</label>
 
         <br />
+        {/* Current Weight input */}
         <input
           value={inputs.currentWeight}
           onChange={handleCurrentWeight}
@@ -276,11 +278,15 @@ function FormComponent() {
           name="currentWeight"
         />
         <br />
-        {submitted && !inputs.currentWeight ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {/* Providing an error message if the user tries to submit 
+        while the Current Weight input is empty */}
+        {submitted && !inputs.currentWeight ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
 
         <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
           onChange={handleOS} // Event handling
@@ -291,6 +297,7 @@ function FormComponent() {
 
         <br />
 
+        {/* EOS/LOS input option 2: LOS */}
         <input
           value="LOS"
           onChange={handleOS}
@@ -303,15 +310,17 @@ function FormComponent() {
         {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
-        {submitted && !inputs.os ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && !inputs.os ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
-
+        {/* Pathogen input */}
         <div className="container">
           <div className="row">
             <div className="col">
+              {/* pathogen input option 1: Yes */}
               <input
                 value="Yes"
                 onChange={handlePathogen}
@@ -321,8 +330,7 @@ function FormComponent() {
               {' '}<label className="form-field">Yes</label>
             </div>
             <div className="col">
-              {/* <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} /> */}
-              {/* Uncomment this line to toggle visibilty*/}
+              {/* If yes is selected for the pathogen input, show this dropdown */}
               <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
@@ -368,13 +376,17 @@ function FormComponent() {
             </div>
           </div>
         </div>
-        {submitted && (inputs.pathogen === "Yes") && !inputs.pathogenDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {/* If the user selects Yes but doesn't specify
+        soemthing from the dropdown, provide this error. */}
+        {submitted && (inputs.pathogen === "Yes") && !inputs.pathogenDropdownSelection ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
 
         <div className="container">
           <div className="row">
             <div className="col">
+              {/* pathogen input option 2: No */}
               <input
                 value="No"
                 onChange={handlePathogen}
@@ -383,28 +395,31 @@ function FormComponent() {
                 name="pathogen" />
               {' '}<label className="form-field">No</label>
             </div>
-            <div className="col">
-              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: 'hidden' }} />
-              <datalist id="datalistOptions">
-              </datalist>
-            </div>
           </div>
         </div>
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
-        {submitted && !inputs.pathogen ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && !inputs.pathogen ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
 
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
-        {/* <h6 style={{ textAlign: "center" }}>(check all that apply)</h6> */}
+        <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
+        {/* Inputs for infection sites - can select more than one */}
         <input
           value="No"
           onChange={handleInfectionSite}
           type="checkbox"
           className="form-field"
           name="infectionSite" />
+        {/* All of these inputs have the same name 
+          so that they relate to each other?
+
+          ?? not sure if they need the same name or not
+          actually since they have the same handler??
+           */}
         {' '}<label className="form-field">None</label>
 
         <br />
@@ -457,11 +472,14 @@ function FormComponent() {
         {' '}<label className="form-field">Skin with Cellulitis</label>
 
         <br />
-        {/* If the form is submitted and no infection site is selected, print this. */}
-        {submitted && (inputs.infectionSite.length === 0) ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {/* If the form is submitted and no infection site 
+        is selected, print this. */}
+        {submitted && (inputs.infectionSite.length === 0) ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
         <hr />
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
-
+        {/* Abdominal involvement inputs */}
         <div className="container">
           <div className="row">
             <div className="col">
@@ -477,7 +495,9 @@ function FormComponent() {
 
 
             <div className="col">
-              <input className="form-control" list="datalistOptions2" id="exampleDataList2" placeholder="Type to search..." onChange={handleSelection2} style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+              <input className="form-control" list="datalistOptions2" id="exampleDataList2"
+                placeholder="Type to search..." onChange={handleSelection2}
+                style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
               <datalist id="datalistOptions2">
                 <option value=""></option>
                 <option value="Medical NEC">Medical NEC</option>
@@ -488,13 +508,16 @@ function FormComponent() {
             </div>
           </div>
         </div>
-        {submitted && (inputs.nec === "Yes") && !inputs.necDropdownSelection ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+
+        {/* If the user selects yes without selecting something
+        from the dropdown, give an error message. */}
+        {submitted && (inputs.nec === "Yes") && !inputs.necDropdownSelection ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
         <div className="container">
           <div className="row">
             <div className="col">
-              {/* <br /> */}
               <input
                 value="No"
                 onChange={handleNEC}
@@ -507,11 +530,9 @@ function FormComponent() {
           </div>
         </div>
 
-
-
-
         {/* If the form is submitted and NEC present isn't specified, print this. */}
-        {submitted && !inputs.nec ? <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {submitted && !inputs.nec ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <br />
         <br />
 

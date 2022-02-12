@@ -4,7 +4,7 @@ import FormComponent from "./components/FormComponent"; // Importing the form
 import Footer from "./components/Footer"; // Importing the footer
 import About from "./components/About"; // Importing the about page
 import Header from "./components/Header"; // Importing the header
-import FAQ from "./components/FAQ"; // Importing the data trends page
+import FAQ from "./components/FAQ"; // Importing the FAQ page
 
 function App() {
 

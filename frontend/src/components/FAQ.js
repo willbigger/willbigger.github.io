@@ -1,5 +1,6 @@
 import React from "react";
 
+// FAQ Page
 function FAQ() {
   return (
     <div style={{backgroundColor: '#F1F1EF'}}>
