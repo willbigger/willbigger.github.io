@@ -24,8 +24,8 @@ function OutputWidget({ inputs }) {
     // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
    
     // TODO: WHEN THE INFECTION SITE LOGIC CHANGES, MAKE SURE THIS URL IS USING THE RIGHT INFECTION SITE
-    
-    let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+    const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000/outputs/";
+    const url = `${base_url}?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
     axios.get(url).then((response) => {
       // console.log(response)
       if (response.data.length == 1) {
