@@ -112,7 +112,13 @@ function FormComponent() {
   setting it to whatever is selected from the dropdown.
   */
   const handleSelection = (event) => {
-    setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
+    if(event.target.value === "E Coli") {
+      setInputs({ ...inputs, pathogenDropdownSelection: "E_Coli" })
+    } else if (event.target.value === "Group B Streptococcus (GBS)") {
+      setInputs({ ...inputs, pathogenDropdownSelection: "Group_B_Streptococcus_(GBS)" })
+    } else {
+      setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
+    }
   }
 
   /*
@@ -120,7 +126,13 @@ function FormComponent() {
   setting it to whatever is selected from the dropdown.
   */
   const handleSelection2 = (event) => {
-    setInputs({ ...inputs, necDropdownSelection: event.target.value })
+    if(event.target.value === "Medical NEC") {
+      setInputs({ ...inputs, necDropdownSelection: "Medical_NEC"})
+    } else if (event.target.value === "Surgical NEC") {
+      setInputs({ ...inputs, necDropdownSelection: "Surgical_NEC"})
+    } else {
+      setInputs({ ...inputs, necDropdownSelection: event.target.value })
+    }
   }
 
   /*
@@ -464,7 +476,7 @@ function FormComponent() {
         <br />
 
         <input
-          value="Skin with Cellulitis"
+          value="Skin_with_Cellulitis"
           onChange={handleInfectionSite}
           type="checkbox"
           className="form-field"

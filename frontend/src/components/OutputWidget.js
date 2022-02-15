@@ -24,8 +24,15 @@ function OutputWidget({ inputs }) {
     // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
    
     // TODO: WHEN THE INFECTION SITE LOGIC CHANGES, MAKE SURE THIS URL IS USING THE RIGHT INFECTION SITE
-    
     let url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+    if (inputs.pathogen == "Yes") {
+      if (inputs.nec === "Yes") {
+        url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${inputs.infectionSite[0]}&abdominal_involvement=${inputs.necDropdownSelection}`;
+      } else {
+        url = `http://localhost:5000/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${inputs.infectionSite[0]}&abdominal_involvement=${inputs.nec}`;
+      }
+    }
+    // console.log(url)
     axios.get(url).then((response) => {
       // console.log(response)
       if (response.data.length == 1) {
