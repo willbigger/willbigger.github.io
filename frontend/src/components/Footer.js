@@ -1,4 +1,6 @@
 import React from "react";
+import logo from './logo';
+
 
 function Footer() {
   return (
@@ -9,9 +11,11 @@ function Footer() {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
       </head>
       
-      <body style={{backgroundColor: '#F1F1EF'}}>
+      <body style={{color: '#F1F1EF'}}>
         <footer class="page-footer font-small">
-          <div class="footer-copyright text-center">
+          <div class="footer-copyright text-center" style={{backgroundColor: '#232D4B'}}>
+          <img src={logo} style={{width:25, marginTop: -3}}></img>
+          {' '}{' '}Dev/Hub
             {/* <p>&copy;Stardate: -302725.28</p> */}
           </div>
         </footer>

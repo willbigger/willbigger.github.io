@@ -112,7 +112,7 @@ function FormComponent() {
   setting it to whatever is selected from the dropdown.
   */
   const handleSelection = (event) => {
-    if(event.target.value === "E Coli") {
+    if (event.target.value === "E Coli") {
       setInputs({ ...inputs, pathogenDropdownSelection: "E_Coli" })
     } else if (event.target.value === "Group B Streptococcus (GBS)") {
       setInputs({ ...inputs, pathogenDropdownSelection: "Group_B_Streptococcus_(GBS)" })
@@ -126,10 +126,10 @@ function FormComponent() {
   setting it to whatever is selected from the dropdown.
   */
   const handleSelection2 = (event) => {
-    if(event.target.value === "Medical NEC") {
-      setInputs({ ...inputs, necDropdownSelection: "Medical_NEC"})
+    if (event.target.value === "Medical NEC") {
+      setInputs({ ...inputs, necDropdownSelection: "Medical_NEC" })
     } else if (event.target.value === "Surgical NEC") {
-      setInputs({ ...inputs, necDropdownSelection: "Surgical_NEC"})
+      setInputs({ ...inputs, necDropdownSelection: "Surgical_NEC" })
     } else {
       setInputs({ ...inputs, necDropdownSelection: event.target.value })
     }
@@ -432,7 +432,7 @@ function FormComponent() {
           ?? not sure if they need the same name or not
           actually since they have the same handler??
            */}
-        {' '}<label className="form-field">None</label>
+        {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
 
         <br />
         <input
@@ -548,13 +548,19 @@ function FormComponent() {
         <br />
         <br />
 
-        <div className="btn-group">
-          <SubmitButton onClick={onClick} className="form-button" />
+        <div className="btn-toolbar" style={{justifyContent:'center'}}>
+          <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
+            <SubmitButton onClick={onClick} className="form-button" />
+          </div>
           {showResults && <OutputWidget inputs={inputs} />}
-          <ClearButton onClear={onClear} className="form-button" />
+
+          <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
+            <ClearButton onClear={onClear} className="form-button" />
+          </div>
 
         </div>
       </form>
+      <br />
     </div>
   )
 };

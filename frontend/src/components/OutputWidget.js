@@ -124,7 +124,7 @@ function OutputWidget({ inputs }) {
 
          */}
           <div style={{ visibility: outputDisplay.noMatch ? 'hidden' : 'visible' }}>
-            <h3>Antibiotic Treatment</h3>
+            <h3>Antibiotic Treatment (pending susceptibility results)</h3>
             {outputDisplay.treatment}
 
             <h3>Antibiotic Treatment Alternative Option 1</h3>
