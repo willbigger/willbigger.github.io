@@ -267,7 +267,7 @@ function FormComponent() {
     setSubmitted(false);
     document.getElementById("input-form").reset();
     setPathogenToggle(false);
-    setnecToggle(false)
+    setnecToggle(false);
 
 
     setInputs({
