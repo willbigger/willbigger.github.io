@@ -1,70 +1,7 @@
 import React, { useState } from 'react';
-import axios from "axios"; // for get request for output data
 
-function OutputWidget({ inputs }) {
+function OutputWidget({ inputs }, { outputDisplay}) {
 
-  /* These are the output we will fetch to be
-  stored as state variables.
-  */
-  const [outputDisplay, setOutputDisplay] = useState({
-    treatment: "n/a",
-    treatment1: "n/a",
-    treatment2: "n/a",
-    treatment3: "n/a",
-    treatment4: "n/a",
-    duration: "n/a",
-    addRecs: "n/a",
-    noMatch: false, // a toggle for whether we had an output match or not
-  });
-
-  /*
- Function to retrieve the correct output from the database.
- */
-  React.useEffect(() => {
-    // let url = `https://dashboard.heroku.com/apps/nicu-backend-development/outputs/?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-
-    const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
-    const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
-    let infectionSite = "No";
-    for (let i = 0; i < infectionSiteOrder.length; i++) {
-      if (inputs.infectionSite.includes(infectionSiteOrder[i])) {
-        infectionSite = infectionSiteOrder[i];
-        break;
-      }
-    }
-    let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
-    if (inputs.pathogen == "Yes") {
-      if (inputs.nec === "Yes") {
-
-        url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.necDropdownSelection}`;
-      } else {
-        url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
-      }
-    }
-
-    console.log(url)
-    axios.get(url).then((response) => {
-      console.log(response)
-      if (response.data.length == 1) {
-        setOutputDisplay({
-          treatment: response.data[0].antibiotic_treatment,
-          treatment1: response.data[0].antibiotic_treatment_1,
-          treatment2: response.data[0].antibiotic_treatment_2,
-          treatment3: response.data[0].antibiotic_treatment_3,
-          treatment4: response.data[0].antibiotic_treatment_4,
-          duration: response.data[0].antibiotic_duration,
-          addRecs: response.data[0].additional_recommendations,
-        });
-      } else {
-        setOutputDisplay({
-          ...outputDisplay,
-          noMatch: true,
-        });
-
-      }
-
-    })
-  }, [inputs]);
 
 
   return (
