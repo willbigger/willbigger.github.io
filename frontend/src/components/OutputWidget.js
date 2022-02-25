@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function OutputWidget({ inputs }, { outputDisplay}) {
+function OutputWidget({ inputs, outputDisplay}) {
 
 
 
