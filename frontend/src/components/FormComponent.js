@@ -150,7 +150,7 @@ function FormComponent() {
         delete inputs.infectionSite[temp]
       }
     }
-    // console.log(inputs.infectionSite)
+    console.log(inputs.infectionSite)
   }
 
   /*
