@@ -144,6 +144,11 @@ function FormComponent() {
       if (!inputs.infectionSite.includes(event.target.value)) {
         inputs.infectionSite.push(event.target.value)
       }
+    } else {
+      if (inputs.infectionSite.includes(event.target.value)) {
+        let temp = inputs.infectionSite.indexOf(event.target.value)
+        delete inputs.infectionSite[temp]
+      }
     }
     // console.log(inputs.infectionSite)
   }
