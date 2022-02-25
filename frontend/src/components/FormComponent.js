@@ -202,10 +202,8 @@ function FormComponent() {
     if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
       setShowResults(true); // changes to display only if valid input
-    }
-    setSubmitted(true);
 
-    const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
+      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
     const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
     let infectionSite = "No";
     for (let i = 0; i < infectionSiteOrder.length; i++) {
@@ -246,6 +244,10 @@ function FormComponent() {
       }
 
     })
+    }
+    setSubmitted(true);
+
+    
   }
 
 
