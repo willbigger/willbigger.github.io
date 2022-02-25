@@ -145,7 +145,7 @@ function FormComponent() {
         inputs.infectionSite.push(event.target.value)
       }
     }
-    // console.log(inputs.infectionSite)
+    console.log(inputs.infectionSite)
   }
 
   /*

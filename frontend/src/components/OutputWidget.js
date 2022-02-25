@@ -25,17 +25,18 @@ function OutputWidget({ inputs }) {
    
     // TODO: WHEN THE INFECTION SITE LOGIC CHANGES, MAKE SURE THIS URL IS USING THE RIGHT INFECTION SITE
     const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
-    let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
-    if (inputs.pathogen == "Yes") {
-      if (inputs.nec === "Yes") {
-        const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin"];
+    const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin"];
         const infectionSite = "No";
-        for (let i = 0; i < infectionSiteOrder.length(); i++){
+        for (let i = 0; i < infectionSiteOrder.length; i++){
           if (inputs.infectionSite.includes(infectionSiteOrder[i])){
             infectionSite = infectionSiteOrder[i];
             break;
           }
         }
+    let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${inputs.infectionSite}&abdominal_involvement=${inputs.nec}`;
+    if (inputs.pathogen == "Yes") {
+      if (inputs.nec === "Yes") {
+        
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.necDropdownSelection}`;
       } else {
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
