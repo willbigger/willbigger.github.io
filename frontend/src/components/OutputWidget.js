@@ -26,7 +26,7 @@ function OutputWidget({ inputs }) {
     // TODO: WHEN THE INFECTION SITE LOGIC CHANGES, MAKE SURE THIS URL IS USING THE RIGHT INFECTION SITE
     const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
     const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin"];
-        const infectionSite = "No";
+        let infectionSite = "No";
         for (let i = 0; i < infectionSiteOrder.length; i++){
           if (inputs.infectionSite.includes(infectionSiteOrder[i])){
             infectionSite = infectionSiteOrder[i];
