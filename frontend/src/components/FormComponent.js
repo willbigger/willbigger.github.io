@@ -181,12 +181,12 @@ function FormComponent() {
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-  const [showResults, setResults] = useState(false); // state for displaying the output widget
+  const [showResults, setShowResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
     if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
-      setResults(true); // changes to display only if valid input
+      setShowResults(true); // changes to display only if valid input
     }
     setSubmitted(true);
   }
@@ -204,9 +204,12 @@ function FormComponent() {
   const onClear = (event) => {
     event.preventDefault(); // stops refresh
     setValid(false);
-    setResults(false);
+    setShowResults(false);
     setSubmitted(false);
     document.getElementById("input-form").reset();
+    setPathogenToggle(false);
+    setnecToggle(false)
+
 
     setInputs({
       ...inputs,
@@ -214,7 +217,12 @@ function FormComponent() {
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
+      os: "",
+      pathogen: "",
+      pathogenDropdownSelection: "",
       infectionSite: [],
+      nec: "",
+      necDropdownSelection: "",
     })
   }
 
@@ -557,11 +565,10 @@ function FormComponent() {
           <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
             <SubmitButton onClick={onClick} className="form-button" />
           </div>
-          {showResults && <OutputWidget inputs={inputs} />}
-
           <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
             <ClearButton onClear={onClear} className="form-button" />
           </div>
+          {showResults && <OutputWidget inputs={inputs} />}
 
         </div>
       </form>
