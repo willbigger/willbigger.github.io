@@ -295,6 +295,7 @@ stored as state variables.
     setSubmitted(false);
     setPathogenToggle(false);
     setnecToggle(false);
+    document.getElementById("input-form").reset();
 
     setInputs({
       ...inputs,
@@ -302,12 +303,6 @@ stored as state variables.
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
-      os: "",
-      pathogen: "",
-      pathogenDropdownSelection: "",
-      infectionSite: [],
-      nec: "",
-      necDropdownSelection: "",
     })
     setOutputDisplay({
       treatment: "n/a",
@@ -319,9 +314,6 @@ stored as state variables.
       addRecs: "n/a",
       noMatch: false, 
     })
-    document.getElementById("input-form").reset();
-
-   
   }
 
 
