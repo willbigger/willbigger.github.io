@@ -25,9 +25,9 @@ function FormComponent() {
     necDropdownSelection: "",
   });
 
-    /* These are the output we will fetch to be
-  stored as state variables.
-  */
+  /* These are the output we will fetch to be
+stored as state variables.
+*/
   const [outputDisplay, setOutputDisplay] = useState({
     treatment: "n/a",
     treatment1: "n/a",
@@ -199,11 +199,9 @@ function FormComponent() {
   const [showResults, setShowResults] = useState(false); // state for displaying the output widget
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
-      setValid(true)
-      setShowResults(true); // changes to display only if valid input
 
-      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
+    // creating the right URL to go to
+    const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
     const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
     let infectionSite = "No";
     for (let i = 0; i < infectionSiteOrder.length; i++) {
@@ -222,32 +220,62 @@ function FormComponent() {
       }
     }
 
-    console.log(url)
-    axios.get(url).then((response) => {
-      console.log(response)
-      if (response.data.length == 1) {
-        setOutputDisplay({
-          treatment: response.data[0].antibiotic_treatment,
-          treatment1: response.data[0].antibiotic_treatment_1,
-          treatment2: response.data[0].antibiotic_treatment_2,
-          treatment3: response.data[0].antibiotic_treatment_3,
-          treatment4: response.data[0].antibiotic_treatment_4,
-          duration: response.data[0].antibiotic_duration,
-          addRecs: response.data[0].additional_recommendations,
-        });
-      } else {
-        setOutputDisplay({
-          ...outputDisplay,
-          noMatch: true,
-        });
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
+      setValid(true)
+      setShowResults(true); // changes to display only if valid input
+      console.log(url)
+      axios.get(url).then((response) => {
+        console.log(response)
+        if (response.data.length == 1) {
+          setOutputDisplay({
+            treatment: response.data[0].antibiotic_treatment,
+            treatment1: response.data[0].antibiotic_treatment_1,
+            treatment2: response.data[0].antibiotic_treatment_2,
+            treatment3: response.data[0].antibiotic_treatment_3,
+            treatment4: response.data[0].antibiotic_treatment_4,
+            duration: response.data[0].antibiotic_duration,
+            addRecs: response.data[0].additional_recommendations,
+          });
+        } else {
+          setOutputDisplay({
+            ...outputDisplay,
+            noMatch: true,
+          });
+          // TRYING TO GET POST REQUEST WORKING
+          // let pathogenOrNo = "No"
+          // if (inputs.pathogen === "Yes") {
+          //   pathogenOrNo = inputs.pathogenDropdownSelection
+          // }
+          // let necOrNo = "No"
+          // if (inputs.nec === "Yes") {
+          //   necOrNo = inputs.necDropdownSelection
+          // }
+          // const newOutput = {
+          //   time_sent: inputs.os,
+          //   pathogen_isolated: pathogenOrNo,
+          //   site_of_infection: infectionSite,
+          //   abdominal_involvement: necOrNo,
+          //   antibiotic_treatment: "[INPUT NEEDED]",
+          //   antibiotic_treatment_1: "[INPUT NEEDED]",
+          //   antibiotic_treatment_2: "[INPUT NEEDED]",
+          //   antibiotic_treatment_3: "[INPUT NEEDED]",
+          //   antibiotic_treatment_4: "[INPUT NEEDED]",
+          //   antibiotic_duration: "[INPUT NEEDED]",
+          //   additional_recommendations: "",
+          // }
 
-      }
+          // axios.post({
+          //   url: url,
+          //   data: newOutput,
+          // })
+          // console.log('should be posted to', url)
+        }
 
-    })
+      })
     }
     setSubmitted(true);
 
-    
+
   }
 
 
@@ -265,10 +293,8 @@ function FormComponent() {
     setValid(false);
     setShowResults(false);
     setSubmitted(false);
-    document.getElementById("input-form").reset();
     setPathogenToggle(false);
     setnecToggle(false);
-
 
     setInputs({
       ...inputs,
@@ -283,6 +309,19 @@ function FormComponent() {
       nec: "",
       necDropdownSelection: "",
     })
+    setOutputDisplay({
+      treatment: "n/a",
+      treatment1: "n/a",
+      treatment2: "n/a",
+      treatment3: "n/a",
+      treatment4: "n/a",
+      duration: "n/a",
+      addRecs: "n/a",
+      noMatch: false, 
+    })
+    document.getElementById("input-form").reset();
+
+   
   }
 
 
@@ -415,7 +454,7 @@ function FormComponent() {
             </div>
             <div className="col">
               {/* If yes is selected for the pathogen input, show this dropdown */}
-              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ visibility: pathogenToggle ? 'visible' : 'hidden' }} />
+              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ display: pathogenToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
                 <option value="E Coli">E Coli</option>
@@ -581,7 +620,7 @@ function FormComponent() {
             <div className="col">
               <input className="form-control" list="datalistOptions2" id="exampleDataList2"
                 placeholder="Type to search..." onChange={handleSelection2}
-                style={{ visibility: necToggle ? 'visible' : 'hidden' }} />
+                style={{ display: necToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions2">
                 <option value=""></option>
                 <option value="Medical NEC">Medical NEC</option>
@@ -620,16 +659,19 @@ function FormComponent() {
         <br />
         <br />
 
-        <div className="btn-toolbar" style={{justifyContent:'center'}}>
-          <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
+        <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex'  }}>
+          <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <SubmitButton onClick={onClick} className="form-button" />
           </div>
-          <div className="btn-group mr-2"style={{fontSize:'xxx-large'}}>
+          <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <ClearButton onClear={onClear} className="form-button" />
           </div>
-          {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} />}
+        </div>
+        <div style={{ justifyContent: 'center', display: 'flex'  }}>
+        {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ justifyContent: 'center', display: 'flex'  }} />}
 
         </div>
+
       </form>
       <br />
     </div>

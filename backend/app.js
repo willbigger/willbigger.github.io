@@ -58,6 +58,16 @@ app.get("/outputs", async (req, res) => {
 });
 
 
+app.post("/create-output", async (req, res) => {
+  try {
+    const myoutput = new output(req.body);
+    await myoutput.save();
+    res.send(`Created your output ${myoutput}`);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
 app.post("/create-user", async (req, res) => {
   try {
     const myuser = new User(req.body);
