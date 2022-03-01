@@ -163,6 +163,7 @@ stored as state variables.
       if (inputs.infectionSite.includes(event.target.value)) {
         let temp = inputs.infectionSite.indexOf(event.target.value)
         delete inputs.infectionSite[temp]
+        inputs.infectionSite.length -= 1;
       }
     }
     console.log(inputs.infectionSite)
@@ -296,6 +297,12 @@ stored as state variables.
     setPathogenToggle(false);
     setnecToggle(false);
     document.getElementById("input-form").reset();
+    for (let i = 0; i < inputs.infectionSite.length; i++) {
+      delete inputs.infectionSite[i];
+    }
+    inputs.infectionSite.length = 0;
+    document.querySelectorAll('input[type="checkbox"]')
+    .forEach(el => el.checked = false);
 
     setInputs({
       ...inputs,
