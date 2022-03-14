@@ -27,12 +27,9 @@ function Footer() {
             {' '}{' '}Neonatal Antibiotic Stewardship
           </Nav.Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{accentColor: '#F1F1EF'}}/>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Item style={{color: '#F1F1EF'}}> </Nav.Item>
-          </Nav>
-        </Navbar.Collapse>
+        <Nav className="me-auto">
+          <Nav.Item style={{color: '#F1F1EF'}}> </Nav.Item>
+        </Nav>  
         </Container>
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
