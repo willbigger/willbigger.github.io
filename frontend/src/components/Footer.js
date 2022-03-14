@@ -19,7 +19,7 @@ function Footer() {
       </body>  
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
-      <Navbar collapseOnSelect expand="lg" className="navbar" style={{backgroundColor: '#232D4B'}}>
+      <Navbar collapseOnSelect expand="lg" className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
       <Container >
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>

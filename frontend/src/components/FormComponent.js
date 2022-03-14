@@ -325,7 +325,7 @@ stored as state variables.
 
 
   return (
-    <div className="form-container" style={{ backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex' }}>
+    <div className="form-container" style={{ backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex', marginBottom:"75px" }}>
 
       <form className="nicu-form" id="input-form" onSubmit={onClick}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
@@ -667,7 +667,7 @@ stored as state variables.
           </div>
         </div>
         <div style={{ justifyContent: 'center', display: 'flex'  }}>
-        {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ justifyContent: 'center', display: 'flex'  }} />}
+        {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block'}} />}
 
         </div>
 

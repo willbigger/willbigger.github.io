@@ -31,7 +31,7 @@ function OutputWidget({ inputs, outputDisplay }) {
 
 
   return (
-    <div className="container" style={{ textAlign: 'center', margin: 'auto' }}>
+    <div className="container" style={{ display:"block",  margin: 'auto' , marginBottom:"25px" }}>
       <div className="row" >
         <div className="column" style={{ display: 'inline-block', textAlign: 'left', border: '1px black solid', padding: '20px' }} >
 
