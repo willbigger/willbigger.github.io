@@ -1,10 +1,25 @@
 const express = require("express");
+const cors = require("cors")
 const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/user");
 const InputSet = require("./models/inputSet");
+const Output = require("./models/output");
+
+const whitelist = ["http://localhost:3000", "https://nicu-frontend-development.herokuapp.com"]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true,
+}
 
 app.use(express.json());
+app.use(cors(corsOptions))
 
 require("dotenv/config");
 
@@ -25,6 +40,29 @@ app.get("/input-sets", async (req, res) => {
   try {
     const docs = await InputSet.find();
     res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
+app.get("/outputs", async (req, res) => {
+  try {
+    // const docs = await Output.find();
+    // const docs = await Output.find({ time_sent: "EOS", pathogen_isolated: "No", site_of_infection: "No", abdominal_involvement: "No" });
+    const docs = await Output.find({time_sent:req.query.time_sent, pathogen_isolated:req.query.pathogen_isolated, site_of_infection:req.query.site_of_infection, abdominal_involvement:req.query.abdominal_involvement });
+
+    res.send(docs);
+  } catch (err) {
+    res.send({ message: err });
+  }
+});
+
+
+app.post("/create-output", async (req, res) => {
+  try {
+    const myoutput = new output(req.body);
+    await myoutput.save();
+    res.send(`Created your output ${myoutput}`);
   } catch (err) {
     res.send({ message: err });
   }
@@ -52,12 +90,14 @@ app.post("/input-sets", async (req, res) => {
 });
 
 mongoose.connect(DB_CONNECTION_STRING)
-.then(() => {
-  console.log("Connected to the database");
-}).catch(() => {
-  console.log("Failed to connect to database.")
-});
+  .then(() => {
+    console.log("Connected to the database");
+  }).catch(() => {
+    console.log("Failed to connect to database.")
+  });
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Listening on port " + process.env.PORT);
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, () => {
+  console.log("Listening on port " + PORT);
 });
