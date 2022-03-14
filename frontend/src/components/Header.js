@@ -11,8 +11,10 @@ function Header() {
       <Navbar collapseOnSelect expand="lg" className="navbar" style={{backgroundColor: '#232D4B'}}>
       <Container >
         <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <img src={logo} style={{width:35, marginTop: -7}}></img>
-          {' '}{' '}Neonatal Antibiotic Stewardship
+          <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
+            <img src={logo} style={{width:35, marginTop: -7}}></img>
+            {' '}{' '}Neonatal Antibiotic Stewardship
+          </Nav.Link>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{accentColor: '#F1F1EF'}}/>
         <Navbar.Collapse id="responsive-navbar-nav">

@@ -10,7 +10,8 @@ function App() {
 
   return (
     <Router>
-      <div className="App" style={{backgroundColor: '#F1F1EF'}}>
+      {/* <div className="App" style={{backgroundColor: '#F1F1EF'}}> */}
+      <div className="App">
 
 
         <Header />
