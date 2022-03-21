@@ -212,12 +212,44 @@ stored as state variables.
       }
     }
     let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
+    
+    const object = {
+      [gestinial_age]: inputs.gestationalAge,
+      [postnatal_age]: inputs.postnatalAge,
+      [birth_weight]: inputs.birthWeight,
+      [current_weight]: inputs.currentWeight,
+      [time_sent]: inputs.os,
+      [pathogen_isolated]: inputs.pathogen,
+      [site_of_infection]: infectionSite,
+      [abdominal_involvement]: inputs.necDropdownSelection,
+    };
     if (inputs.pathogen == "Yes") {
       if (inputs.nec === "Yes") {
-
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.necDropdownSelection}`;
+        
+        const object = {
+          [gestinial_age]: inputs.gestationalAge,
+          [postnatal_age]: inputs.postnatalAge,
+          [birth_weight]: inputs.birthWeight,
+          [current_weight]: inputs.currentWeight,
+          [time_sent]: inputs.os,
+          [pathogen_isolated]: inputs.pathogenDropdownSelection,
+          [site_of_infection]: infectionSite,
+          [abdominal_involvement]: inputs.necDropdownSelection,
+        };
       } else {
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
+        
+        const object = {
+          [gestinial_age]: inputs.gestationalAge,
+          [postnatal_age]: inputs.postnatalAge,
+          [birth_weight]: inputs.birthWeight,
+          [current_weight]: inputs.currentWeight,
+          [time_sent]: inputs.os,
+          [pathogen_isolated]: inputs.pathogenDropdownSelection,
+          [site_of_infection]: infectionSite,
+          [abdominal_involvement]: inputs.nec,
+        };
       }
     }
 
@@ -225,6 +257,10 @@ stored as state variables.
       setValid(true)
       setShowResults(true); // changes to display only if valid input
       console.log(url)
+
+      post_url = `${base_url}/create-output`;
+      axios.post(post_url, object).then((response) => console.log("Successful post request"));
+
       axios.get(url).then((response) => {
         console.log(response)
         if (response.data.length == 1) {
