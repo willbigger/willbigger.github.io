@@ -2,43 +2,53 @@ import React, { useState } from 'react';
 
 function OutputWidget({ inputs, outputDisplay }) {
 
- /* New variables for inputs in case there were underscores
-  */
- const [inputsWithSpaces, setInputsWithSpaces] = useState({
-  pathDropdown: "",
-  necDropdown: "",
-});
-  
-  const fixSpaces = () => {
-    if(inputs.pathogenDropdownSelection === "E_Coli") {
-      setInputsWithSpaces({...inputsWithSpaces, pathDropdown: "E Coli"})
-    } else if(inputs.pathogenDropdownSelection === "Group_B_Streptococcus_(GBS)") {
-      setInputsWithSpaces({...inputsWithSpaces, pathDropdown: "Group B Streptococcus (GBS)"})
-    } else (
-      setInputsWithSpaces({...inputsWithSpaces, pathDropdown: inputs.pathogenDropdownSelection})
-    )
+  /* New variables for inputs in case there were underscores
+   */
+  const [inputsWithSpaces, setInputsWithSpaces] = useState({
+    pathDropdown: "",
+    necDropdown: "",
+  });
 
-    if(inputs.necDropdownSelection === "Medical_NEC") {
-      setInputsWithSpaces({...inputsWithSpaces, necDropdown: "Medical NEC"})
-    } else if(inputs.necDropdownSelection === "Surgical_NEC") {
-      setInputsWithSpaces({...inputsWithSpaces, necDropdown: "Surgical NEC"})
-    } else (
-      setInputsWithSpaces({...inputsWithSpaces, necDropdown: inputs.necDropdownSelection})
-    )
+  function fixSpaces(word) {
+    let newWord = ""
+    if (word.length > 1) {
+      for (let i = 0; i < word.length; i++) {
+        if (word[i] === "_") {
+          newWord += " "
+        } else {
+          newWord += word[i]
+        }
+      }
+    } else {
+      for (let i = 0; i < word[0].length; i++) {
+        if (word[0][i] === "_") {
+          newWord += " "
+        } else {
+          newWord += word[0][i]
+        }
+      }
+      if (word[0] === "No") {
+        newWord = "None"
+      }
+    }
+    
+    // console.log("old word", word, "new word:", newWord)
+    return newWord
   }
-  
 
 
 
   return (
-    <div className="container" style={{ display:"block",  margin: 'auto' , marginBottom:"25px" }}>
-      <div className="row" >
-        <div className="column" style={{ display: 'inline-block', textAlign: 'left', border: '1px black solid', padding: '20px' }} >
+    //  class="d-flex flex-column min-vh-100 align-items-center"
+    // style={{ display: "block", margin: 'auto', marginBottom: "25px" }}
+    <div className="container">
+      <div className="row flex-center" >
+        <div className="column" style={{ border: '1px black solid', padding: '20px' }} >
 
           {/* Presenting what the user inputted */}
-          <h1>Your Submission</h1>
-          <div style={{ border: '1px solid black', padding: '10px' }}>
-            <h3>Age and Weight</h3>
+          <h4 style={{textAlign:'center', textDecoration:"underline"}}>Your Submission</h4>
+          <div style={{ padding: '10px', textAlign:"left" }}>
+            <h6 style={{backgroundColor:'lightgray', textAlign:"center"}}>Age and Weight</h6>
             {/* inputs were sent from FormComponent */}
         Gestational Age: {inputs.gestationalAge} weeks
         <br />
@@ -49,87 +59,90 @@ function OutputWidget({ inputs, outputDisplay }) {
         Current Weight: {inputs.currentWeight} grams
         <br />
           </div>
-          <div style={{ border: '1px solid black', padding: '10px' }}>
+          <div style={{ padding: '10px', textAlign:"left"   }}>
 
-            <h3> Time Cultures Sent</h3>
+            <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}> Time Cultures Sent</h6>
             Onset: {inputs.os === "EOS" ? "Early-Onset Sepsis ≤72h after birth" : "Late-Onset Sepsis ≥72h after birth"}
             <br />
           </div>
-          <div style={{ border: '1px solid black', padding: '10px' }}>
+          <div style={{ padding: '10px' , textAlign:"left" }}>
 
-            <h3>Pathogen Isolation</h3>
+            <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Pathogen Isolation</h6>
             {inputs.pathogen === "Yes" ? "Pathogen isolated: " +
-              inputs.pathogenDropdownSelection : "No pathogen isolated"}
+              fixSpaces(inputs.pathogenDropdownSelection) : "No pathogen isolated"}
             <br />
           </div>
-          <div style={{ border: '1px solid black', padding: '10px' }}>
+          <div style={{ padding: '10px' , textAlign:"left" }}>
 
-            <h3>Site of Infection</h3>
-            Site identified: {inputs.infectionSite}
+            <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Site of Infection</h6>
+            Site identified: {fixSpaces(inputs.infectionSite)}
             <br />
           </div>
-          <div style={{ border: '1px solid black', padding: '10px' }}>
+          <div style={{ padding: '10px', textAlign:"left"  }}>
 
-            <h3>Abdominal Involvement</h3>
+            <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Abdominal Involvement</h6>
             {inputs.nec === "Yes" ? "Abdominal involvement is present: " +
-              inputs.necDropdownSelection : "Abdominal involvement is not present"}
+              fixSpaces(inputs.necDropdownSelection) : "Abdominal involvement is not present"}
           </div>
         </div>
 
-        <div className="column" style={{ display: 'inline-block', textAlign: 'right', border: '1px black solid', padding: '20px' }}>
+        <div className="column" style={{ textAlign: 'right', border: '1px black solid', padding: '20px' }}>
 
           {/* The output we got from the database */}
-          <h1>Recommended Treatment</h1>
+          <h4 style={{textDecoration:"underline", textAlign:'center'}}>Recommended Treatment</h4>
           <div>
             {/* If there was not EXACT match, just put this message. */}
-            <div style={{ display: outputDisplay.noMatch ? 'block' : 'none' }}>
-              There is no item in our database that matches your input. < br />
-              We’re expanding our database daily. Please stay tuned for updates!
+            <div style={{ display: outputDisplay.noMatch ? 'block' : 'none', maxWidth:"500px", textAlign:'center' }}>
+              There is no item in our database that matches your input. 
+              We’re expanding our database daily. Please stay tuned for updates! 
+              Consider discussing treatment options with infectious disease or pharmacy teams in the meantime.
         </div>
             {/* If there was an exact match, display them. */}
 
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment (pending susceptibility results):</h3>
+              <div style={{ padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment (pending susceptibility results)</h6>
                 {outputDisplay.treatment}
               </div>
 
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment Alternative Option 1:</h3>
+              <div style={{padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment Option 1</h6>
                 {outputDisplay.treatment1}
               </div>
 
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment Alternative Option 2:</h3>
+              <div style={{ padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment Option 2</h6>
                 {outputDisplay.treatment2}
               </div>
 
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment Alternative Option 3:</h3>
+              <div style={{ padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment Option 3</h6>
                 {outputDisplay.treatment3}
               </div>
 
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment Alternative Option 4:</h3>
+              <div style={{ padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment Option 4</h6>
                 {outputDisplay.treatment4}
               </div>
 
 
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Antibiotic Treatment Duration:</h3>
+              <div style={{ padding: '10px' }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Antibiotic Treatment Duration</h6>
                 {outputDisplay.duration}
               </div>
 
-
-              <div style={{ border: '1px solid black', padding: '10px' }}>
-                <h3>Additional Recommendations:</h3>
+              
+              <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none', maxWidth:"500px" }}>
+                <h6 style={{backgroundColor:'lightgray', textAlign:'center'}}>Additional Recommendations</h6>
                 {outputDisplay.addRecs}
               </div>
+      
+              
 
             </div>
           </div>
