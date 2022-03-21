@@ -325,15 +325,14 @@ stored as state variables.
 
 
   return (
-    <div className="form-container" style={{ backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex', marginBottom:"75px" }}>
+    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{justifyContent: 'center', display: 'flex', marginBottom:"100px" }}>
 
-      <form className="nicu-form" id="input-form" onSubmit={onClick}>
+      <form className="nicu-form" id="input-form" onSubmit={onClick} style={{fontSize:"smaller"}}>
         {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
         {submitted && valid ? <div className="success-message" style={{ color: "green" }}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {submitted && !valid ? <div className="failure-message" style={{ color: "red" }}>Form is incomplete.</div> : null}
-
-        <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
+        <h4 style={{ textAlign: "center"}}>Age and Weight</h4>
         <label className="form-field">Gestational Age (in weeks)</label>
 
         <br />
@@ -407,7 +406,7 @@ stored as state variables.
 
         <hr />
 
-        <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        <h4 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h4>
         {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
@@ -436,7 +435,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
+        <h4 style={{ textAlign: "center" }}>Pathogen Isolated</h4>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
         {/* Pathogen input */}
         <div className="container">
@@ -526,7 +525,7 @@ stored as state variables.
         <hr />
 
 
-        <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
+        <h4 style={{ textAlign: "center" }}>Site of Infection</h4>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
         {/* Inputs for infection sites - can select more than one */}
@@ -600,7 +599,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
-        <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
+        <h4 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h4>
         {/* Abdominal involvement inputs */}
         <div className="container">
           <div className="row">
@@ -666,7 +665,7 @@ stored as state variables.
             <ClearButton onClear={onClear} className="form-button" />
           </div>
         </div>
-        <div style={{ justifyContent: 'center', display: 'flex'  }}>
+        <div style={{ justifyContent: 'center' }}>
         {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block'}} />}
 
         </div>
