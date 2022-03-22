@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
+import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import axios from "axios"; // for get request for output data
@@ -198,6 +199,7 @@ stored as state variables.
   inputs in console log for us to see.
   */
   const [showResults, setShowResults] = useState(false); // state for displaying the output widget
+  const [showWaiting, setShowWaiting] = useState(false); // waiting state
   const onClick = (event) => {
     event.preventDefault(); // stops refresh
 
@@ -223,11 +225,13 @@ stored as state variables.
 
     if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
-      setShowResults(true); // changes to display only if valid input
+      setShowWaiting(true)
       console.log(url)
       axios.get(url).then((response) => {
         console.log(response)
         if (response.data.length == 1) {
+          setShowWaiting(false)
+          setShowResults(true); // changes to display only if valid input
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -293,6 +297,7 @@ stored as state variables.
     event.preventDefault(); // stops refresh
     setValid(false);
     setShowResults(false);
+    setShowWaiting(false);
     setSubmitted(false);
     setPathogenToggle(false);
     setnecToggle(false);
@@ -668,7 +673,7 @@ stored as state variables.
         </div>
         <div style={{ justifyContent: 'center', display: 'flex'  }}>
         {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block'}} />}
-
+        {showWaiting && <Waiting style={{ display: 'block'}} />}
         </div>
 
       </form>
