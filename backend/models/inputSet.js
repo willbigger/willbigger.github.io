@@ -5,7 +5,7 @@ const inputSet = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  podynatal_age: {
+  postnatal_age: {
     type: Number,
     required: false,
   },
@@ -17,11 +17,11 @@ const inputSet = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  time_cultures_sent: {
+  time_sent: {
     type: String,
     required: false,
   },
-  pathogen: {
+  pathogen_isolated: {
     type: String,
     required: false,
   },
