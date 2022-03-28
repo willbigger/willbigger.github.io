@@ -259,7 +259,7 @@ stored as state variables.
       console.log(url)
 
       post_url = `${base_url}/create-output`;
-      axios.post(post_url, object).then((response) => console.log("Successful post request"));
+      axios.post(post_url, object).then((response) => console.log(response));
 
       axios.get(url).then((response) => {
         console.log(response)

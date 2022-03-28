@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions))
 
-require("dotenv/config");
+//require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
@@ -60,7 +60,7 @@ app.get("/outputs", async (req, res) => {
 
 app.post("/create-output", async (req, res) => {
   try {
-    const myoutput = new inputSet(req.body);
+    const myoutput = new InputSet(req.body);
     await myoutput.save();
     res.send(`Created your output ${myoutput}`);
   } catch (err) {
