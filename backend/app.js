@@ -25,25 +25,25 @@ require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
-app.get("/", (req, res) => {
-  res.send("First request");
-});
+// app.get("/", (req, res) => {
+//   res.send("First request");
+// });
 
-app.get("/users", (req, res) => {
-  let users = ["Ethan", "Abid", "Yuxi"];
-  res.send({
-    users: users,
-  });
-});
+// app.get("/users", (req, res) => {
+//   let users = ["Ethan", "Abid", "Yuxi"];
+//   res.send({
+//     users: users,
+//   });
+// });
 
-app.get("/input-sets", async (req, res) => {
-  try {
-    const docs = await InputSet.find();
-    res.send(docs);
-  } catch (err) {
-    res.send({ message: err });
-  }
-});
+// app.get("/input-sets", async (req, res) => {
+//   try {
+//     const docs = await InputSet.find();
+//     res.send(docs);
+//   } catch (err) {
+//     res.send({ message: err });
+//   }
+// });
 
 app.get("/outputs", async (req, res) => {
   try {
@@ -60,7 +60,7 @@ app.get("/outputs", async (req, res) => {
 
 app.post("/create-output", async (req, res) => {
   try {
-    const myoutput = new output(req.body);
+    const myoutput = new InputSet(req.body);
     await myoutput.save();
     res.send(`Created your output ${myoutput}`);
   } catch (err) {
@@ -68,26 +68,26 @@ app.post("/create-output", async (req, res) => {
   }
 });
 
-app.post("/create-user", async (req, res) => {
-  try {
-    const myuser = new User(req.body);
-    await myuser.save();
-    res.send(`Created your user ${myuser}`);
-  } catch (err) {
-    res.send({ message: err });
-  }
-});
+// app.post("/create-user", async (req, res) => {
+//   try {
+//     const myuser = new User(req.body);
+//     await myuser.save();
+//     res.send(`Created your user ${myuser}`);
+//   } catch (err) {
+//     res.send({ message: err });
+//   }
+// });
 
-app.post("/input-sets", async (req, res) => {
-  try {
-    const my_input_set = new InputSet(req.body);
-    await my_input_set.save();
-    //req.query.age
-    res.send(`Created your inputSet ${my_input_set}`);
-  } catch (err) {
-    res.send({ message: err });
-  }
-});
+// app.post("/input-sets", async (req, res) => {
+//   try {
+//     const my_input_set = new InputSet(req.body);
+//     await my_input_set.save();
+//     //req.query.age
+//     res.send(`Created your inputSet ${my_input_set}`);
+//   } catch (err) {
+//     res.send({ message: err });
+//   }
+// });
 
 mongoose.connect(DB_CONNECTION_STRING)
   .then(() => {
