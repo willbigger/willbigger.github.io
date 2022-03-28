@@ -312,11 +312,11 @@ stored as state variables.
     document.querySelectorAll('input[type="checkbox"]')
     .forEach(el => el.checked = false);
 
-    inputs.os = ""
-    inputs.nec = ""
-    inputs.necDropdownSelection = ""
-    inputs.pathogen = ""
-    inputs.pathogenDropdownSelection = ""
+    // inputs.os = ""
+    // inputs.nec = ""
+    // inputs.necDropdownSelection = ""
+    // inputs.pathogen = ""
+    // inputs.pathogenDropdownSelection = ""
     setInputs({
       ...inputs,
       gestationalAge: "",
