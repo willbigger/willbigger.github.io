@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const inputSet = new mongoose.Schema({
-  gestinial_age: {
+  gestational_age: {
     type: Number,
     required: false,
   },
