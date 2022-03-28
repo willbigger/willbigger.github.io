@@ -19,24 +19,17 @@ function Footer() {
       </body>  
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
-      <Navbar collapseOnSelect expand="lg" className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
+      <Navbar className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
       <Container >
-        <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
-            <img src={logo} style={{width:35, marginTop: -7}}></img>
-            {' '}{' '}Neonatal Antibiotic Stewardship
-          </Nav.Link>
-        </Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Item style={{color: '#F1F1EF'}}> </Nav.Item>
-        </Nav>  
         </Container>
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
             <img src={devhub} style={{width:60, marginTop: -7}}></img>
           </Nav.Link>
         </Navbar.Brand>
+        
       </Navbar>
+      
     </div>
   );
 }
