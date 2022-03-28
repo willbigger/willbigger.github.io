@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions))
 
-//require("dotenv/config");
+require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
