@@ -12,8 +12,8 @@ function Header() {
       <Container >
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
-            <img src={logo} style={{width:35, marginTop: -7}}></img>
-            {' '}{' '}Neonatal Antibiotic Stewardship
+            {/* <img src={logo} style={{width:35, marginTop: -7}}></img> */}
+            Neonatal Antibiotic Stewardship
           </Nav.Link>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{accentColor: '#F1F1EF'}}/>
