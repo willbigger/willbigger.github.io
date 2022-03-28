@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
+import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import axios from "axios"; // for get request for output data
@@ -258,7 +259,9 @@ stored as state variables.
   inputs in console log for us to see.
   */
   const [showResults, setShowResults] = useState(false); // state for displaying the output widget
+  const [showWaiting, setShowWaiting] = useState(false); // waiting state
   const onClick = (event) => {
+    console.log(inputs)
     event.preventDefault(); // stops refresh
 
     // creating the right URL to go to
@@ -315,15 +318,18 @@ stored as state variables.
 
     if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
       setValid(true)
-      setShowResults(true); // changes to display only if valid input
+      setShowWaiting(true)
+      //console.log(url)
       console.log(url)
 
       const post_url = `${base_url}/create-output`;
       axios.post(post_url, object).then((response) => console.log(response));
 
       axios.get(url).then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.data.length == 1) {
+          setShowWaiting(false)
+          setShowResults(true); // changes to display only if valid input
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -386,9 +392,11 @@ stored as state variables.
   strings/arrays.
   */
   const onClear = (event) => {
+    console.log(inputs)
     event.preventDefault(); // stops refresh
     setValid(false);
     setShowResults(false);
+    setShowWaiting(false);
     setSubmitted(false);
     setPathogenToggle(false);
     setnecToggle(false);
@@ -400,6 +408,11 @@ stored as state variables.
     document.querySelectorAll('input[type="checkbox"]')
       .forEach(el => el.checked = false);
 
+    // inputs.os = ""
+    // inputs.nec = ""
+    // inputs.necDropdownSelection = ""
+    // inputs.pathogen = ""
+    // inputs.pathogenDropdownSelection = ""
     setInputs({
       ...inputs,
       gestationalAge: "",
@@ -559,7 +572,12 @@ stored as state variables.
             </div>
             <div className="col">
               {/* If yes is selected for the pathogen input, show this dropdown */}
-              <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." onChange={handleSelection} style={{ display: pathogenToggle ? 'block' : 'none' }} />
+              <input 
+                className="form-control" 
+                list="datalistOptions" id="form-control" 
+                placeholder="Type to search..." 
+                onChange={handleSelection} 
+                style={{ display: pathogenToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
                 <option value="E Coli">E Coli</option>
@@ -738,7 +756,7 @@ stored as state variables.
 
 
             <div className="col">
-              <input className="form-control" list="datalistOptions2" id="exampleDataList2"
+              <input className="form-control" list="datalistOptions2" id="form-control"
                 placeholder="Type to search..." onChange={handleSelection2}
                 style={{ display: necToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions2">
