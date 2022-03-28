@@ -1,10 +1,11 @@
 import React from 'react';
+import loadings from './loadings'
 
 function Waiting() {
 
   return (
     <div>
-      <p>waiting</p>
+      <img src={loadings} style={{display:"block"}}></img>
     </div>
 
   );
