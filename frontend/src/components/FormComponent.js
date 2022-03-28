@@ -214,7 +214,7 @@ stored as state variables.
     let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
     
     const object = {
-      ['gestinial_age']: inputs.gestationalAge,
+      ['gestational_age']: inputs.gestationalAge,
       ['postnatal_age']: inputs.postnatalAge,
       ['birth_weight']: inputs.birthWeight,
       ['current_weight']: inputs.currentWeight,
@@ -228,7 +228,7 @@ stored as state variables.
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.necDropdownSelection}`;
         
         const object = {
-          ['gestinial_age']: inputs.gestationalAge,
+          ['gestational_age']: inputs.gestationalAge,
           ['postnatal_age']: inputs.postnatalAge,
           ['birth_weight']: inputs.birthWeight,
           ['current_weight']: inputs.currentWeight,
@@ -241,7 +241,7 @@ stored as state variables.
         url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
         
         const object = {
-          ['gestinial_age']: inputs.gestationalAge,
+          ['gestational_age']: inputs.gestationalAge,
           ['postnatal_age']: inputs.postnatalAge,
           ['birth_weight']: inputs.birthWeight,
           ['current_weight']: inputs.currentWeight,
