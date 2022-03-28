@@ -29,16 +29,27 @@ function FormComponent() {
 stored as state variables.
 */
   const [outputDisplay, setOutputDisplay] = useState({
-    treatment: "n/a",
-    treatment1: "n/a",
-    treatment2: "n/a",
-    treatment3: "n/a",
-    treatment4: "n/a",
-    duration: "n/a",
-    addRecs: "n/a",
+    treatment: "",
+    treatment1: "",
+    treatment2: "",
+    treatment3: "",
+    treatment4: "",
+    duration: "",
+    addRecs: "",
     noMatch: false, // a toggle for whether we had an output match or not
   });
 
+  /* These are the versions of inputs
+  stored in case the blood toggle is reverted
+  */
+  const [prevInputs, setPrevInputs] = useState({
+    os1: "",
+    pathogen1: "",
+    pathogenDropdownSelection1: "",
+    infectionSite1: [],
+    nec1: "",
+    necDropdownSelection1: "",
+  });
 
   /*
   This is the variable 'submitted' stored as a state variable.
@@ -49,6 +60,11 @@ stored as state variables.
   This is a toggle for the pathogen input to determine whether to display the dropdown.
    */
   const [pathogenToggle, setPathogenToggle] = useState(false); // Initially false
+
+  /*
+  This is a toggle for the blood site of infection input to determine whether to display the dropdown.
+   */
+  const [bloodToggle, setBloodToggle] = useState(false); // Initially false
 
   /*
   This is a toggle for the abdominal involvement input to determine whether to display the dropdown.
@@ -103,6 +119,7 @@ stored as state variables.
   */
   const handleOS = (event) => {
     setInputs({ ...inputs, os: event.target.value })
+    setPrevInputs({ ...inputs, os1: event.target.value })
   }
 
 
@@ -114,6 +131,7 @@ stored as state variables.
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
+    setPrevInputs({ ...inputs, pathogen1: event.target.value })
     if (event.target.value === "Yes") {
       setPathogenToggle(true)
     }
@@ -129,10 +147,13 @@ stored as state variables.
   const handleSelection = (event) => {
     if (event.target.value === "E Coli") {
       setInputs({ ...inputs, pathogenDropdownSelection: "E_Coli" })
+      setPrevInputs({ ...inputs, pathogenDropdownSelection1: "E_Coli" })
     } else if (event.target.value === "Group B Streptococcus (GBS)") {
       setInputs({ ...inputs, pathogenDropdownSelection: "Group_B_Streptococcus_(GBS)" })
+      setPrevInputs({ ...inputs, pathogenDropdownSelection1: "Group_B_Streptococcus_(GBS)" })
     } else {
       setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
+      setPrevInputs({ ...inputs, pathogenDropdownSelection1: event.target.value })
     }
   }
 
@@ -143,10 +164,13 @@ stored as state variables.
   const handleSelection2 = (event) => {
     if (event.target.value === "Medical NEC") {
       setInputs({ ...inputs, necDropdownSelection: "Medical_NEC" })
+      setPrevInputs({ ...inputs, necDropdownSelection1: "Medical_NEC" })
     } else if (event.target.value === "Surgical NEC") {
       setInputs({ ...inputs, necDropdownSelection: "Surgical_NEC" })
+      setPrevInputs({ ...inputs, necDropdownSelection1: "Surgical_NEC" })
     } else {
       setInputs({ ...inputs, necDropdownSelection: event.target.value })
+      setPrevInputs({ ...inputs, necDropdownSelection1: event.target.value })
     }
   }
 
@@ -157,16 +181,52 @@ stored as state variables.
   const handleInfectionSite = (event) => {
     if (event.target.checked) {
       if (!inputs.infectionSite.includes(event.target.value)) {
+        console.log("does not include, adding", event.target.value)
         inputs.infectionSite.push(event.target.value)
+        // prevInputs.infectionSite1.push(event.target.value)
+        console.log("inputs after pushing:", inputs, "and prevInputs:", prevInputs)
+        if (event.target.value === "Blood") {
+          setBloodToggle(true)
+        }
       }
     } else {
       if (inputs.infectionSite.includes(event.target.value)) {
         let temp = inputs.infectionSite.indexOf(event.target.value)
         delete inputs.infectionSite[temp]
         inputs.infectionSite.length -= 1;
+        // let temp1 = prevInputs.infectionSite1.indexOf(event.target.value)
+        // delete prevInputs.infectionSite1[temp1]
+        // prevInputs.infectionSite1.length -= 1;
+        if (event.target.value === "Blood") {
+          setBloodToggle(false)
+          //  os: "",
+          // pathogen: "",
+          // pathogenDropdownSelection: "",
+          // nec: "",
+          // necDropdownSelection: "",
+          console.log("setting inputs to previous inputs")
+          setInputs({ ...setInputs, os: prevInputs.os1, pathogen: prevInputs.pathogen1, pathogenDropdownSelection: prevInputs.pathogenDropdownSelection1, nec: prevInputs.nec1, necDropdownSelection: prevInputs.necDropdownSelection1 })
+        }
+        console.log("inputs reverted", inputs)
       }
     }
-    console.log(inputs.infectionSite)
+    console.log("infection site", inputs.infectionSite)
+  }
+
+  /*
+   Handler for the blood dropdown selection visibility.
+   */
+  const handleBloodSelection = (event) => {
+    if (event.target.value === "CSF Negative") {
+      setInputs({ ...inputs, os: "EOS", pathogen: "Yes", pathogenDropdownSelection: "E_Coli", nec: "No" })
+    } else if (event.target.value === "CSF Pending") {
+      setInputs({ ...inputs, os: "EOS", pathogen: "Yes", pathogenDropdownSelection: "E_Coli", nec: "No" })
+      if (!inputs.infectionSite.includes("CSF")) {
+        inputs.infectionSite.push("CSF")
+      }
+    }
+    console.log("infectionsite is now", inputs.infectionSite)
+    console.log("inputs changed to", inputs)
   }
 
   /*
@@ -188,12 +248,12 @@ stored as state variables.
   Handler for the submit variable.
   First it prevents the automatic refresh so 
   that the user gets visual confirmation of submission.
-
+   
   Then it checks that every input has been filled out 
   (for the checkbox ones, it makes sure that at least
   one selection has been made). If the form is valid, 
   it sets Valid to true.
-
+   
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
@@ -284,7 +344,7 @@ stored as state variables.
   Handler for clicking the Clear button.
   First it prevents the automatic refresh so 
   that the user gets visual confirmation of submission.
-
+   
   Then it resets Valid, Results, and Submitted and resets
   the form. It also sets all the inputs back to empty
   strings/arrays.
@@ -302,7 +362,7 @@ stored as state variables.
     }
     inputs.infectionSite.length = 0;
     document.querySelectorAll('input[type="checkbox"]')
-    .forEach(el => el.checked = false);
+      .forEach(el => el.checked = false);
 
     setInputs({
       ...inputs,
@@ -310,30 +370,40 @@ stored as state variables.
       postnatalAge: "",
       birthWeight: "",
       currentWeight: "",
+      os: "",
+      pathogen: "",
+      pathogenDropdownSelection: "",
+      infectionSite: [],
+      nec: "",
+      necDropdownSelection: "",
     })
     setOutputDisplay({
-      treatment: "n/a",
-      treatment1: "n/a",
-      treatment2: "n/a",
-      treatment3: "n/a",
-      treatment4: "n/a",
-      duration: "n/a",
-      addRecs: "n/a",
-      noMatch: false, 
+      treatment: "",
+      treatment1: "",
+      treatment2: "",
+      treatment3: "",
+      treatment4: "",
+      duration: "",
+      addRecs: "",
+      noMatch: false,
+    })
+    setPrevInputs({
+      ...inputs,
+      os1: "",
+      pathogen1: "",
+      pathogenDropdownSelection1: "",
+      infectionSite1: [],
+      nec1: "",
+      necDropdownSelection1: "",
     })
   }
 
 
   return (
-    <div className="form-container" style={{ backgroundColor: '#F1F1EF', justifyContent: 'center', display: 'flex', marginBottom:"75px" }}>
+    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px" }}>
 
-      <form className="nicu-form" id="input-form" onSubmit={onClick}>
-        {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
-        {submitted && valid ? <div className="success-message" style={{ color: "green" }}>Success!</div> : null}
-        {/* If the form is been submitted but is NOT Valid, print error message instead. */}
-        {submitted && !valid ? <div className="failure-message" style={{ color: "red" }}>Form is incomplete.</div> : null}
-
-        <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
+      <form className="nicu-form" id="input-form" onSubmit={onClick} style={{ fontSize: "smaller" }}>
+        <h4 style={{ textAlign: "center" }}>Age and Weight</h4>
         <label className="form-field">Gestational Age (in weeks)</label>
 
         <br />
@@ -407,7 +477,7 @@ stored as state variables.
 
         <hr />
 
-        <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        <h4 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h4>
         {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
@@ -436,7 +506,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
+        <h4 style={{ textAlign: "center" }}>Pathogen Isolated</h4>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
         {/* Pathogen input */}
         <div className="container">
@@ -526,81 +596,96 @@ stored as state variables.
         <hr />
 
 
-        <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
+        <h4 style={{ textAlign: "center" }}>Site of Infection</h4>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
         {/* Inputs for infection sites - can select more than one */}
-        <input
-          value="No"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {/* All of these inputs have the same name 
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                value="No"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {/* All of these inputs have the same name 
           so that they relate to each other?
 
           ?? not sure if they need the same name or not
           actually since they have the same handler??
            */}
-        {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
+              {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
 
-        <br />
-        <input
-          value="Blood"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {' '}<label className="form-field">Blood</label>
+              <br />
+              <input
+                value="Blood"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {' '}<label className="form-field">Blood</label>
 
-        <br />
+              <br />
 
-        <input
-          value="Urine"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {' '}<label className="form-field">Urine</label>
+              <input
+                value="Urine"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {' '}<label className="form-field">Urine</label>
 
-        <br />
+              <br />
 
-        <input
-          value="CSF"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {' '}<label className="form-field">CSF</label>
+              <input
+                value="CSF"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {' '}<label className="form-field">CSF</label>
 
-        <br />
+              <br />
 
-        <input
-          value="Peritoneal"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {' '}<label className="form-field">Peritoneal</label>
+              <input
+                value="Peritoneal"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {' '}<label className="form-field">Peritoneal</label>
 
-        <br />
+              <br />
 
-        <input
-          value="Skin_with_Cellulitis"
-          onChange={handleInfectionSite}
-          type="checkbox"
-          className="form-field"
-          name="infectionSite" />
-        {' '}<label className="form-field">Skin with Cellulitis</label>
+              <input
+                value="Skin_with_Cellulitis"
+                onChange={handleInfectionSite}
+                type="checkbox"
+                className="form-field"
+                name="infectionSite" />
+              {' '}<label className="form-field">Skin with Cellulitis</label>
 
-        <br />
+              <br />
+            </div>
+            <div className="col">
+              <input className="form-control" list="datalistOptions1" id="bloodDataList" placeholder="Type to search..." onChange={handleBloodSelection} style={{ display: bloodToggle ? 'block' : 'none' }} />
+              <datalist id="datalistOptions1">
+                <option value="CSF Negative">CSF Negative</option>
+                <option value="CSF Pending">CSF Pending</option>
+              </datalist>
+
+            </div>
+          </div>
+        </div>
+
         {/* If the form is submitted and no infection site 
         is selected, print this. */}
         {submitted && (inputs.infectionSite.length === 0) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
-        <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
+        <h4 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h4>
         {/* Abdominal involvement inputs */}
         <div className="container">
           <div className="row">
@@ -658,7 +743,7 @@ stored as state variables.
         <br />
         <br />
 
-        <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex'  }}>
+        <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <SubmitButton onClick={onClick} className="form-button" />
           </div>
@@ -666,8 +751,12 @@ stored as state variables.
             <ClearButton onClear={onClear} className="form-button" />
           </div>
         </div>
-        <div style={{ justifyContent: 'center', display: 'flex'  }}>
-        {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block'}} />}
+        {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
+        {submitted && valid ? <div className="success-message" style={{ color: "green", textAlign:'center' }}>Success!</div> : null}
+        {/* If the form is been submitted but is NOT Valid, print error message instead. */}
+        {submitted && !valid ? <div className="failure-message" style={{ color: "red", textAlign:'center' }}>Form is incomplete.</div> : null}
+        <div style={{ justifyContent: 'center' }}>
+          {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
 
         </div>
 
