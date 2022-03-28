@@ -12,7 +12,9 @@ function OutputWidget({ inputs, outputDisplay }) {
 
   function fixSpaces(word) {
     let newWord = ""
-    if (word.length > 1) {
+    console.log("word length", word.length)
+    if (typeof(word) === "string") {
+      console.log(word, "is a string")
       for (let i = 0; i < word.length; i++) {
         if (word[i] === "_") {
           newWord += " "
@@ -21,18 +23,22 @@ function OutputWidget({ inputs, outputDisplay }) {
         }
       }
     } else {
-      for (let i = 0; i < word[0].length; i++) {
-        if (word[0][i] === "_") {
-          newWord += " "
-        } else {
-          newWord += word[0][i]
+      for(let i = 0; i < word.length; i++){
+        let wordInArray = ""
+        for(let letter = 0; letter < word[i].length; letter++) {
+          if (word[i][letter] === "_" ) {
+            wordInArray += " "
+          } else {
+            wordInArray += word[i][letter]
+          }
         }
+        newWord += wordInArray + ", "
       }
-      if (word[0] === "No") {
-        newWord = "None"
-      }
+      newWord = newWord.replace(/,\s*$/, "");
     }
-
+    if (word[0] === "No") {
+      newWord = "None"
+    }
     // console.log("old word", word, "new word:", newWord)
     return newWord
   }
@@ -76,7 +82,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Site of Infection</h6>
-            Site identified: {fixSpaces(inputs.infectionSite)}
+            Site(s) identified: {fixSpaces(inputs.infectionSite)}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
@@ -139,7 +145,7 @@ function OutputWidget({ inputs, outputDisplay }) {
                     </div>
                   </div>
                   <div className="col">
-                    <img src={arrow} style={{height:"375px", width:"auto"}}></img>
+                    <img src={arrow} style={{ height: "375px", width: "auto" }}></img>
                   </div>
 
                 </div>
