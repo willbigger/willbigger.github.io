@@ -100,6 +100,11 @@ stored as state variables.
       if (event.target.value === "Blood") {
         setBloodToggle(true)
       }
+    } else {
+      inputs.infectionSite.delete(event.target.value)
+      if (event.target.value === "Blood") {
+        setBloodToggle(false)
+      }
     }
   }
 
