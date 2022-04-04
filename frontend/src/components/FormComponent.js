@@ -63,12 +63,6 @@ stored as state variables.
    */
   const [necToggle, setnecToggle] = useState(false); // Initially false
 
-  // /*
-  // This is the variable 'valid' stored as a state variable,
-  // which will be used to make sure all inputs are filled out.
-  //  */
-  // const [valid, setValid] = useState(false); // Initially false
-
   /*
   Handler for the pathogen variable.
   Similar to the onset variable, it
@@ -133,8 +127,6 @@ stored as state variables.
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-  // const [showResults, setShowResults] = useState(false); // state for displaying the output widget
-  // const [showWaiting, setShowWaiting] = useState(false); // waiting state
 
   const onClick = (event) => {
 
@@ -197,9 +189,6 @@ stored as state variables.
       }
 
       console.log("final url", url)
-
-      // setValid(true)
-      // setShowWaiting(true)
       setStatus('loading')
 
       const post_url = `${base_url}/create-output`;
@@ -207,9 +196,7 @@ stored as state variables.
 
       axios.get(url).then((response) => {
         if (response.data.length == 1) {
-          // setShowWaiting(false)
           setStatus('loaded')
-          // setShowResults(true); // changes to display only if valid input
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -245,11 +232,7 @@ stored as state variables.
   strings/arrays.
   */
   const onClear = (event) => {
-    // event.preventDefault(); // stops refresh
-    // setValid(false);
-    // setShowResults(false);
-    // setShowWaiting(false);
-    // setSubmitted(false);
+    event.preventDefault(); // stops refresh
     setStatus('initial')
     setPathogenToggle(false);
     setnecToggle(false);
@@ -471,12 +454,6 @@ stored as state variables.
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
-              {/* All of these inputs have the same name 
-          so that they relate to each other?
-
-          ?? not sure if they need the same name or not
-          actually since they have the same handler??
-           */}
               {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
 
               <br />
