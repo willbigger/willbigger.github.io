@@ -400,6 +400,7 @@ stored as state variables.
     setSubmitted(false);
     setPathogenToggle(false);
     setnecToggle(false);
+    setBloodToggle(false);
     document.getElementById("input-form").reset();
     for (let i = 0; i < inputs.infectionSite.length; i++) {
       delete inputs.infectionSite[i];
