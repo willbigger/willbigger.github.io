@@ -71,6 +71,17 @@ stored as state variables.
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setPathogenToggle(true)
+    }
+    else {
+      setPathogenToggle(false)
+    }
+    */
+  }
+
+  const handlePathogenToggle = (event) => {
     if (event.target.value === "Yes") {
       setPathogenToggle(true)
     }
@@ -89,6 +100,11 @@ stored as state variables.
       if (event.target.value === "Blood") {
         setBloodToggle(true)
       }
+    } else {
+      inputs.infectionSite.delete(event.target.value)
+      if (event.target.value === "Blood") {
+        setBloodToggle(false)
+      }
     }
   }
 
@@ -106,6 +122,17 @@ stored as state variables.
   */
   const handleNEC = (event) => {
     setInputs({ ...inputs, nec: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setnecToggle(true)
+    }
+    else {
+      setnecToggle(false)
+    }
+    */
+  }
+
+  const handleNECToggle = (event) => {
     if (event.target.value === "Yes") {
       setnecToggle(true)
     }
@@ -144,55 +171,19 @@ stored as state variables.
         }
       }
       let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
-
-
-      const object = {
-        ['gestational_age']: inputs.gestationalAge,
-        ['postnatal_age']: inputs.postnatalAge,
-        ['birth_weight']: inputs.birthWeight,
-        ['current_weight']: inputs.currentWeight,
-        ['time_sent']: inputs.os,
-        ['pathogen_isolated']: inputs.pathogen,
-        ['site_of_infection']: infectionSite,
-        ['abdominal_involvement']: inputs.nec,
-      };
-
       if (infectionSite === "Blood") {
         if (inputs.bloodDropdownSelection === "CSF Negative") {
           url = `${base_url}/outputs?time_sent=EOS&pathogen_isolated=E_Coli&site_of_infection=Blood&abdominal_involvement=No`;
-
-          const object = {
-            ['gestational_age']: inputs.gestationalAge,
-            ['postnatal_age']: inputs.postnatalAge,
-            ['birth_weight']: inputs.birthWeight,
-            ['current_weight']: inputs.currentWeight,
-            ['time_sent']: "EOS",
-            ['pathogen_isolated']: "E_Coli",
-            ['site_of_infection']: "Blood",
-            ['abdominal_involvement']: "No",
-          };
-
         } else if (inputs.bloodDropdownSelection === "CSF Pending") {
           url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=CSF&abdominal_involvement=No`;
-
-          const object = {
-            ['gestational_age']: inputs.gestationalAge,
-            ['postnatal_age']: inputs.postnatalAge,
-            ['birth_weight']: inputs.birthWeight,
-            ['current_weight']: inputs.currentWeight,
-            ['time_sent']: "EOS",
-            ['pathogen_isolated']: "E_Coli",
-            ['site_of_infection']: "CSF",
-            ['abdominal_involvement']: "No",
-          };
         }
       }
 
       console.log("final url", url)
       setStatus('loading')
 
-      const post_url = `${base_url}/create-output`;
-      axios.post(post_url, object).then((response) => console.log(response));
+      const post_url = `${base_url}/create-input`;
+      axios.post(post_url, inputs).then((response) => console.log(response));
 
       axios.get(url).then((response) => {
         if (response.data.length == 1) {
@@ -384,6 +375,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -427,6 +419,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -532,6 +525,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
@@ -570,6 +564,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
