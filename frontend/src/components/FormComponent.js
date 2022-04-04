@@ -77,6 +77,17 @@ stored as state variables.
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setPathogenToggle(true)
+    }
+    else {
+      setPathogenToggle(false)
+    }
+    */
+  }
+
+  const handlePathogenToggle = (event) => {
     if (event.target.value === "Yes") {
       setPathogenToggle(true)
     }
@@ -112,6 +123,17 @@ stored as state variables.
   */
   const handleNEC = (event) => {
     setInputs({ ...inputs, nec: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setnecToggle(true)
+    }
+    else {
+      setnecToggle(false)
+    }
+    */
+  }
+
+  const handleNECToggle = (event) => {
     if (event.target.value === "Yes") {
       setnecToggle(true)
     }
@@ -401,6 +423,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -444,6 +467,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -555,6 +579,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
@@ -593,6 +618,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
