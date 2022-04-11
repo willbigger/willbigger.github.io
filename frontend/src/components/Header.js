@@ -1,6 +1,5 @@
 import React from "react";
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import logo from './favicon.png';
 
 function Header() {
   
@@ -12,7 +11,6 @@ function Header() {
       <Container >
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="/" style={{text_decoration: 'none', color: 'white', fontSize:'larger'}}>
-            <img src={logo} style={{width:35, marginTop: -7}}></img>
             Neonatal Antibiotic Stewardship
           </Nav.Link>
           </Navbar.Brand>
