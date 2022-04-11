@@ -23,14 +23,14 @@ function OutputWidget({ inputs, outputDisplay }) {
 
 
   return (
-    <div className="container" style={{minWidth: '725px'}}>
+    <div className="container">
       <div className="row" >
-        <div className="col" style={{ border: '1px black solid', padding: '20px' }} >
+        <div className="col" style={{ border: '1px black solid', padding: '20px', fontSize:"larger" }} >
 
           {/* Presenting what the user inputted */}
-          <h4 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h4>
+          <h2 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h2>
           <div style={{ padding: '10px', textAlign: "left" }}>
-            <h6 style={{ backgroundColor: 'lightgray', textAlign: "center" }}>Age and Weight</h6>
+            <h5 style={{ backgroundColor: 'lightgray', textAlign: "center" }}>Age and Weight</h5>
             {/* inputs were sent from FormComponent */}
         Gestational Age: {inputs.gestationalAge} weeks
         <br />
@@ -43,26 +43,26 @@ function OutputWidget({ inputs, outputDisplay }) {
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h6>
+            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h5>
             Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Pathogen Isolation</h6>
+            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Pathogen Isolation</h5>
             {inputs.pathogen != "No" ? "Pathogen isolated: " +
               fixSpaces(inputs.pathogen) : "No pathogen isolated"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Site of Infection</h6>
+            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Site of Infection</h5>
             Site(s) identified: {fixSpaces(inputs.infectionSite)}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Abdominal Involvement</h6>
+            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Abdominal Involvement</h5>
             {inputs.nec != "No" ? "Abdominal involvement is present: " +
               fixSpaces(inputs.nec) : "Abdominal involvement is not present"}
           </div>
@@ -71,51 +71,51 @@ function OutputWidget({ inputs, outputDisplay }) {
         <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px' }}>
 
           {/* The output we got from the database */}
-          <h4 style={{ textDecoration: "underline", textAlign: 'center' }}>Recommended Treatment</h4>
+          <h2 style={{ textDecoration: "underline", textAlign: 'center', minWidth: '400px' }}>Recommended Treatment</h2>
           <div>
             {/* If there was not EXACT match, just put this message. */}
             <div style={{ display: outputDisplay.noMatch ? 'block' : 'none', maxWidth: "500px", textAlign: 'center' }}>
               There is no item in our database that matches your input.
               We’re expanding our database daily. Please stay tuned for updates!
-              Consider discussing treatment options with infectious disease or pharmacy teams in the meantime.
+              Consider discussing treatment options with your neonatal, infectious disease or pharmacy teams in the meantime.
             </div>
             {/* If there was an exact match, display them. */}
 
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
 
               <div style={{ padding: '10px' }}>
-                <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending susceptibility results)</h6>
+                <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending susceptibility results)</h5>
                 {outputDisplay.treatment}
               </div>
               <div className="container" dispaly="inline-block">
                 <div className="row">
                   <div className="col">
                     <div style={{ padding: '10px' }}>
-                      <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 1</h6>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 1</h5>
                       {outputDisplay.treatment1}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 2</h6>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 2</h5>
                       {outputDisplay.treatment2}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 3</h6>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 3</h5>
                       {outputDisplay.treatment3}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 4</h6>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 4</h5>
                       {outputDisplay.treatment4}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h6>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
                       {outputDisplay.duration}
                     </div>
                   </div>
@@ -130,7 +130,7 @@ function OutputWidget({ inputs, outputDisplay }) {
 
 
               <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none', maxWidth: "500px" }}>
-                <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h6>
+                <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h5>
                 {outputDisplay.addRecs}
               </div>
 

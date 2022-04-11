@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
+
 // import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
@@ -71,14 +73,6 @@ stored as state variables.
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
-    /*
-    if (event.target.value === "Yes") {
-      setPathogenToggle(true)
-    }
-    else {
-      setPathogenToggle(false)
-    }
-    */
   }
 
   const handlePathogenToggle = (event) => {
@@ -112,7 +106,7 @@ stored as state variables.
    Handler for the blood dropdown selection visibility.
    */
   const handleBloodSelection = (event) => {
-    setInputs({ ...inputs, bloodDropdownSelection: event.target.value })
+    setInputs({ ...inputs, bloodDropdownSelection: event })
   }
 
   /*
@@ -227,42 +221,43 @@ stored as state variables.
     setStatus('initial')
     setPathogenToggle(false);
     setnecToggle(false);
+    setBloodToggle(false);
     document.getElementById("input-form").reset();
     inputs.infectionSite.clear()
     document.querySelectorAll('input[type="checkbox"]')
       .forEach(el => el.checked = false);
 
-    
-    inputs.gestationalAge = ""
-    inputs.postnatalAge = ""
-    inputs.antibiotic_duration = ""
-    inputs.birthWeight = ""
-    inputs.currentWeight = ""
-    inputs.os = ""
-    inputs.pathogen = ""
-    inputs.bloodDropdownSelection = ""
-    inputs.nec = ""
-    
+    setInputs({
+      gestationalAge: "",
+      postnatalAge: "",
+      antibiotic_duration: "",
+      birthWeight: "",
+      currentWeight: "",
+      os: "",
+      pathogen: "",
+      bloodDropdownSelection: "",
+      nec: ""
+    })
 
-    outputDisplay.treatment = ""
-    outputDisplay.treatment1 = ""
-    outputDisplay.treatment2 = ""
-    outputDisplay.treatment3 = "" 
-    outputDisplay.treatment4 = ""
-    outputDisplay.duration = ""
-    outputDisplay.addRecs = ""
-    outputDisplay.noMatch = false
-    
-    console.log('inputs and outputs after clear', inputs, outputDisplay)
+    setOutputDisplay({
+      treatment: "",
+      treatment1: "",
+      treatment2: "",
+      treatment3: "",
+      treatment4: "",
+      duration: "",
+      addRecs: "",
+      noMatch: false
+    })
 
   }
 
 
   return (
-    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px" }}>
+    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
 
       <form className="nicu-form" id="input-form" onSubmit={onClick} style={{ fontSize: "smaller" }}>
-        <h4 style={{ textAlign: "center" }}>Age and Weight</h4>
+        <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
         <label className="form-field">Gestational Age (in weeks)</label>
 
         <br />
@@ -331,12 +326,12 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Current Weight input is empty */}
-        {(status === 'invalid')  && !inputs.currentWeight ?
+        {(status === 'invalid') && !inputs.currentWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
 
-        <h4 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h4>
+        <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
         {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
@@ -361,11 +356,11 @@ stored as state variables.
         {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
-        {(status === 'invalid')  && !inputs.os ?
+        {(status === 'invalid') && !inputs.os ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
-        <h4 style={{ textAlign: "center" }}>Pathogen Isolated</h4>
+        <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
         {/* Pathogen input */}
         <div className="container">
@@ -383,31 +378,41 @@ stored as state variables.
             </div>
             <div className="col">
               {/* If yes is selected for the pathogen input, show this dropdown */}
-              <input
+              {/* <input
                 className="form-control"
                 list="datalistOptions" id="form-control"
                 placeholder="Type to search..."
                 onChange={(event) => setInputs({ ...inputs, pathogen: event.target.value.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions">
-                <option value=""></option>
-                <option value="E Coli">E Coli</option>
-                <option value="Klebsiella">Klebsiella</option>
-                <option value="CoNS">CoNS</option>
-                <option value="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</option>
-                <option value="GBS">GBS</option>
-                <option value="MSSA">MSSA</option>
-                <option value="MRSA">MRSA</option>
-                <option value="Pseudomonas">Pseudomonas</option>
-                <option value="Enterobacter">Enterobacter</option>
-                <option value="Enterococcus">Enterococcus</option>
-              </datalist>
+
+              </datalist> */}
+              <DropdownButton
+                alignRight
+                title={(inputs.pathogen == "No" || inputs.pathogen == "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
+                id="dropdown-menu-align-right"
+                variant="secondary-light"
+                onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
+                style={{ display: pathogenToggle ? 'block' : 'none' }}
+              >
+                <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
+                <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
+                <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
+                <Dropdown.Item eventKey="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</Dropdown.Item>
+                <Dropdown.Item eventKey="GBS">GBS</Dropdown.Item>
+                <Dropdown.Item eventKey="MSSA">MSSA</Dropdown.Item>
+                <Dropdown.Item eventKey="MRSA">MRSA</Dropdown.Item>
+                <Dropdown.Item eventKey="Pseudomonas">Pseudomonas</Dropdown.Item>
+                <Dropdown.Item eventKey="Enterobacter">Enterobacter</Dropdown.Item>
+                <Dropdown.Item eventKey="Enterococcus">Enterococcus</Dropdown.Item>
+              </DropdownButton>
+
             </div>
           </div>
         </div>
         {/* If the user selects Yes but doesn't specify
         something from the dropdown, provide this error. */}
-        {(status === 'invalid')  && (inputs.pathogen === "Yes") ?
+        {(status === 'invalid') && (inputs.pathogen === "Yes") ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
@@ -429,12 +434,12 @@ stored as state variables.
         </div>
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
-        {(status === 'invalid')  && !inputs.pathogen ?
+        {(status === 'invalid') && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
 
-        <h4 style={{ textAlign: "center" }}>Site of Infection</h4>
+        <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
         {/* Inputs for infection sites - can select more than one */}
@@ -500,12 +505,18 @@ stored as state variables.
 
               <br />
             </div>
-            <div className="col">
-              <input className="form-control" list="datalistOptions1" id="bloodDataList" placeholder="Type to search..." onChange={handleBloodSelection} style={{ display: bloodToggle ? 'block' : 'none' }} />
-              <datalist id="datalistOptions1">
-                <option value="CSF Negative">CSF Negative</option>
-                <option value="CSF Pending">CSF Pending</option>
-              </datalist>
+            <div className="col" visibility="">
+              <DropdownButton
+                alignRight
+                title={inputs.bloodDropdownSelection}
+                id="dropdown-menu-align-right1"
+                variant="secondary-light"
+                onSelect={handleBloodSelection}
+                style={{ display: bloodToggle ? 'block' : 'none' }}
+              >
+                <Dropdown.Item eventKey="CSF Negative">CSF Negative</Dropdown.Item>
+                <Dropdown.Item eventKey="CSF Pending">CSF Pending</Dropdown.Item>
+              </DropdownButton>
 
             </div>
           </div>
@@ -513,11 +524,11 @@ stored as state variables.
 
         {/* If the form is submitted and no infection site 
         is selected, print this. */}
-        {(status === 'invalid')  && (inputs.infectionSite.size === 0) ?
+        {(status === 'invalid') && (inputs.infectionSite.size === 0) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
-        <h4 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h4>
+        <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
         {/* Abdominal involvement inputs */}
         <div className="container">
           <div className="row">
@@ -535,27 +546,31 @@ stored as state variables.
 
 
             <div className="col">
-              <input
-                className="form-control"
-                list="datalistOptions2" id="form-control"
-                placeholder="Type to search..." 
-                onChange={(event) => setInputs({ ...inputs, nec: event.target.value.replaceAll(' ', '_') })}
-                style={{ display: necToggle ? 'block' : 'none' }} />
-              <datalist id="datalistOptions2">
-                <option value=""></option>
-                <option value="Medical NEC">Medical NEC</option>
-                <option value="Surgical NEC">Surgical NEC</option>
-                <option value="SIP">SIP</option>
-              </datalist>
+
+              <DropdownButton
+                alignRight
+                title={(inputs.nec == "No" || inputs.nec == "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
+                id="dropdown-menu-align-right"
+                variant="secondary-light"
+                onSelect={(event) => setInputs({ ...inputs, nec: event.replaceAll(' ', '_') })}
+                style={{ display: necToggle ? 'block' : 'none' }}
+              >
+                <Dropdown.Item eventKey="Medical NEC">Medical NEC</Dropdown.Item>
+                <Dropdown.Item eventKey="Surgical NEC">Surgical NEC</Dropdown.Item>
+                <Dropdown.Item eventKey="SIP">SIP</Dropdown.Item>
+              </DropdownButton>
 
             </div>
+
           </div>
         </div>
 
         {/* If the user selects yes without selecting something
         from the dropdown, give an error message. */}
-        {(status === 'invalid')  && (inputs.nec === "Yes") ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {
+          (status === 'invalid') && (inputs.nec === "Yes") ?
+            <span style={{ color: "red" }}>Please fill in this field.</span> : null
+        }
 
         <br />
         <div className="container">
@@ -575,8 +590,10 @@ stored as state variables.
         </div>
 
         {/* If the form is submitted and NEC present isn't specified, print this. */}
-        {(status === 'invalid')  && !inputs.nec ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {
+          (status === 'invalid') && !inputs.nec ?
+            <span style={{ color: "red" }}>Please fill in this field.</span> : null
+        }
         <br />
         <br />
 
@@ -589,9 +606,9 @@ stored as state variables.
           </div>
         </div>
         {/* If the form is valid, submitted, and loading, printed 'Loading' */}
-        {(status === 'loading')  ? <div className="success-message" style={{ color: "green", textAlign: 'center' }}>Loading</div> : null}
+        {(status === 'loading') ? <div className="success-message" style={{ color: "orange", textAlign: 'center', fontSize: 'larger' }}>Loading</div> : null}
         {/* If the form has successfully 'loaded', print 'Success!' */}
-        {(status === 'loaded') ? <div className="success-message" style={{color:"green", textAlign:'center'}}>Success!</div> : null}
+        {(status === 'loaded') ? <div className="success-message" style={{ color: "green", textAlign: 'center', fontSize: 'larger' }}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
@@ -599,9 +616,9 @@ stored as state variables.
 
         </div>
 
-      </form>
+      </form >
       <br />
-    </div>
+    </div >
   )
 };
 export default FormComponent; // Exporting so that we can use in App.js

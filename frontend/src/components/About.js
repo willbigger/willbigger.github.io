@@ -6,13 +6,13 @@ function About() {
   return (
     <div class="d-flex flex-column min-vh-100 align-items-center">
     {/* <div style={{ marginLeft: "25%", marginRight: "25%" }}> */}
-        <h4 style={{ textAlign: "center" }}>About</h4>
+        <h2 style={{ textAlign: "center" }}>About</h2>
 
         {/* About:
       <br />
       <br /> */}
 
-        <p style={{maxWidth:"50rem"}}>
+        <p style={{maxWidth:"50rem", fontSize:"larger"}}>
 
           This web-based application is a program to aid neonatal clinicians in evidenced-based antibiotic stewardship. By entering just a few inputs, this web-app will give guidance to:
           <br />
