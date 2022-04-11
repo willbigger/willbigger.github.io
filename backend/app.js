@@ -58,11 +58,11 @@ app.get("/outputs", async (req, res) => {
 });
 
 
-app.post("/create-output", async (req, res) => {
+app.post("/create-input", async (req, res) => {
   try {
-    const myoutput = new InputSet(req.body);
-    await myoutput.save();
-    res.send(`Created your output ${myoutput}`);
+    const myinput = new InputSet(req.body);
+    await myinput.save();
+    res.send(`Created your input ${myinput}`);
   } catch (err) {
     res.send({ message: err });
   }

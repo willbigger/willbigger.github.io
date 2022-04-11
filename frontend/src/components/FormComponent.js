@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
-import Waiting from './Waiting';
+// import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import axios from "axios"; // for get request for output data
@@ -20,10 +20,9 @@ function FormComponent() {
     currentWeight: "",
     os: "",
     pathogen: "",
-    pathogenDropdownSelection: "",
-    infectionSite: [],
+    infectionSite: new Set(),
+    bloodDropdownSelection: "",
     nec: "",
-    necDropdownSelection: "",
   });
 
   /* These are the output we will fetch to be
@@ -40,22 +39,14 @@ stored as state variables.
     noMatch: false, // a toggle for whether we had an output match or not
   });
 
-  /* These are the versions of inputs
-  stored in case the blood toggle is reverted
+  /* State variable to specify validity and submission
+  status of the form
   */
-  const [prevInputs, setPrevInputs] = useState({
-    os1: "",
-    pathogen1: "",
-    pathogenDropdownSelection1: "",
-    infectionSite1: [],
-    nec1: "",
-    necDropdownSelection1: "",
-  });
-
+  const [status, setStatus] = useState('initial');
   /*
   This is the variable 'submitted' stored as a state variable.
    */
-  const [submitted, setSubmitted] = useState(false); // Initially false
+  // const [submitted, setSubmitted] = useState(false); // Initially false
 
   /*
   This is a toggle for the pathogen input to determine whether to display the dropdown.
@@ -73,58 +64,6 @@ stored as state variables.
   const [necToggle, setnecToggle] = useState(false); // Initially false
 
   /*
-  This is the variable 'valid' stored as a state variable,
-  which will be used to make sure all inputs are filled out.
-   */
-  const [valid, setValid] = useState(false); // Initially false
-
-  /* 
-  This is the handler for the gestationalAge variable, setting
-  the variable to whatever text was inputted.
-  */
-  const handleGestationalAge = (event) => {
-    setInputs({ ...inputs, gestationalAge: event.target.value })
-  }
-
-  /* 
- This is the handler for the postnatalAge variable, setting
- the variable to whatever text was inputted.
- */
-  const handlePostnatalAge = (event) => {
-    setInputs({ ...inputs, postnatalAge: event.target.value })
-  }
-  /* 
- 
-   This is the handler for the birthWeiht variable, setting
-   the variable to whatever text was inputted.
-   */
-  const handleBirthWeight = (event) => {
-    setInputs({ ...inputs, birthWeight: event.target.value })
-  }
-
-  /* 
- This is the handler for the currentWeight variable, setting
- the variable to whatever text was inputted.
- */
-  const handleCurrentWeight = (event) => {
-    setInputs({ ...inputs, currentWeight: event.target.value })
-  }
-
-  /* 
-  This is the handler for the onset variable. 
-  Since only one radio button can be clicked at a time,
-  we only have one toggling state variable for EOS and LOS.
-
-  This handler is setting the 'os' state variable to whatever
-  was just clicked (EOS or LOS)
-  */
-  const handleOS = (event) => {
-    setInputs({ ...inputs, os: event.target.value })
-    setPrevInputs({ ...inputs, os1: event.target.value })
-  }
-
-
-  /*
   Handler for the pathogen variable.
   Similar to the onset variable, it
   toggles the pathogen variable between yes
@@ -132,7 +71,17 @@ stored as state variables.
   */
   const handlePathogen = (event) => {
     setInputs({ ...inputs, pathogen: event.target.value })
-    setPrevInputs({ ...inputs, pathogen1: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setPathogenToggle(true)
+    }
+    else {
+      setPathogenToggle(false)
+    }
+    */
+  }
+
+  const handlePathogenToggle = (event) => {
     if (event.target.value === "Yes") {
       setPathogenToggle(true)
     }
@@ -142,92 +91,28 @@ stored as state variables.
   }
 
   /*
-  Handler for the pathogenDropdownSelection variable,
-  setting it to whatever is selected from the dropdown.
-  */
-  const handleSelection = (event) => {
-    if (event.target.value === "E Coli") {
-      setInputs({ ...inputs, pathogenDropdownSelection: "E_Coli" })
-      setPrevInputs({ ...inputs, pathogenDropdownSelection1: "E_Coli" })
-    } else if (event.target.value === "Group B Streptococcus (GBS)") {
-      setInputs({ ...inputs, pathogenDropdownSelection: "Group_B_Streptococcus_(GBS)" })
-      setPrevInputs({ ...inputs, pathogenDropdownSelection1: "Group_B_Streptococcus_(GBS)" })
-    } else {
-      setInputs({ ...inputs, pathogenDropdownSelection: event.target.value })
-      setPrevInputs({ ...inputs, pathogenDropdownSelection1: event.target.value })
-    }
-  }
-
-  /*
-  Handler for the necDropdownSelection variable,
-  setting it to whatever is selected from the dropdown.
-  */
-  const handleSelection2 = (event) => {
-    if (event.target.value === "Medical NEC") {
-      setInputs({ ...inputs, necDropdownSelection: "Medical_NEC" })
-      setPrevInputs({ ...inputs, necDropdownSelection1: "Medical_NEC" })
-    } else if (event.target.value === "Surgical NEC") {
-      setInputs({ ...inputs, necDropdownSelection: "Surgical_NEC" })
-      setPrevInputs({ ...inputs, necDropdownSelection1: "Surgical_NEC" })
-    } else {
-      setInputs({ ...inputs, necDropdownSelection: event.target.value })
-      setPrevInputs({ ...inputs, necDropdownSelection1: event.target.value })
-    }
-  }
-
-  /*
   Handler for the infectionSite array. If the checked
   item isn't already in the array, it gets pushed on.
   */
   const handleInfectionSite = (event) => {
     if (event.target.checked) {
-      if (!inputs.infectionSite.includes(event.target.value)) {
-        console.log("does not include, adding", event.target.value)
-        inputs.infectionSite.push(event.target.value)
-        // prevInputs.infectionSite1.push(event.target.value)
-        console.log("inputs after pushing:", inputs, "and prevInputs:", prevInputs)
-        if (event.target.value === "Blood") {
-          setBloodToggle(true)
-        }
+      inputs.infectionSite.add(event.target.value)
+      if (event.target.value === "Blood") {
+        setBloodToggle(true)
       }
     } else {
-      if (inputs.infectionSite.includes(event.target.value)) {
-        let temp = inputs.infectionSite.indexOf(event.target.value)
-        delete inputs.infectionSite[temp]
-        inputs.infectionSite.length -= 1;
-        // let temp1 = prevInputs.infectionSite1.indexOf(event.target.value)
-        // delete prevInputs.infectionSite1[temp1]
-        // prevInputs.infectionSite1.length -= 1;
-        if (event.target.value === "Blood") {
-          setBloodToggle(false)
-          //  os: "",
-          // pathogen: "",
-          // pathogenDropdownSelection: "",
-          // nec: "",
-          // necDropdownSelection: "",
-          console.log("setting inputs to previous inputs")
-          setInputs({ ...setInputs, os: prevInputs.os1, pathogen: prevInputs.pathogen1, pathogenDropdownSelection: prevInputs.pathogenDropdownSelection1, nec: prevInputs.nec1, necDropdownSelection: prevInputs.necDropdownSelection1 })
-        }
-        console.log("inputs reverted", inputs)
+      inputs.infectionSite.delete(event.target.value)
+      if (event.target.value === "Blood") {
+        setBloodToggle(false)
       }
     }
-    console.log("infection site", inputs.infectionSite)
   }
 
   /*
    Handler for the blood dropdown selection visibility.
    */
   const handleBloodSelection = (event) => {
-    if (event.target.value === "CSF Negative") {
-      setInputs({ ...inputs, os: "EOS", pathogen: "Yes", pathogenDropdownSelection: "E_Coli", nec: "No" })
-    } else if (event.target.value === "CSF Pending") {
-      setInputs({ ...inputs, os: "EOS", pathogen: "Yes", pathogenDropdownSelection: "E_Coli", nec: "No" })
-      if (!inputs.infectionSite.includes("CSF")) {
-        inputs.infectionSite.push("CSF")
-      }
-    }
-    console.log("infectionsite is now", inputs.infectionSite)
-    console.log("inputs changed to", inputs)
+    setInputs({ ...inputs, bloodDropdownSelection: event.target.value })
   }
 
   /*
@@ -237,6 +122,17 @@ stored as state variables.
   */
   const handleNEC = (event) => {
     setInputs({ ...inputs, nec: event.target.value })
+    /*
+    if (event.target.value === "Yes") {
+      setnecToggle(true)
+    }
+    else {
+      setnecToggle(false)
+    }
+    */
+  }
+
+  const handleNECToggle = (event) => {
     if (event.target.value === "Yes") {
       setnecToggle(true)
     }
@@ -258,78 +154,40 @@ stored as state variables.
   Then it sets Submitted to true and prints the 
   inputs in console log for us to see.
   */
-  const [showResults, setShowResults] = useState(false); // state for displaying the output widget
-  const [showWaiting, setShowWaiting] = useState(false); // waiting state
+
   const onClick = (event) => {
-    console.log(inputs)
-    event.preventDefault(); // stops refresh
 
-    // creating the right URL to go to
-    const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
-    const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
-    let infectionSite = "No";
-    for (let i = 0; i < infectionSiteOrder.length; i++) {
-      if (inputs.infectionSite.includes(infectionSiteOrder[i])) {
-        infectionSite = infectionSiteOrder[i];
-        break;
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen != "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec != "Yes" && inputs.nec) {
+      event.preventDefault(); // stops refresh
+
+      // creating the right URL to go to
+      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
+      const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
+      let infectionSite = "No";
+      for (let i = 0; i < infectionSiteOrder.length; i++) {
+        if (inputs.infectionSite.has(infectionSiteOrder[i])) {
+          infectionSite = infectionSiteOrder[i];
+          break;
+        }
       }
-    }
-    let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
-    
-    const object = {
-      ['gestational_age']: inputs.gestationalAge,
-      ['postnatal_age']: inputs.postnatalAge,
-      ['birth_weight']: inputs.birthWeight,
-      ['current_weight']: inputs.currentWeight,
-      ['time_sent']: inputs.os,
-      ['pathogen_isolated']: inputs.pathogen,
-      ['site_of_infection']: infectionSite,
-      ['abdominal_involvement']: inputs.necDropdownSelection,
-    };
-    if (inputs.pathogen == "Yes") {
-      if (inputs.nec === "Yes") {
-        url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.necDropdownSelection}`;
-        
-        const object = {
-          ['gestational_age']: inputs.gestationalAge,
-          ['postnatal_age']: inputs.postnatalAge,
-          ['birth_weight']: inputs.birthWeight,
-          ['current_weight']: inputs.currentWeight,
-          ['time_sent']: inputs.os,
-          ['pathogen_isolated']: inputs.pathogenDropdownSelection,
-          ['site_of_infection']: infectionSite,
-          ['abdominal_involvement']: inputs.necDropdownSelection,
-        };
-      } else {
-        url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogenDropdownSelection}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
-        
-        const object = {
-          ['gestational_age']: inputs.gestationalAge,
-          ['postnatal_age']: inputs.postnatalAge,
-          ['birth_weight']: inputs.birthWeight,
-          ['current_weight']: inputs.currentWeight,
-          ['time_sent']: inputs.os,
-          ['pathogen_isolated']: inputs.pathogenDropdownSelection,
-          ['site_of_infection']: infectionSite,
-          ['abdominal_involvement']: inputs.nec,
-        };
+      let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
+      if (infectionSite === "Blood") {
+        if (inputs.bloodDropdownSelection === "CSF Negative") {
+          url = `${base_url}/outputs?time_sent=EOS&pathogen_isolated=E_Coli&site_of_infection=Blood&abdominal_involvement=No`;
+        } else if (inputs.bloodDropdownSelection === "CSF Pending") {
+          url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=CSF&abdominal_involvement=No`;
+        }
       }
-    }
 
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && ((inputs.pathogen === "Yes" && inputs.pathogenDropdownSelection) || (inputs.pathogen === "No")) && (inputs.infectionSite.length !== 0) && ((inputs.nec === "Yes" && inputs.necDropdownSelection) || (inputs.nec === "No"))) {
-      setValid(true)
-      setShowWaiting(true)
-      //console.log(url)
-      console.log(url)
+      console.log("final url", url)
+      setStatus('loading')
 
-      const post_url = `${base_url}/create-output`;
-      axios.post(post_url, object).then((response) => console.log(response));
+      const post_url = `${base_url}/create-input`;
+      axios.post(post_url, inputs).then((response) => console.log(response));
 
       axios.get(url).then((response) => {
-        //console.log(response)
         if (response.data.length == 1) {
-          setShowWaiting(false)
-          setShowResults(true); // changes to display only if valid input
+          setStatus('loaded')
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -340,44 +198,17 @@ stored as state variables.
             addRecs: response.data[0].additional_recommendations,
           });
         } else {
+          setStatus('loaded')
           setOutputDisplay({
             ...outputDisplay,
             noMatch: true,
           });
-          // TRYING TO GET POST REQUEST WORKING
-          // let pathogenOrNo = "No"
-          // if (inputs.pathogen === "Yes") {
-          //   pathogenOrNo = inputs.pathogenDropdownSelection
-          // }
-          // let necOrNo = "No"
-          // if (inputs.nec === "Yes") {
-          //   necOrNo = inputs.necDropdownSelection
-          // }
-          // const newOutput = {
-          //   time_sent: inputs.os,
-          //   pathogen_isolated: pathogenOrNo,
-          //   site_of_infection: infectionSite,
-          //   abdominal_involvement: necOrNo,
-          //   antibiotic_treatment: "[INPUT NEEDED]",
-          //   antibiotic_treatment_1: "[INPUT NEEDED]",
-          //   antibiotic_treatment_2: "[INPUT NEEDED]",
-          //   antibiotic_treatment_3: "[INPUT NEEDED]",
-          //   antibiotic_treatment_4: "[INPUT NEEDED]",
-          //   antibiotic_duration: "[INPUT NEEDED]",
-          //   additional_recommendations: "",
-          // }
-
-          // axios.post({
-          //   url: url,
-          //   data: newOutput,
-          // })
-          // console.log('should be posted to', url)
         }
 
       })
+    } else {
+      setStatus('invalid')
     }
-    setSubmitted(true);
-
 
   }
 
@@ -392,60 +223,39 @@ stored as state variables.
   strings/arrays.
   */
   const onClear = (event) => {
-    console.log(inputs)
     event.preventDefault(); // stops refresh
-    setValid(false);
-    setShowResults(false);
-    setShowWaiting(false);
-    setSubmitted(false);
+    setStatus('initial')
     setPathogenToggle(false);
     setnecToggle(false);
     setBloodToggle(false);
     document.getElementById("input-form").reset();
-    for (let i = 0; i < inputs.infectionSite.length; i++) {
-      delete inputs.infectionSite[i];
-    }
-    inputs.infectionSite.length = 0;
+    inputs.infectionSite.clear()
     document.querySelectorAll('input[type="checkbox"]')
       .forEach(el => el.checked = false);
 
-    // inputs.os = ""
-    // inputs.nec = ""
-    // inputs.necDropdownSelection = ""
-    // inputs.pathogen = ""
-    // inputs.pathogenDropdownSelection = ""
-    setInputs({
-      ...inputs,
-      gestationalAge: "",
-      postnatalAge: "",
-      birthWeight: "",
-      currentWeight: "",
-      os: "",
-      pathogen: "",
-      pathogenDropdownSelection: "",
-      infectionSite: [],
-      nec: "",
-      necDropdownSelection: "",
-    })
-    setOutputDisplay({
-      treatment: "",
-      treatment1: "",
-      treatment2: "",
-      treatment3: "",
-      treatment4: "",
-      duration: "",
-      addRecs: "",
-      noMatch: false,
-    })
-    setPrevInputs({
-      ...inputs,
-      os1: "",
-      pathogen1: "",
-      pathogenDropdownSelection1: "",
-      infectionSite1: [],
-      nec1: "",
-      necDropdownSelection1: "",
-    })
+    
+    inputs.gestationalAge = ""
+    inputs.postnatalAge = ""
+    inputs.antibiotic_duration = ""
+    inputs.birthWeight = ""
+    inputs.currentWeight = ""
+    inputs.os = ""
+    inputs.pathogen = ""
+    inputs.bloodDropdownSelection = ""
+    inputs.nec = ""
+    
+
+    outputDisplay.treatment = ""
+    outputDisplay.treatment1 = ""
+    outputDisplay.treatment2 = ""
+    outputDisplay.treatment3 = "" 
+    outputDisplay.treatment4 = ""
+    outputDisplay.duration = ""
+    outputDisplay.addRecs = ""
+    outputDisplay.noMatch = false
+    
+    console.log('inputs and outputs after clear', inputs, outputDisplay)
+
   }
 
 
@@ -461,7 +271,7 @@ stored as state variables.
         <input
           textAlign={'center'}
           value={inputs.gestationalAge}
-          onChange={handleGestationalAge}
+          onChange={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
           type="text"
           className="form-field"
           name="gestationalAge"
@@ -469,7 +279,7 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
-        {submitted && !inputs.gestationalAge ?
+        {(status === 'invalid') && !inputs.gestationalAge ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
 
         <br />
@@ -479,7 +289,7 @@ stored as state variables.
         {/* Postnatal Age input */}
         <input
           value={inputs.postnatalAge}
-          onChange={handlePostnatalAge}
+          onChange={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
           className="form-field"
           name="postnatalAge"
@@ -487,7 +297,7 @@ stored as state variables.
         < br />
         {/* Providing an error message if the user tries to submit 
         while the Postnatal Age input is empty */}
-        {submitted && !inputs.postnatalAge ?
+        {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
@@ -496,7 +306,7 @@ stored as state variables.
         {/* Birth Weight input */}
         <input
           value={inputs.birthWeight}
-          onChange={handleBirthWeight}
+          onChange={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
           className="form-field"
           name="birthWeight"
@@ -504,7 +314,7 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Birth Weight input is empty */}
-        {submitted && !inputs.birthWeight ?
+        {(status === 'invalid') && !inputs.birthWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
@@ -514,7 +324,7 @@ stored as state variables.
         {/* Current Weight input */}
         <input
           value={inputs.currentWeight}
-          onChange={handleCurrentWeight}
+          onChange={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
           className="form-field"
           name="currentWeight"
@@ -522,7 +332,7 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Current Weight input is empty */}
-        {submitted && !inputs.currentWeight ?
+        {(status === 'invalid')  && !inputs.currentWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
@@ -531,7 +341,7 @@ stored as state variables.
         {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
-          onChange={handleOS} // Event handling
+          onChange={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
           name="os" />
@@ -542,7 +352,7 @@ stored as state variables.
         {/* EOS/LOS input option 2: LOS */}
         <input
           value="LOS"
-          onChange={handleOS}
+          onChange={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
           name="os"
@@ -552,7 +362,7 @@ stored as state variables.
         {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
-        {submitted && !inputs.os ?
+        {(status === 'invalid')  && !inputs.os ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
@@ -566,6 +376,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -573,11 +384,11 @@ stored as state variables.
             </div>
             <div className="col">
               {/* If yes is selected for the pathogen input, show this dropdown */}
-              <input 
-                className="form-control" 
-                list="datalistOptions" id="form-control" 
-                placeholder="Type to search..." 
-                onChange={handleSelection} 
+              <input
+                className="form-control"
+                list="datalistOptions" id="form-control"
+                placeholder="Type to search..."
+                onChange={(event) => setInputs({ ...inputs, pathogen: event.target.value.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions">
                 <option value=""></option>
@@ -591,41 +402,13 @@ stored as state variables.
                 <option value="Pseudomonas">Pseudomonas</option>
                 <option value="Enterobacter">Enterobacter</option>
                 <option value="Enterococcus">Enterococcus</option>
-
-
-                {/* OLD PATHOGEN DROPDOWN: */}
-
-                {/* <option value="Acinetobacter species">Acinetobacter species</option>
-                <option value="Bacteroides species">Bacteroides species</option>
-                <option value="Burkholderia species">Burkholderia species</option>
-                <option value="Campylobacter species">Campylobacter species</option>
-                <option value="Citrobacter species">Citrobacter species</option>
-                <option value="E coli">E coli</option>  
-                <option value="Enterobacter species">Enterobacter species</option>
-                <option value="Enterococcus species">Enterococcus species</option>
-                <option value="GBS">GBS</option>
-                <option value="Haemophilus species">Haemophilus species</option>
-                <option value="Klebsiella species">Klebsiella species</option>
-                <option value="Listeria monocytogenes">Listeria monocytogenes</option>
-                <option value="Moraxella species">Moraxella species</option>
-                <option value="Morganella morganii">Morganella morganii</option>
-                <option value="Neisseria species">Neisseria species</option>
-                <option value="Pantoea species">Pantoea species</option>
-                <option value="Proteus species">Proteus species</option>
-                <option value="Pseudomonas species">Pseudomonas species</option>
-                <option value="Serratia species">Serratia species</option>
-                <option value="Staphylococcus Aureus (MRSA)">Staphylococcus Aureus (MRSA)</option>
-                <option value="Staphylococcus Aureus (MSSA)">Staphylococcus Aureus (MSSA)</option>
-                <option value="Streptococcus anginosus">Streptococcus anginosus</option>
-                <option value="Streptococcus pneumoniae">Streptococcus pneumoniae</option>
-                <option value="Streptococcus pyogenes">Streptococcus pyogenes</option> */}
               </datalist>
             </div>
           </div>
         </div>
         {/* If the user selects Yes but doesn't specify
-        soemthing from the dropdown, provide this error. */}
-        {submitted && (inputs.pathogen === "Yes") && !inputs.pathogenDropdownSelection ?
+        something from the dropdown, provide this error. */}
+        {(status === 'invalid')  && (inputs.pathogen === "Yes") ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
@@ -637,6 +420,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handlePathogen}
+                onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
                 name="pathogen" />
@@ -646,7 +430,7 @@ stored as state variables.
         </div>
         <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
-        {submitted && !inputs.pathogen ?
+        {(status === 'invalid')  && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
 
@@ -664,12 +448,6 @@ stored as state variables.
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
-              {/* All of these inputs have the same name 
-          so that they relate to each other?
-
-          ?? not sure if they need the same name or not
-          actually since they have the same handler??
-           */}
               {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
 
               <br />
@@ -736,7 +514,7 @@ stored as state variables.
 
         {/* If the form is submitted and no infection site 
         is selected, print this. */}
-        {submitted && (inputs.infectionSite.length === 0) ?
+        {(status === 'invalid')  && (inputs.infectionSite.size === 0) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <hr />
@@ -748,6 +526,7 @@ stored as state variables.
               <input
                 value="Yes"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
@@ -757,8 +536,11 @@ stored as state variables.
 
 
             <div className="col">
-              <input className="form-control" list="datalistOptions2" id="form-control"
-                placeholder="Type to search..." onChange={handleSelection2}
+              <input
+                className="form-control"
+                list="datalistOptions2" id="form-control"
+                placeholder="Type to search..." 
+                onChange={(event) => setInputs({ ...inputs, nec: event.target.value.replaceAll(' ', '_') })}
                 style={{ display: necToggle ? 'block' : 'none' }} />
               <datalist id="datalistOptions2">
                 <option value=""></option>
@@ -773,7 +555,7 @@ stored as state variables.
 
         {/* If the user selects yes without selecting something
         from the dropdown, give an error message. */}
-        {submitted && (inputs.nec === "Yes") && !inputs.necDropdownSelection ?
+        {(status === 'invalid')  && (inputs.nec === "Yes") ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
@@ -783,6 +565,7 @@ stored as state variables.
               <input
                 value="No"
                 onChange={handleNEC}
+                onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
                 name="nec" />
@@ -793,7 +576,7 @@ stored as state variables.
         </div>
 
         {/* If the form is submitted and NEC present isn't specified, print this. */}
-        {submitted && !inputs.nec ?
+        {(status === 'invalid')  && !inputs.nec ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <br />
         <br />
@@ -806,12 +589,14 @@ stored as state variables.
             <ClearButton onClear={onClear} className="form-button" />
           </div>
         </div>
-        {/* If the form has been submitted, and it's Valid, print 'Success!' at the top of the page. */}
-        {submitted && valid ? <div className="success-message" style={{ color: "green", textAlign:'center' }}>Success!</div> : null}
+        {/* If the form is valid, submitted, and loading, printed 'Loading' */}
+        {(status === 'loading')  ? <div className="success-message" style={{ color: "green", textAlign: 'center' }}>Loading</div> : null}
+        {/* If the form has successfully 'loaded', print 'Success!' */}
+        {(status === 'loaded') ? <div className="success-message" style={{color:"green", textAlign:'center'}}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
-        {submitted && !valid ? <div className="failure-message" style={{ color: "red", textAlign:'center' }}>Form is incomplete.</div> : null}
+        {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {showResults && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
 
         </div>
 

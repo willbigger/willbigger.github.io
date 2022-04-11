@@ -3,52 +3,27 @@ import arrow from './arrow.png'
 
 function OutputWidget({ inputs, outputDisplay }) {
 
-  /* New variables for inputs in case there were underscores
-   */
-  const [inputsWithSpaces, setInputsWithSpaces] = useState({
-    pathDropdown: "",
-    necDropdown: "",
-  });
-
   function fixSpaces(word) {
     let newWord = ""
-    console.log("word length", word.length)
     if (typeof(word) === "string") {
-      console.log(word, "is a string")
-      for (let i = 0; i < word.length; i++) {
-        if (word[i] === "_") {
-          newWord += " "
-        } else {
-          newWord += word[i]
-        }
-      }
+      newWord = word.replaceAll('_', ' ')
     } else {
-      for(let i = 0; i < word.length; i++){
-        let wordInArray = ""
-        for(let letter = 0; letter < word[i].length; letter++) {
-          if (word[i][letter] === "_" ) {
-            wordInArray += " "
-          } else {
-            wordInArray += word[i][letter]
-          }
+      word.forEach (function(value) {
+        if (value === "No") {
+          newWord += "None"
+        } else {
+          newWord += value.replaceAll('_', ' ') + ", "
         }
-        newWord += wordInArray + ", "
-      }
-      newWord = newWord.replace(/,\s*$/, "");
+      })
     }
-    if (word[0] === "No") {
-      newWord = "None"
-    }
-    // console.log("old word", word, "new word:", newWord)
+    newWord = newWord.replace(/,\s*$/, "");
     return newWord
   }
 
 
 
   return (
-    //  class="d-flex flex-column min-vh-100 align-items-center"
-    // style={{ display: "block", margin: 'auto', marginBottom: "25px" }}
-    <div className="container">
+    <div className="container" style={{minWidth: '725px'}}>
       <div className="row" >
         <div className="col" style={{ border: '1px black solid', padding: '20px' }} >
 
@@ -69,14 +44,14 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h6>
-            Onset: {inputs.os === "EOS" ? "Early-Onset Sepsis ≤72h after birth" : "Late-Onset Sepsis ≥72h after birth"}
+            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Pathogen Isolation</h6>
-            {inputs.pathogen === "Yes" ? "Pathogen isolated: " +
-              fixSpaces(inputs.pathogenDropdownSelection) : "No pathogen isolated"}
+            {inputs.pathogen != "No" ? "Pathogen isolated: " +
+              fixSpaces(inputs.pathogen) : "No pathogen isolated"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
@@ -88,8 +63,8 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h6 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Abdominal Involvement</h6>
-            {inputs.nec === "Yes" ? "Abdominal involvement is present: " +
-              fixSpaces(inputs.necDropdownSelection) : "Abdominal involvement is not present"}
+            {inputs.nec != "No" ? "Abdominal involvement is present: " +
+              fixSpaces(inputs.nec) : "Abdominal involvement is not present"}
           </div>
         </div>
 
