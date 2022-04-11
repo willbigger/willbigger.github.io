@@ -4,7 +4,7 @@ import React from "react";
 function FAQ() {
   return (
     <div >
-      <h4 style={{ textAlign: "center" }}>Frequently Asked Questions</h4>
+      <h2 style={{ textAlign: "center" }}>Frequently Asked Questions</h2>
     </div>
   );
 }
