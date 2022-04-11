@@ -221,7 +221,7 @@ stored as state variables.
     setStatus('initial')
     setPathogenToggle(false);
     setnecToggle(false);
-    setBloodToggle(false)
+    setBloodToggle(false);
     document.getElementById("input-form").reset();
     inputs.infectionSite.clear()
     document.querySelectorAll('input[type="checkbox"]')
