@@ -23,7 +23,7 @@ function OutputWidget({ inputs, outputDisplay }) {
 
 
   return (
-    <div className="container" style={{minWidth: '725px'}}>
+    <div className="container">
       <div className="row" >
         <div className="col" style={{ border: '1px black solid', padding: '20px' }} >
 
@@ -71,7 +71,7 @@ function OutputWidget({ inputs, outputDisplay }) {
         <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px' }}>
 
           {/* The output we got from the database */}
-          <h4 style={{ textDecoration: "underline", textAlign: 'center' }}>Recommended Treatment</h4>
+          <h4 style={{ textDecoration: "underline", textAlign: 'center', minWidth: '400px' }}>Recommended Treatment</h4>
           <div>
             {/* If there was not EXACT match, just put this message. */}
             <div style={{ display: outputDisplay.noMatch ? 'block' : 'none', maxWidth: "500px", textAlign: 'center' }}>

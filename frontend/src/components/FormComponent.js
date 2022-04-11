@@ -232,29 +232,32 @@ stored as state variables.
     document.querySelectorAll('input[type="checkbox"]')
       .forEach(el => el.checked = false);
 
+    setInputs({
+      ...inputs,
+      gestationalAge: "",
+      postnatalAge: "",
+      antibiotic_duration: "",
+      birthWeight: "",
+      currentWeight: "",
+      os: "",
+      pathogen: "",
+      bloodDropdownSelection: "",
+      nec: ""
+    })
     
-    inputs.gestationalAge = ""
-    inputs.postnatalAge = ""
-    inputs.antibiotic_duration = ""
-    inputs.birthWeight = ""
-    inputs.currentWeight = ""
-    inputs.os = ""
-    inputs.pathogen = ""
-    inputs.bloodDropdownSelection = ""
-    inputs.nec = ""
-    
-
-    outputDisplay.treatment = ""
-    outputDisplay.treatment1 = ""
-    outputDisplay.treatment2 = ""
-    outputDisplay.treatment3 = "" 
-    outputDisplay.treatment4 = ""
-    outputDisplay.duration = ""
-    outputDisplay.addRecs = ""
-    outputDisplay.noMatch = false
+    setOutputDisplay({
+      ...outputDisplay,
+      treatment: "",
+      treatment1: "",
+      treatment2: "",
+      treatment3: "",
+      treatment4: "",
+      duration: "",
+      addRecs: "",
+      noMatch: false
+    })
     
     console.log('inputs and outputs after clear', inputs, outputDisplay)
-
   }
 
 
