@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import arrow from './arrow.png'
 
 function OutputWidget({ inputs, outputDisplay }) {
@@ -50,7 +50,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Pathogen Isolation</h5>
-            {inputs.pathogen != "No" ? "Pathogen isolated: " +
+            {inputs.pathogen !== "No" ? "Pathogen isolated: " +
               fixSpaces(inputs.pathogen) : "No pathogen isolated"}
             <br />
           </div>
@@ -63,7 +63,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Abdominal Involvement</h5>
-            {inputs.nec != "No" ? "Abdominal involvement is present: " +
+            {inputs.nec !== "No" ? "Abdominal involvement is present: " +
               fixSpaces(inputs.nec) : "Abdominal involvement is not present"}
           </div>
         </div>

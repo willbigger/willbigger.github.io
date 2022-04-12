@@ -149,9 +149,9 @@ stored as state variables.
   inputs in console log for us to see.
   */
 
-  const onClick = (event) => {
-
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen != "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec != "Yes" && inputs.nec) {
+  const onSubmit = (event) => {
+    console.log(inputs);
+    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -180,7 +180,7 @@ stored as state variables.
       axios.post(post_url, inputs).then((response) => console.log(response));
 
       axios.get(url).then((response) => {
-        if (response.data.length == 1) {
+        if (response.data.length === 1) {
           setStatus('loaded')
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
@@ -228,6 +228,7 @@ stored as state variables.
       .forEach(el => el.checked = false);
 
     setInputs({
+      ...inputs,
       gestationalAge: "",
       postnatalAge: "",
       antibiotic_duration: "",
@@ -256,7 +257,7 @@ stored as state variables.
   return (
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
 
-      <form className="nicu-form" id="input-form" onSubmit={onClick} style={{ fontSize: "smaller" }}>
+      <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
         <label className="form-field">Gestational Age (in weeks)</label>
 
@@ -265,7 +266,7 @@ stored as state variables.
         <input
           textAlign={'center'}
           value={inputs.gestationalAge}
-          onChange={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
           type="text"
           className="form-field"
           name="gestationalAge"
@@ -283,7 +284,7 @@ stored as state variables.
         {/* Postnatal Age input */}
         <input
           value={inputs.postnatalAge}
-          onChange={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
           className="form-field"
           name="postnatalAge"
@@ -300,7 +301,7 @@ stored as state variables.
         {/* Birth Weight input */}
         <input
           value={inputs.birthWeight}
-          onChange={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
           className="form-field"
           name="birthWeight"
@@ -318,7 +319,7 @@ stored as state variables.
         {/* Current Weight input */}
         <input
           value={inputs.currentWeight}
-          onChange={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
           className="form-field"
           name="currentWeight"
@@ -335,7 +336,7 @@ stored as state variables.
         {/* EOS/LOS input option 1: EOS */}
         <input
           value="EOS"
-          onChange={(event) => setInputs({ ...inputs, os: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
           name="os" />
@@ -346,7 +347,7 @@ stored as state variables.
         {/* EOS/LOS input option 2: LOS */}
         <input
           value="LOS"
-          onChange={(event) => setInputs({ ...inputs, os: event.target.value })}
+          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
           name="os"
@@ -369,7 +370,7 @@ stored as state variables.
               {/* pathogen input option 1: Yes */}
               <input
                 value="Yes"
-                onChange={handlePathogen}
+                onInput={handlePathogen}
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
@@ -389,7 +390,7 @@ stored as state variables.
               </datalist> */}
               <DropdownButton
                 alignRight
-                title={(inputs.pathogen == "No" || inputs.pathogen == "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
+                title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
@@ -423,7 +424,7 @@ stored as state variables.
               {/* pathogen input option 2: No */}
               <input
                 value="No"
-                onChange={handlePathogen}
+                onInput={handlePathogen}
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
@@ -448,7 +449,7 @@ stored as state variables.
             <div className="col">
               <input
                 value="No"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -457,7 +458,7 @@ stored as state variables.
               <br />
               <input
                 value="Blood"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -467,7 +468,7 @@ stored as state variables.
 
               <input
                 value="Urine"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -477,7 +478,7 @@ stored as state variables.
 
               <input
                 value="CSF"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -487,7 +488,7 @@ stored as state variables.
 
               <input
                 value="Peritoneal"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -497,7 +498,7 @@ stored as state variables.
 
               <input
                 value="Skin_with_Cellulitis"
-                onChange={handleInfectionSite}
+                onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
@@ -535,7 +536,7 @@ stored as state variables.
             <div className="col">
               <input
                 value="Yes"
-                onChange={handleNEC}
+                onInput={handleNEC}
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
@@ -549,7 +550,7 @@ stored as state variables.
 
               <DropdownButton
                 alignRight
-                title={(inputs.nec == "No" || inputs.nec == "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
+                title={(inputs.nec === "No" || inputs.nec === "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, nec: event.replaceAll(' ', '_') })}
@@ -578,7 +579,7 @@ stored as state variables.
             <div className="col">
               <input
                 value="No"
-                onChange={handleNEC}
+                onInput={handleNEC}
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
@@ -599,7 +600,7 @@ stored as state variables.
 
         <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
-            <SubmitButton onClick={onClick} className="form-button" />
+            <SubmitButton onClick={onSubmit} className="form-button" />
           </div>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <ClearButton onClear={onClear} className="form-button" />
