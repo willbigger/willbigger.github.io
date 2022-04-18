@@ -84,32 +84,32 @@ function OutputWidget({ inputs, outputDisplay }) {
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
 
               <div style={{ padding: '10px' }}>
-                <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending susceptibility results)</h5>
+                <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending culture or susceptibility results)</h5>
                 {outputDisplay.treatment}
               </div>
               <div className="container" dispaly="inline-block">
                 <div className="row">
                   <div className="col">
                     <div style={{ padding: '10px' }}>
-                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 1</h5>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 1st Choice (if susceptible) </h5>
                       {outputDisplay.treatment1}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 2</h5>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 2nd Choice (if susceptible)</h5>
                       {outputDisplay.treatment2}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 3</h5>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 3rd Choice (if susceptible)</h5>
                       {outputDisplay.treatment3}
                     </div>
 
 
                     <div style={{ padding: '10px' }}>
-                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Option 4</h5>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 4th Choice (if susceptible)</h5>
                       {outputDisplay.treatment4}
                     </div>
 
