@@ -144,10 +144,7 @@ function OutputWidget({ inputs, outputDisplay }) {
 
         <div>
           < hr />
-          {/* No-liability statement */}
-          <em>
-            The contents of this website are intended for informational and educational purposes only and not for the purpose of rendering medical advice. The contents of this website are not intended to substitute for professional medical advice, diagnosis, or treatment. We cannot guarantee that the information on this website reflects the most-up-to-date research. We cannot be held responsible for any damages suffered as a result of using this website.
-        </em>
+        
 
         </div>
 
