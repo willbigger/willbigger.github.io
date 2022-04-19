@@ -66,6 +66,11 @@ stored as state variables.
   const [necToggle, setnecToggle] = useState(false); // Initially false
 
   /*
+  Terms and conditions accepted toggle
+   */
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
+  /*
   Handler for the pathogen variable.
   Similar to the onset variable, it
   toggles the pathogen variable between yes
@@ -222,6 +227,7 @@ stored as state variables.
     setPathogenToggle(false);
     setnecToggle(false);
     setBloodToggle(false);
+    setTermsAccepted(false);
     document.getElementById("input-form").reset();
     inputs.infectionSite.clear()
     document.querySelectorAll('input[type="checkbox"]')
@@ -596,7 +602,23 @@ stored as state variables.
             <span style={{ color: "red" }}>Please fill in this field.</span> : null
         }
         <br />
-        <br />
+
+        <hr/>
+
+        {/* Terms and Conditions */}
+        <input
+          value="I have read and accepted the terms and conditions"
+          onClick={(event) => setTermsAccepted(event.target.checked)}
+          type="checkbox"
+          className="form-field"/>
+        {' '}<label className="form-field">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
+        <br/>
+        
+        {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
+        {
+        (status === 'invalid') && !termsAccepted ?
+          <span style={{ color: "red" }}>Please accept the terms and conditions.</span> : null
+        }
 
         <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
