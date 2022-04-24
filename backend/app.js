@@ -2,11 +2,12 @@ const express = require("express");
 const cors = require("cors")
 const app = express();
 const mongoose = require("mongoose");
-const User = require("./models/user");
 const InputSet = require("./models/inputSet");
 const Output = require("./models/output");
+const output = require("./models/output");
 
 const whitelist = ["http://localhost:3000", "https://nicu-frontend-development.herokuapp.com", "https://nicu-frontend.herokuapp.com"]
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -25,31 +26,14 @@ require("dotenv/config");
 
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
-// app.get("/", (req, res) => {
-//   res.send("First request");
-// });
-
-// app.get("/users", (req, res) => {
-//   let users = ["Ethan", "Abid", "Yuxi"];
-//   res.send({
-//     users: users,
-//   });
-// });
-
-// app.get("/input-sets", async (req, res) => {
-//   try {
-//     const docs = await InputSet.find();
-//     res.send(docs);
-//   } catch (err) {
-//     res.send({ message: err });
-//   }
-// });
-
 app.get("/outputs", async (req, res) => {
   try {
-    // const docs = await Output.find();
-    // const docs = await Output.find({ time_sent: "EOS", pathogen_isolated: "No", site_of_infection: "No", abdominal_involvement: "No" });
-    const docs = await Output.find({time_sent:req.query.time_sent, pathogen_isolated:req.query.pathogen_isolated, site_of_infection:req.query.site_of_infection, abdominal_involvement:req.query.abdominal_involvement });
+    const docs = await Output.find({
+      time_sent:req.query.time_sent, 
+      pathogen_isolated:req.query.pathogen_isolated, 
+      site_of_infection:req.query.site_of_infection, 
+      abdominal_involvement:req.query.abdominal_involvement 
+    });
 
     res.send(docs);
   } catch (err) {
@@ -57,37 +41,27 @@ app.get("/outputs", async (req, res) => {
   }
 });
 
-
 app.post("/create-input", async (req, res) => {
   try {
-    const myinput = new InputSet(req.body);
-    await myinput.save();
+    const new_input = new InputSet({
+      gestational_age: req.body.gestationalAge,
+      postnatal_age: req.body.postnatalAge,
+      birth_weight: req.body.birthWeight,
+      current_weight: req.body.currentWeight,
+      time_sent: req.body.os,
+      pathogen_isolated: req.body.pathogen,
+      site_of_infection: req.body.infectionSite,
+      blood_dropdown_selection: req.body.bloodDropdownSelection,
+      abdominal_involvement: req.body.nec,
+      output_available: req.body.output_available
+    });
+    console.log(JSON.stringify(new_input));
+    await new_input.save();
     res.send(`Created your input ${myinput}`);
   } catch (err) {
     res.send({ message: err });
   }
 });
-
-// app.post("/create-user", async (req, res) => {
-//   try {
-//     const myuser = new User(req.body);
-//     await myuser.save();
-//     res.send(`Created your user ${myuser}`);
-//   } catch (err) {
-//     res.send({ message: err });
-//   }
-// });
-
-// app.post("/input-sets", async (req, res) => {
-//   try {
-//     const my_input_set = new InputSet(req.body);
-//     await my_input_set.save();
-//     //req.query.age
-//     res.send(`Created your inputSet ${my_input_set}`);
-//   } catch (err) {
-//     res.send({ message: err });
-//   }
-// });
 
 mongoose.connect(DB_CONNECTION_STRING)
   .then(() => {

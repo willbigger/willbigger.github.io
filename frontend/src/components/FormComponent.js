@@ -181,9 +181,6 @@ stored as state variables.
       console.log("final url", url)
       setStatus('loading')
 
-      const post_url = `${base_url}/create-input`;
-      axios.post(post_url, inputs).then((response) => console.log(response));
-
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
           setStatus('loaded')
@@ -203,7 +200,9 @@ stored as state variables.
             noMatch: true,
           });
         }
-
+        const post_url = `${base_url}/create-input`;
+        console.log(JSON.stringify({...inputs, infectionSite: infectionSite, output_available: response.data.length === 1}))
+        axios.post(post_url, {...inputs, infectionSite: infectionSite, output_available: response.data.length === 1}).then((response) => console.log(response));
       })
     } else {
       setStatus('invalid')
