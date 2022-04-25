@@ -159,11 +159,11 @@ stored as state variables.
     console.log(inputs);
     let validAge = true
     if(inputs.os == "EOS") {
-      if (parseInt(inputs.postnatalAge) >= 3) {
+      if (parseFloat(inputs.postnatalAge) >= 3) {
         validAge = false
       }
     } else if (inputs.os == "LOS") {
-      if (parseInt(inputs.postnatalAge) < 3) {
+      if (parseFloat(inputs.postnatalAge) < 3) {
         validAge = false
       }
     }
@@ -312,9 +312,9 @@ stored as state variables.
         while the Postnatal Age input is empty */}
         {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        {(status === 'invalid') && (inputs.os === "EOS" && parseInt(inputs.postnatalAge) >= 3) ?
+        {(status === 'invalid') && (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) >= 3) ?
           <span style={{ color: "red" }}>Invalid postnatal age for EOS.</span> : null }
-        {(status === 'invalid') && (inputs.os === "LOS" && parseInt(inputs.postnatalAge) < 3) ?
+        {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
           <span style={{ color: "red" }}>Invalid postnatal age for LOS.</span> : null }
         <br />
         <label className="form-field">Birth Weight (in grams)</label>
