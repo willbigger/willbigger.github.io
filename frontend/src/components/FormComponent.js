@@ -6,6 +6,7 @@ import { DropdownButton, Dropdown } from 'react-bootstrap';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
 import axios from "axios"; // for get request for output data
+import loading from './wait'
 
 import './FormComponent.css';
 
@@ -156,7 +157,17 @@ stored as state variables.
 
   const onSubmit = (event) => {
     console.log(inputs);
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    let validAge = true
+    if(inputs.os == "EOS") {
+      if (parseInt(inputs.postnatalAge) >= 3) {
+        validAge = false
+      }
+    } else if (inputs.os == "LOS") {
+      if (parseInt(inputs.postnatalAge) < 3) {
+        validAge = false
+      }
+    }
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -295,12 +306,16 @@ stored as state variables.
           className="form-field"
           name="postnatalAge"
         />
+        
         < br />
         {/* Providing an error message if the user tries to submit 
         while the Postnatal Age input is empty */}
         {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-
+        {(status === 'invalid') && (inputs.os === "EOS" && parseInt(inputs.postnatalAge) >= 3) ?
+          <span style={{ color: "red" }}>Invalid postnatal age for EOS.</span> : null }
+        {(status === 'invalid') && (inputs.os === "LOS" && parseInt(inputs.postnatalAge) < 3) ?
+          <span style={{ color: "red" }}>Invalid postnatal age for LOS.</span> : null }
         <br />
         <label className="form-field">Birth Weight (in grams)</label>
         <br />
@@ -382,18 +397,8 @@ stored as state variables.
                 className="form-field"
                 name="pathogen" />
               {' '}<label className="form-field">Yes</label>
-            </div>
-            <div className="col">
-              {/* If yes is selected for the pathogen input, show this dropdown */}
-              {/* <input
-                className="form-control"
-                list="datalistOptions" id="form-control"
-                placeholder="Type to search..."
-                onChange={(event) => setInputs({ ...inputs, pathogen: event.target.value.replaceAll(' ', '_') })}
-                style={{ display: pathogenToggle ? 'block' : 'none' }} />
-              <datalist id="datalistOptions">
 
-              </datalist> */}
+              {/* If yes is selected for the pathogen input, show this dropdown */}
               <DropdownButton
                 alignRight
                 title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
@@ -470,6 +475,17 @@ stored as state variables.
                 name="infectionSite" />
               {' '}<label className="form-field">Blood</label>
 
+              <DropdownButton
+                alignRight
+                title={inputs.bloodDropdownSelection}
+                id="dropdown-menu-align-right1"
+                variant="secondary-light"
+                onSelect={handleBloodSelection}
+                style={{ display: bloodToggle ? 'block' : 'none' }}
+              >
+                <Dropdown.Item eventKey="CSF Negative">CSF Negative</Dropdown.Item>
+                <Dropdown.Item eventKey="CSF Pending">CSF Pending</Dropdown.Item>
+              </DropdownButton>
               <br />
 
               <input
@@ -512,28 +528,14 @@ stored as state variables.
 
               <br />
             </div>
-            <div className="col" visibility="">
-              <DropdownButton
-                alignRight
-                title={inputs.bloodDropdownSelection}
-                id="dropdown-menu-align-right1"
-                variant="secondary-light"
-                onSelect={handleBloodSelection}
-                style={{ display: bloodToggle ? 'block' : 'none' }}
-              >
-                <Dropdown.Item eventKey="CSF Negative">CSF Negative</Dropdown.Item>
-                <Dropdown.Item eventKey="CSF Pending">CSF Pending</Dropdown.Item>
-              </DropdownButton>
-
-            </div>
           </div>
         </div>
 
         {/* If the form is submitted and no infection site 
         is selected, print this. */}
-        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || inputs.bloodDropdownSelection == "") ?
+        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "")) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        {(status === 'invalid') && inputs.bloodDropdownSelection == "" ?
+        {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "" ?
           <p style={{ color: "red" }}>Blood needs CSF</p> : null}
 
         <hr />
@@ -551,11 +553,6 @@ stored as state variables.
                 name="nec" />
               {' '}<label className="form-field">Yes</label>
 
-            </div>
-
-
-            <div className="col">
-
               <DropdownButton
                 alignRight
                 title={(inputs.nec === "No" || inputs.nec === "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
@@ -568,7 +565,6 @@ stored as state variables.
                 <Dropdown.Item eventKey="Surgical NEC">Surgical NEC</Dropdown.Item>
                 <Dropdown.Item eventKey="SIP">SIP</Dropdown.Item>
               </DropdownButton>
-
             </div>
 
           </div>
@@ -630,8 +626,13 @@ stored as state variables.
             <ClearButton onClear={onClear} className="form-button" />
           </div>
         </div>
-        {/* If the form is valid, submitted, and loading, printed 'Loading' */}
-        {(status === 'loading') ? <div className="success-message" style={{ color: "orange", textAlign: 'center', fontSize: 'larger' }}>Loading</div> : null}
+        {/* If the form is valid, submitted, and loading, show a loading gif */}
+        {(status === 'loading') ? 
+        <div className="success-message" style={{textAlign:"center", justifyContent:"center"}}>
+        <img src={loading} style={{width:50}}/>
+        </div> : null }
+
+
         {/* If the form has successfully 'loaded', print 'Success!' */}
         {(status === 'loaded') ? <div className="success-message" style={{ color: "green", textAlign: 'center', fontSize: 'larger' }}>Success!</div> : null}
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}

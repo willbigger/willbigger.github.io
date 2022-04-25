@@ -68,7 +68,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           </div>
         </div>
 
-        <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px' }}>
+        <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px', fontSize:"larger" }}>
 
           {/* The output we got from the database */}
           <h2 style={{ textDecoration: "underline", textAlign: 'center', minWidth: '400px' }}>Recommended Treatment</h2>
