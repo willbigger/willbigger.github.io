@@ -156,7 +156,7 @@ stored as state variables.
 
   const onSubmit = (event) => {
     console.log(inputs);
-    if (inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -531,8 +531,10 @@ stored as state variables.
 
         {/* If the form is submitted and no infection site 
         is selected, print this. */}
-        {(status === 'invalid') && (inputs.infectionSite.size === 0) ?
+        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || inputs.bloodDropdownSelection == "") ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {(status === 'invalid') && inputs.bloodDropdownSelection == "" ?
+          <p style={{ color: "red" }}>Blood needs CSF</p> : null}
 
         <hr />
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
