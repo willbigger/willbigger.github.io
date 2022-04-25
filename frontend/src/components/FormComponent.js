@@ -159,11 +159,11 @@ stored as state variables.
     console.log(inputs);
     let validAge = true
     if(inputs.os == "EOS") {
-      if (parseFloat(inputs.postnatalAge) >= 3) {
+      if (parseFloat(inputs.postnatalAge) > 3) {
         validAge = false
       }
     } else if (inputs.os == "LOS") {
-      if (parseFloat(inputs.postnatalAge) < 3) {
+      if (parseFloat(inputs.postnatalAge) <= 3) {
         validAge = false
       }
     }
@@ -183,9 +183,9 @@ stored as state variables.
       let url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=${infectionSite}&abdominal_involvement=${inputs.nec}`;
       if (infectionSite === "Blood") {
         if (inputs.bloodDropdownSelection === "CSF Negative") {
-          url = `${base_url}/outputs?time_sent=EOS&pathogen_isolated=E_Coli&site_of_infection=Blood&abdominal_involvement=No`;
+          url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=Blood&abdominal_involvement=${inputs.nec}`;
         } else if (inputs.bloodDropdownSelection === "CSF Pending") {
-          url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=CSF&abdominal_involvement=No`;
+          url = `${base_url}/outputs?time_sent=${inputs.os}&pathogen_isolated=${inputs.pathogen}&site_of_infection=CSF&abdominal_involvement=${inputs.nec}`;
         }
       }
 
@@ -312,9 +312,9 @@ stored as state variables.
         while the Postnatal Age input is empty */}
         {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        {(status === 'invalid') && (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) >= 3) ?
+        {(status === 'invalid') && (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) > 3) ?
           <span style={{ color: "red" }}>Invalid postnatal age for EOS.</span> : null }
-        {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
+        {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) <= 3) ?
           <span style={{ color: "red" }}>Invalid postnatal age for LOS.</span> : null }
         <br />
         <label className="form-field">Birth Weight (in grams)</label>
@@ -361,7 +361,7 @@ stored as state variables.
           type="radio"
           className="form-field"
           name="os" />
-        {' '}<label className="form-field">EOS (less than 72 hours after birth) </label>
+        {' '}<label className="form-field">EOS (72 hours or less after birth) </label>
 
         <br />
 
@@ -375,7 +375,7 @@ stored as state variables.
         // Notice that these radio buttons have the same name 
         //so that only one can be selected at a time
         />
-        {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
+        {' '}<label className="form-field">LOS (more than 72 hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
