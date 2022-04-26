@@ -5,10 +5,10 @@ function OutputWidget({ inputs, outputDisplay }) {
 
   function fixSpaces(word) {
     let newWord = ""
-    if (typeof(word) === "string") {
+    if (typeof (word) === "string") {
       newWord = word.replaceAll('_', ' ')
     } else {
-      word.forEach (function(value) {
+      word.forEach(function (value) {
         if (value === "No") {
           newWord += "None"
         } else {
@@ -25,7 +25,7 @@ function OutputWidget({ inputs, outputDisplay }) {
   return (
     <div className="container">
       <div className="row" >
-        <div className="col" style={{ border: '1px black solid', padding: '20px', fontSize:"larger" }} >
+        <div className="col" style={{ border: '1px black solid', padding: '20px', fontSize: "larger" }} >
 
           {/* Presenting what the user inputted */}
           <h2 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h2>
@@ -44,7 +44,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h5>
-            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
+            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS > 72h after birth"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
@@ -68,7 +68,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           </div>
         </div>
 
-        <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px' }}>
+        <div className="col" style={{ textAlign: 'left', border: '1px black solid', padding: '20px', fontSize: "larger" }}>
 
           {/* The output we got from the database */}
           <h2 style={{ textDecoration: "underline", textAlign: 'center', minWidth: '400px' }}>Recommended Treatment</h2>
@@ -82,14 +82,25 @@ function OutputWidget({ inputs, outputDisplay }) {
             {/* If there was an exact match, display them. */}
 
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
-
-              <div style={{ padding: '10px' }}>
+              <div className="container">
+                <div className="row" >
+                  <div className="col-8">
+                    <div style={{ padding: '10px' }}>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending culture or susceptibility results)</h5>
+                      {outputDisplay.treatment}
+                    </div>
+                  </div>
+                  <div className="col-4">
+                  </div>
+                </div>
+              </div>
+              {/* <div style={{ padding: '10px' }}>
                 <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending culture or susceptibility results)</h5>
                 {outputDisplay.treatment}
-              </div>
-              <div className="container" dispaly="inline-block">
+              </div> */}
+              <div className="container" display="inline-block">
                 <div className="row">
-                  <div className="col">
+                  <div className="col-8">
                     <div style={{ padding: '10px' }}>
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 1st Choice (if susceptible) </h5>
                       {outputDisplay.treatment1}
@@ -114,13 +125,10 @@ function OutputWidget({ inputs, outputDisplay }) {
                     </div>
 
 
-                    <div style={{ padding: '10px' }}>
-                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
-                      {outputDisplay.duration}
-                    </div>
+
                   </div>
-                  <div className="col">
-                    <img src={arrow} style={{ height: "375px", width: "auto" }}></img>
+                  <div className="col-4">
+                    <img src={arrow} style={{ maxHeight: "400px"}}></img>
                   </div>
 
                 </div>
@@ -128,11 +136,23 @@ function OutputWidget({ inputs, outputDisplay }) {
 
 
 
-
-              <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none', maxWidth: "500px" }}>
-                <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h5>
-                {outputDisplay.addRecs}
+              <div className="container">
+                <div className="row" >
+                  <div className="col-8">
+                    <div style={{ padding: '10px' }}>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
+                      {outputDisplay.duration}
+                    </div>
+                    <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none', maxWidth: "500px" }}>
+                      <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h5>
+                      {outputDisplay.addRecs}
+                    </div>
+                  </div>
+                  <div className="col-4"> 
+                    </div> 
+                </div>
               </div>
+
 
 
 
@@ -144,7 +164,7 @@ function OutputWidget({ inputs, outputDisplay }) {
 
         <div>
           < hr />
-        
+
 
         </div>
 
