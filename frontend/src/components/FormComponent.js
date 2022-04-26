@@ -361,7 +361,7 @@ stored as state variables.
           type="radio"
           className="form-field"
           name="os" />
-        {' '}<label className="form-field">EOS (72 hours or less after birth) </label>
+        {' '}<label className="form-field">EOS (less than 72 hours after birth) </label>
 
         <br />
 
@@ -375,7 +375,7 @@ stored as state variables.
         // Notice that these radio buttons have the same name 
         //so that only one can be selected at a time
         />
-        {' '}<label className="form-field">LOS (more than 72 hours after birth)</label>
+        {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
