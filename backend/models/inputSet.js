@@ -3,37 +3,44 @@ const mongoose = require("mongoose");
 const inputSet = new mongoose.Schema({
   gestational_age: {
     type: Number,
-    required: false,
+    required: true,
   },
-  podynatal_age: {
+  postnatal_age: {
     type: Number,
-    required: false,
+    required: true,
   },
   birth_weight: {
     type: Number,
-    required: false,
+    required: true,
   },
   current_weight: {
     type: Number,
-    required: false,
+    required: true,
   },
-  time_cultures_sent: {
+  time_sent: {
     type: String,
-    required: false,
+    required: true,
   },
-  pathogen: {
+  pathogen_isolated: {
     type: String,
-    required: false,
+    required: true,
   },
   site_of_infection: {
+    type: String,
+    required: true,
+  },
+  blood_dropdown_selection: {
     type: String,
     required: false,
   },
   abdominal_involvement: {
     type: String,
-    required: false,
-    
+    required: true,
   },
+  output_available: {
+    type: Boolean,
+    required: true
+  }
   
 });
 module.exports = mongoose.model("inputSet", inputSet);

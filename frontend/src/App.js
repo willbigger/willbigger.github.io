@@ -5,6 +5,7 @@ import Footer from "./components/Footer"; // Importing the footer
 import About from "./components/About"; // Importing the about page
 import Header from "./components/Header"; // Importing the header
 import FAQ from "./components/FAQ"; // Importing the FAQ page
+import Terms from "./components/Terms";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/' exact component={FormComponent} />
         <Route path='/about' component={About} />
         <Route path='/faq' component={FAQ} />
+        <Route path='/terms' component={Terms} />
         <Footer />
       </div>
     </Router>

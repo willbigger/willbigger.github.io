@@ -1,6 +1,5 @@
 import React from "react";
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import logo from './logo';
 
 function Header() {
   
@@ -8,11 +7,10 @@ function Header() {
     <div>
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
-      <Navbar collapseOnSelect expand="lg" className="navbar" style={{backgroundColor: '#232D4B'}}>
+      <Navbar collapseOnSelect expand="lg" className="navbar" style={{backgroundColor: '#232D4B', fontSize: 'larger'}}>
       <Container >
         <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
-            {/* <img src={logo} style={{width:35, marginTop: -7}}></img> */}
+          <Nav.Link href="/" style={{text_decoration: 'none', color: 'white', fontSize:'larger'}}>
             Neonatal Antibiotic Stewardship
           </Nav.Link>
           </Navbar.Brand>
