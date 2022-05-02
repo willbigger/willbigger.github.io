@@ -12,7 +12,7 @@ function FAQ() {
         <h2 style={{ textAlign: "center" }}>FAQ</h2>
         <br></br>
         <p>
-        <iframe width={width * 0.75} height={height * 0.75} src="https://docs.google.com/document/d/e/2PACX-1vQDFSfM5oO93U8sjhB8FNZmilbo7JAuvYqXzhBPruPNbwx_gWwi1V7HzwT6995Htw7XMAwJZwFt8bag/pub?embedded=true"></iframe>
+        <iframe width={width * 0.75} height={height * 0.5} src="https://docs.google.com/document/d/e/2PACX-1vQDFSfM5oO93U8sjhB8FNZmilbo7JAuvYqXzhBPruPNbwx_gWwi1V7HzwT6995Htw7XMAwJZwFt8bag/pub?embedded=true"></iframe>
         </p>
     </div>
   );
