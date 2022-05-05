@@ -294,7 +294,7 @@ stored as state variables.
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
 
         <br />
-        <label className="form-field">Postnatal Age (in days)</label>
+        <label className="form-field">Postnatal Age (in days, at time of culture sent)</label>
 
         <br />
         {/* Postnatal Age input */}
@@ -333,7 +333,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
 
         <br />
-        <label className="form-field">Current Weight (in grams)</label>
+        <label className="form-field">Current Weight (in grams, at time of form completion)</label>
 
         <br />
         {/* Current Weight input */}
@@ -463,7 +463,7 @@ stored as state variables.
                 type="checkbox"
                 className="form-field"
                 name="infectionSite" />
-              {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
+              {' '}<label className="form-field">None OR Culture Results Pending</label>
 
               <br />
               <input
