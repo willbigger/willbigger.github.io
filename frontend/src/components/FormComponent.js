@@ -159,11 +159,11 @@ stored as state variables.
     console.log(inputs);
     let validAge = true
     if(inputs.os == "EOS") {
-      if (parseFloat(inputs.postnatalAge) > 3) {
+      if (parseFloat(inputs.postnatalAge) >= 4) {
         validAge = false
       }
     } else if (inputs.os == "LOS") {
-      if (parseFloat(inputs.postnatalAge) <= 3) {
+      if (parseFloat(inputs.postnatalAge) < 3) {
         validAge = false
       }
     }
