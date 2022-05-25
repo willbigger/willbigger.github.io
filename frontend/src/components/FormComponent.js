@@ -423,12 +423,21 @@ stored as state variables.
                 <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
                 <Dropdown.Item eventKey="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</Dropdown.Item>
-                <Dropdown.Item eventKey="GBS">GBS</Dropdown.Item>
                 <Dropdown.Item eventKey="MSSA">MSSA</Dropdown.Item>
                 <Dropdown.Item eventKey="MRSA">MRSA</Dropdown.Item>
                 <Dropdown.Item eventKey="Pseudomonas">Pseudomonas</Dropdown.Item>
                 <Dropdown.Item eventKey="Enterobacter">Enterobacter</Dropdown.Item>
                 <Dropdown.Item eventKey="Enterococcus">Enterococcus</Dropdown.Item>
+
+                <Dropdown.Item eventKey="Candida Albicans">Candida Albicans</Dropdown.Item>
+                <Dropdown.Item eventKey="Candida Parasilosis">Candida Parasilosis</Dropdown.Item>
+                <Dropdown.Item eventKey="Gram Positive">Gram Positive</Dropdown.Item>
+                <Dropdown.Item eventKey="Gram Negative Rods">Gram Negative Rods</Dropdown.Item>
+                <Dropdown.Item eventKey="Aspergillus">Aspergillus</Dropdown.Item>
+                <Dropdown.Item eventKey="Rhizopus">Rhizopus</Dropdown.Item>
+                <Dropdown.Item eventKey="Non Candida Albicans">Non Candida Albicans</Dropdown.Item>
+                <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
+
               </DropdownButton>
 
             </div>

@@ -34,7 +34,7 @@ function OutputWidget({ inputs, outputDisplay }) {
             {/* inputs were sent from FormComponent */}
         Gestational Age: {inputs.gestationalAge} weeks
         <br />
-        Postnatal Age: {inputs.postnatalAge} weeks
+        Postnatal Age: {inputs.postnatalAge} days
         <br />
         Birth Weight: {inputs.birthWeight} grams
         <br />
