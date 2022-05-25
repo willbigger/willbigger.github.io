@@ -29,7 +29,6 @@ function About() {
 
           </ul>
 
-
         As neonatal clinicians, we make multiple antibiotic decisions every day. We hope having stewardship guidance available 24 hours a day will aid in evidenced-based decisions.  Additionally, as many centers do not have neonatal antibiotic stewardship programs, we hope this web-app will help to raise stewardship awareness in those institutions and supplement stewardship in centers with existing programs.
 
         <br />
