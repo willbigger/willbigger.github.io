@@ -158,6 +158,7 @@ stored as state variables.
   const onSubmit = (event) => {
     console.log(inputs);
     let validAge = true
+    let validWeight = true
     if(inputs.os == "EOS") {
       if (parseFloat(inputs.postnatalAge) >= 4) {
         validAge = false
@@ -167,7 +168,13 @@ stored as state variables.
         validAge = false
       }
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if(parseFloat(inputs.gestationalAge) < 20 || parseFloat(inputs.gestationalAge) > 45) {
+      validAge = false
+    }
+    if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
+      validWeight = false
+    }
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -292,6 +299,8 @@ stored as state variables.
         while the Gestational Age input is empty */}
         {(status === 'invalid') && !inputs.gestationalAge ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
+        {(status === 'invalid') && (inputs.gestationalAge < 20 || inputs.gestationalAge > 45)  ?
+          <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
         <label className="form-field">Postnatal Age (in days, at time of culture sent)</label>
@@ -312,9 +321,9 @@ stored as state variables.
         {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         {(status === 'invalid') && (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) > 3) ?
-          <span style={{ color: "red" }}>Invalid postnatal age for EOS.</span> : null }
-        {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) <= 3) ?
-          <span style={{ color: "red" }}>Invalid postnatal age for LOS.</span> : null }
+          <span style={{ color: "red" }}>Postnatal age must be ≤ 3 days for EOS.</span> : null }
+        {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
+          <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
         <label className="form-field">Birth Weight (in grams)</label>
         <br />
@@ -331,6 +340,8 @@ stored as state variables.
         while the Birth Weight input is empty */}
         {(status === 'invalid') && !inputs.birthWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {(status === 'invalid') && parseFloat(inputs.birthWeight) < 200 ?
+          <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
 
         <br />
         <label className="form-field">Current Weight (in grams, at time of form completion)</label>
@@ -349,6 +360,8 @@ stored as state variables.
         while the Current Weight input is empty */}
         {(status === 'invalid') && !inputs.currentWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {(status === 'invalid') && parseFloat(inputs.currentWeight) < 200 ?
+          <span style={{ color: "red" }}>Current weight must be at least 200 grams.</span> : null}
 
         <hr />
 
@@ -410,12 +423,21 @@ stored as state variables.
                 <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
                 <Dropdown.Item eventKey="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</Dropdown.Item>
-                <Dropdown.Item eventKey="GBS">GBS</Dropdown.Item>
                 <Dropdown.Item eventKey="MSSA">MSSA</Dropdown.Item>
                 <Dropdown.Item eventKey="MRSA">MRSA</Dropdown.Item>
                 <Dropdown.Item eventKey="Pseudomonas">Pseudomonas</Dropdown.Item>
                 <Dropdown.Item eventKey="Enterobacter">Enterobacter</Dropdown.Item>
                 <Dropdown.Item eventKey="Enterococcus">Enterococcus</Dropdown.Item>
+
+                <Dropdown.Item eventKey="Candida Albicans">Candida Albicans</Dropdown.Item>
+                <Dropdown.Item eventKey="Candida Parasilosis">Candida Parasilosis</Dropdown.Item>
+                <Dropdown.Item eventKey="Gram Positive">Gram Positive</Dropdown.Item>
+                <Dropdown.Item eventKey="Gram Negative Rods">Gram Negative Rods</Dropdown.Item>
+                <Dropdown.Item eventKey="Aspergillus">Aspergillus</Dropdown.Item>
+                <Dropdown.Item eventKey="Rhizopus">Rhizopus</Dropdown.Item>
+                <Dropdown.Item eventKey="Non Candida Albicans">Non Candida Albicans</Dropdown.Item>
+                <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
+
               </DropdownButton>
 
             </div>

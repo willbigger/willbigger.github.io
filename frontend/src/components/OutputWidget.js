@@ -34,7 +34,7 @@ function OutputWidget({ inputs, outputDisplay }) {
             {/* inputs were sent from FormComponent */}
         Gestational Age: {inputs.gestationalAge} weeks
         <br />
-        Postnatal Age: {inputs.postnatalAge} weeks
+        Postnatal Age: {inputs.postnatalAge} days
         <br />
         Birth Weight: {inputs.birthWeight} grams
         <br />
@@ -44,7 +44,7 @@ function OutputWidget({ inputs, outputDisplay }) {
           <div style={{ padding: '10px', textAlign: "left" }}>
 
             <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h5>
-            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS > 72h after birth"}
+            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
