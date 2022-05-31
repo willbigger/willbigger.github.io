@@ -77,6 +77,8 @@ function OutputWidget({ inputs, outputDisplay }) {
             {inputs.pathogen !== "No" ? "Pathogen isolated: " +
               fixSpaces(inputs.pathogen) : "No pathogen isolated"}
             <br />
+            Susceptibility results: {inputs.susceptible === '' ? 'Pending' : fixSpaces(inputs.susceptible)}
+            <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
