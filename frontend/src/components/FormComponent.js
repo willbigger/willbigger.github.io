@@ -23,6 +23,7 @@ function FormComponent() {
     currentWeight: "",
     os: "",
     pathogen: "",
+    susceptible: "",
     infectionSite: new Set(),
     bloodDropdownSelection: "",
     nec: "",
@@ -87,6 +88,7 @@ stored as state variables.
     }
     else {
       setPathogenToggle(false)
+      setInputs({ ...inputs, susceptible: '' })  // reset susceptibility
     }
   }
 
@@ -184,7 +186,6 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    console.log(inputs.susceptible);
     if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
@@ -270,6 +271,7 @@ stored as state variables.
       currentWeight: "",
       os: "",
       pathogen: "",
+      susceptible: "",
       bloodDropdownSelection: "",
       nec: ""
     })
