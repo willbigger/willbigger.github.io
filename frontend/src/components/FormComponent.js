@@ -433,7 +433,7 @@ stored as state variables.
               {/* If yes is selected for the pathogen input, show this dropdown */}
               <DropdownButton
                 alignRight
-                title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
+                title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "Select..." : inputs.pathogen.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
@@ -564,7 +564,7 @@ stored as state variables.
 
               <DropdownButton
                 alignRight
-                title={inputs.bloodDropdownSelection}
+                title={inputs.bloodDropdownSelection === "" ? "Select..." : inputs.bloodDropdownSelection}
                 id="dropdown-menu-align-right1"
                 variant="secondary-light"
                 onSelect={handleBloodSelection}
@@ -647,7 +647,7 @@ stored as state variables.
 
               <DropdownButton
                 alignRight
-                title={(inputs.nec === "No" || inputs.nec === "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
+                title={(inputs.nec === "No" || inputs.nec === "Yes") ? "Select..." : inputs.nec.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, nec: event.replaceAll(' ', '_') })}
