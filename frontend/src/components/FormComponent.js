@@ -88,7 +88,9 @@ stored as state variables.
     }
     else {
       setPathogenToggle(false)
-      setInputs({ ...inputs, susceptible: '' })  // reset susceptibility
+      // reset susceptibility
+      setInputs({ ...inputs, susceptible: '' })
+      document.querySelectorAll('input[name="susceptible"]').forEach(el => el.checked = false);
     }
   }
 
