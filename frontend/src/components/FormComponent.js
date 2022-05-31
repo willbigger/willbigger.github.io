@@ -91,6 +91,16 @@ stored as state variables.
   }
 
   /*
+  Handler for the susceptible variable.
+  Similar to the pathogen variable, it
+  toggles the susceptible variable between yes
+  and no depending on which radio button is clicked.
+  */
+  const handleSusceptible = (event) => {
+    setInputs({ ...inputs, susceptible: event.target.value })
+  }
+
+  /*
   Handler for the infectionSite array. If the checked
   item isn't already in the array, it gets pushed on.
   */
@@ -174,7 +184,8 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    console.log(inputs.susceptible);
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -470,6 +481,46 @@ stored as state variables.
         {(status === 'invalid') && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr />
+
+
+        <h2 style={{ textAlign: "center", display: pathogenToggle ? 'block' : 'none' }}>Susceptibility Results</h2>
+        {/* Susceptible input */}
+        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+          <div className="row">
+            <div className="col">
+              {/* susceptible input option 1: Pending */}
+              <input
+                value="Pending"
+                onInput={handleSusceptible}
+                type="radio"
+                className="form-field"
+                name="susceptible" />
+              {' '}<label className="form-field">Pending</label>
+            </div>
+          </div>
+        </div>
+
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+
+        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+          <div className="row">
+            <div className="col">
+              {/* susceptible input option 2: Known */}
+              <input
+                value="Known"
+                onInput={handleSusceptible}
+                type="radio"
+                className="form-field"
+                name="susceptible" />
+              {' '}<label className="form-field">Known</label>
+            </div>
+          </div>
+        </div>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
+        {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
 
 
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
