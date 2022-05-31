@@ -295,7 +295,7 @@ stored as state variables.
 
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
-        <label className="form-field">Gestational Age (in weeks)</label>
+        <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
 
         <br />
         {/* Gestational Age input */}
@@ -305,6 +305,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
           type="text"
           className="form-field"
+          id="gestationalAge"
           name="gestationalAge"
         />
         <br />
@@ -316,7 +317,7 @@ stored as state variables.
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
-        <label className="form-field">Postnatal Age (in days, at time of culture sent)</label>
+        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (in days, at time of culture sent)</label>
 
         <br />
         {/* Postnatal Age input */}
@@ -325,6 +326,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
           className="form-field"
+          id="postnatalAge"
           name="postnatalAge"
         />
         
@@ -338,7 +340,7 @@ stored as state variables.
         {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
           <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
-        <label className="form-field">Birth Weight (in grams)</label>
+        <label className="form-field" htmlFor="birthWeight">Birth Weight (in grams)</label>
         <br />
         {/* Birth Weight input */}
         <input
@@ -346,6 +348,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
           className="form-field"
+          id="birthWeight"
           name="birthWeight"
         />
         <br />
@@ -357,7 +360,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
 
         <br />
-        <label className="form-field">Current Weight (in grams, at time of form completion)</label>
+        <label className="form-field" htmlFor="currentWeight">Current Weight (in grams, at time of form completion)</label>
 
         <br />
         {/* Current Weight input */}
@@ -366,6 +369,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
           className="form-field"
+          id="currentWeight"
           name="currentWeight"
         />
         <br />
@@ -385,8 +389,9 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
+          id="os-EOS"
           name="os" />
-        {' '}<label className="form-field">EOS (less than 72 hours after birth) </label>
+        {' '}<label className="form-field" htmlFor="os-EOS">EOS (less than 72 hours after birth) </label>
 
         <br />
 
@@ -396,11 +401,12 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
           type="radio"
           className="form-field"
+          id="os-LOS"
           name="os"
         // Notice that these radio buttons have the same name 
         //so that only one can be selected at a time
         />
-        {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
+        {' '}<label className="form-field" htmlFor="os-LOS">LOS (72 or more hours after birth)</label>
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
@@ -420,8 +426,9 @@ stored as state variables.
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
+                id="pathogen-Yes"
                 name="pathogen" />
-              {' '}<label className="form-field">Yes</label>
+              {' '}<label className="form-field" htmlFor="pathogen-Yes">Yes</label>
 
               {/* If yes is selected for the pathogen input, show this dropdown */}
               <DropdownButton
@@ -432,6 +439,7 @@ stored as state variables.
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }}
               >
+
                 <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
                 <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
@@ -473,8 +481,9 @@ stored as state variables.
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
+                id="pathogen-No"
                 name="pathogen" />
-              {' '}<label className="form-field">No</label>
+              {' '}<label className="form-field" htmlFor="pathogen-No">No</label>
             </div>
           </div>
         </div>
@@ -496,8 +505,9 @@ stored as state variables.
                 onInput={handleSusceptible}
                 type="radio"
                 className="form-field"
+                id="susceptible-Pending"
                 name="susceptible" />
-              {' '}<label className="form-field">Pending</label>
+              {' '}<label className="form-field" htmlFor="susceptible-Pending">Pending</label>
             </div>
           </div>
         </div>
@@ -513,8 +523,9 @@ stored as state variables.
                 onInput={handleSusceptible}
                 type="radio"
                 className="form-field"
+                id="susceptible-Known"
                 name="susceptible" />
-              {' '}<label className="form-field">Known</label>
+              {' '}<label className="form-field" htmlFor="susceptible-Known">Known</label>
             </div>
           </div>
         </div>
@@ -537,8 +548,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-No"
                 name="infectionSite" />
-              {' '}<label className="form-field">None OR Culture Results Pending</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-No">None OR Culture Results Pending</label>
 
               <br />
               <input
@@ -546,8 +558,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Blood"
                 name="infectionSite" />
-              {' '}<label className="form-field">Blood</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Blood">Blood</label>
 
               <DropdownButton
                 alignRight
@@ -567,8 +580,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Urine"
                 name="infectionSite" />
-              {' '}<label className="form-field">Urine</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Urine">Urine</label>
 
               <br />
 
@@ -577,8 +591,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-CSF"
                 name="infectionSite" />
-              {' '}<label className="form-field">CSF</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-CSF">CSF</label>
 
               <br />
 
@@ -587,8 +602,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Peritoneal"
                 name="infectionSite" />
-              {' '}<label className="form-field">Peritoneal</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Peritoneal">Peritoneal</label>
 
               <br />
 
@@ -597,8 +613,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Skin_with_Cellulitis"
                 name="infectionSite" />
-              {' '}<label className="form-field">Skin with Cellulitis</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Skin_with_Cellulitis">Skin with Cellulitis</label>
 
               <br />
             </div>
@@ -624,8 +641,9 @@ stored as state variables.
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
+                id="nec-Yes"
                 name="nec" />
-              {' '}<label className="form-field">Yes</label>
+              {' '}<label className="form-field" htmlFor="nec-Yes">Yes</label>
 
               <DropdownButton
                 alignRight
@@ -661,8 +679,9 @@ stored as state variables.
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
+                id="nec-No"
                 name="nec" />
-              {' '}<label className="form-field">No</label>
+              {' '}<label className="form-field" htmlFor="nec-No">No</label>
               <br />
             </div>
           </div>
@@ -682,8 +701,9 @@ stored as state variables.
           value="I have read and accepted the terms and conditions"
           onClick={(event) => setTermsAccepted(event.target.checked)}
           type="checkbox"
+          id="terms-and-conditions"
           className="form-field"/>
-        {' '}<label className="form-field">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
+        {' '}<label className="form-field" htmlFor="terms-and-conditions">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
         <br/>
         
         {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
