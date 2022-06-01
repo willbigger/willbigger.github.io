@@ -29,6 +29,23 @@ function FormComponent() {
     nec: "",
   });
 
+  /* These are the inputs stored as state variables.
+  These are stored separately so that the output widget
+  displays the inputs as of when the form was submitted.
+  */
+  const [outputInputs, setOutputInputs] = useState({
+    gestationalAge: "",
+    postnatalAge: "",
+    birthWeight: "",
+    currentWeight: "",
+    os: "",
+    pathogen: "",
+    susceptible: "",
+    infectionSite: new Set(),
+    bloodDropdownSelection: "",
+    nec: "",
+  });
+
   /* These are the output we will fetch to be
 stored as state variables.
 */
@@ -216,6 +233,7 @@ stored as state variables.
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
           setStatus('loaded')
+          setOutputInputs(inputs);
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -227,6 +245,7 @@ stored as state variables.
           });
         } else {
           setStatus('loaded')
+          setOutputInputs(inputs);
           setOutputDisplay({
             ...outputDisplay,
             noMatch: true,
@@ -734,7 +753,7 @@ stored as state variables.
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {(status === "loaded") && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={outputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
 
         </div>
 
