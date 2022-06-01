@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import arrow from './arrow.png'
-import { Carousel} from 'react-bootstrap';
-import aaa from'./aaa.png'
+import { Carousel } from 'react-bootstrap';
 import narrow_b from './narrow_b.png'
+import TreatmentInfo from './TreatmentInfo';
 
 function OutputWidget({ inputs, outputDisplay }) {
 
@@ -126,45 +126,45 @@ function OutputWidget({ inputs, outputDisplay }) {
                 <div style={{ padding: '10px' }}>
                   <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment</h5>
                   <p style={slidesStyle2}> {outputDisplay.treatment}</p>
-                  <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                  <TreatmentInfo />
                 </div>
               </div>          
               
               {/* susceptibility results known */}
-              <div className="container">
-                <img src={narrow_b} style={{  display: "flex", alignSelf:"center"}}/>
+              <div className="container" style={{ display: inputs.susceptible === 'Known' ? 'inline-block' : 'none' }}>
+                <img src={narrow_b} style={{ maxWidth: "100%", margin: "auto" }}/>
               </div>
 
               <div className="container" style={{ display: inputs.susceptible === 'Known' ? 'inline-block' : 'none' }}>
                 <Carousel activeIndex={index} onSelect={handleSelect}>
-                  <Carousel.Item style={{'height':"500px"}} >
+                  <Carousel.Item style={{paddingBottom: "10px"}} >
                     <h3 style={slidesStyle1} >Antibiotic Treatment 1st Choice</h3>
                     <p style={slidesStyle2}>{outputDisplay.treatment1}</p>
-                    <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                    <TreatmentInfo />
                     <Carousel.Caption>
                       
                     </Carousel.Caption>
                   </Carousel.Item >
-                  <Carousel.Item style={{'height':"500px"}} >
+                  <Carousel.Item style={{paddingBottom: "10px"}} >
                     <h3 style={slidesStyle1}>Antibiotic Treatment 2nd Choice</h3>
                     <p style={slidesStyle2}>{outputDisplay.treatment2}</p>
-                    <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                    <TreatmentInfo />
                     <Carousel.Caption>
                       
                     </Carousel.Caption>
                   </Carousel.Item>
-                  <Carousel.Item style={{'height':"500px"}} >
+                  <Carousel.Item style={{paddingBottom: "10px"}} >
                     <h3 style={slidesStyle1}>Antibiotic Treatment 3rd Choice</h3>
                     <p style={slidesStyle2}>{outputDisplay.treatment3}</p>
-                    <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                    <TreatmentInfo />
                     <Carousel.Caption>
                       
                     </Carousel.Caption>
                   </Carousel.Item>
-                  <Carousel.Item style={{'height':"500px"}} >
+                  <Carousel.Item style={{paddingBottom: "10px"}} >
                     <h3 style={slidesStyle1}>Antibiotic Treatment 4th Choice</h3>
                     <p style={slidesStyle2}>{outputDisplay.treatment4}</p>
-                    <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                    <TreatmentInfo />
                     <Carousel.Caption>
                       
                     </Carousel.Caption>
