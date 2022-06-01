@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import arrow from './arrow.png'
 import { Carousel } from 'react-bootstrap';
 import narrow_b from './narrow_b.png'
 import TreatmentInfo from './TreatmentInfo';
