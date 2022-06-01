@@ -1,7 +1,23 @@
 import React from 'react';
+import { useState } from 'react';
 import arrow from './arrow.png'
+import { Carousel} from 'react-bootstrap';
+import aaa from'./aaa.png'
 
 function OutputWidget({ inputs, outputDisplay }) {
+
+  const sliesStyle ={
+    fontSize: 20,
+    color: "black",
+    textAlign: "center",
+  }
+  const [index, setIndex] = useState(0);
+  
+  
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
 
   function fixSpaces(word) {
     let newWord = ""
@@ -20,7 +36,7 @@ function OutputWidget({ inputs, outputDisplay }) {
     return newWord
   }
 
-
+  
 
   return (
     <div className="container">
@@ -83,24 +99,68 @@ function OutputWidget({ inputs, outputDisplay }) {
 
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
               <div className="container">
-                <div className="row" >
-                  <div className="col-8">
+
+
                     <div style={{ padding: '10px' }}>
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending culture or susceptibility results)</h5>
-                      {outputDisplay.treatment}
+                      <p style={sliesStyle}> {outputDisplay.treatment}</p>
+
                     </div>
-                  </div>
+
                   <div className="col-4">
-                  </div>
+
                 </div>
               </div>
               {/* <div style={{ padding: '10px' }}>
                 <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment (pending culture or susceptibility results)</h5>
                 {outputDisplay.treatment}
               </div> */}
+              
+              
+              
+              
               <div className="container" display="inline-block">
-                <div className="row">
-                  <div className="col-8">
+                
+
+                  <Carousel activeIndex={index} onSelect={handleSelect}>
+                    <Carousel.Item style={{'height':"500px"}} >
+                      <h3 style={sliesStyle} >Antibiotic Treatment 1st Choice</h3>
+                      <p style={sliesStyle}>{outputDisplay.treatment1}</p>
+                      <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                      <Carousel.Caption>
+                        
+                      </Carousel.Caption>
+                    </Carousel.Item >
+                    <Carousel.Item style={{'height':"500px"}} >
+                      <h3 style={sliesStyle}>Antibiotic Treatment 2nd Choice</h3>
+                      <p style={sliesStyle}>{outputDisplay.treatment2}</p>
+                      <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                      <Carousel.Caption>
+                        
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item style={{'height':"500px"}} >
+                      <h3 style={sliesStyle}>Antibiotic Treatment 3rd Choice</h3>
+                      <p style={sliesStyle}>{outputDisplay.treatment3}</p>
+                      <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                      <Carousel.Caption>
+                        
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item style={{'height':"500px"}} >
+                      <h3 style={sliesStyle}>Antibiotic Treatment 4th Choice</h3>
+                      <p style={sliesStyle}>{outputDisplay.treatment4}</p>
+                      <img src={aaa} style={{ maxHeight: "400px"}}></img>
+                      <Carousel.Caption>
+                        
+                      </Carousel.Caption>
+                    </Carousel.Item>
+
+                    
+                  </Carousel>
+                    
+                    {/*
+                  
                     <div style={{ padding: '10px' }}>
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 1st Choice (if susceptible) </h5>
                       {outputDisplay.treatment1}
@@ -123,31 +183,31 @@ function OutputWidget({ inputs, outputDisplay }) {
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 4th Choice (if susceptible)</h5>
                       {outputDisplay.treatment4}
                     </div>
+                    */}
 
-
-
-                  </div>
+                  {/*
                   <div className="col-4">
                     <img src={arrow} style={{ maxHeight: "400px"}}></img>
                   </div>
+                  */}
 
-                </div>
+
+
+
               </div>
 
 
 
               <div className="container">
-                <div className="row" >
-                  <div className="col-8">
+
                     <div style={{ padding: '10px' }}>
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
-                      {outputDisplay.duration}
+                      <p style={sliesStyle}>{outputDisplay.duration}</p>
                     </div>
                     <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none', maxWidth: "500px" }}>
                       <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h5>
                       {outputDisplay.addRecs}
-                    </div>
-                  </div>
+
                   <div className="col-4"> 
                     </div> 
                 </div>
