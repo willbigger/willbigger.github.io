@@ -405,29 +405,42 @@ stored as state variables.
 
         <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
         {/* EOS/LOS input option 1: EOS */}
-        <input
-          value="EOS"
-          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
-          type="radio"
-          className="form-field"
-          id="os-EOS"
-          name="os" />
-        {' '}<label className="form-field" htmlFor="os-EOS">EOS (less than 72 hours after birth) </label>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                value="EOS"
+                onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
+                type="radio"
+                className="form-field"
+                id="os-EOS"
+                name="os" />
+              {' '}<label className="form-field" htmlFor="os-EOS">EOS (less than 72 hours after birth) </label>
+            </div>
+          </div>
+        </div>
 
         <br />
 
         {/* EOS/LOS input option 2: LOS */}
-        <input
-          value="LOS"
-          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
-          type="radio"
-          className="form-field"
-          id="os-LOS"
-          name="os"
-        // Notice that these radio buttons have the same name 
-        //so that only one can be selected at a time
-        />
-        {' '}<label className="form-field" htmlFor="os-LOS">LOS (72 or more hours after birth)</label>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                value="LOS"
+                onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
+                type="radio"
+                className="form-field"
+                id="os-LOS"
+                name="os"
+              // Notice that these radio buttons have the same name 
+              //so that only one can be selected at a time
+              />
+              {' '}<label className="form-field" htmlFor="os-LOS">LOS (72 or more hours after birth)</label>
+            </div>
+          </div>
+        </div>
+
         <br />
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
