@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { DropdownButton, Dropdown,ListGroup, ListGroupItem,Container } from 'react-bootstrap';
+import baby from "./baby.jpeg"
+import './FormComponent.css'
 
 // import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
@@ -312,9 +314,26 @@ stored as state variables.
 
 
   return (
+    
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
-
+      <br/>
+      <Container>
+        <figure>
+          <figcaption>
+            asdaoshfoashfoiashfoiiashfoias
+            hfoiiasoahsofhaoishfoasdasfasf
+            asfasfasfasgsdgadsfjgdsjfdgjdf
+            hjfgj
+          </figcaption>
+          <img src={baby} style={{maxWidth:"700px", maxHeight:"100%"}} className="rounded mx-auto d-block"></img>
+        </figure>
+      </Container>
+      
+      
+      <ListGroup>
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
+      <br/>
+      <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
         <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
 
@@ -329,6 +348,7 @@ stored as state variables.
           id="gestationalAge"
           name="gestationalAge"
         />
+        
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
@@ -400,10 +420,14 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         {(status === 'invalid') && parseFloat(inputs.currentWeight) < 200 ?
           <span style={{ color: "red" }}>Current weight must be at least 200 grams.</span> : null}
-
-        <hr />
-
+        <br/>
+        </ListGroup.Item>
+        <br/>
+        <br />
+        <ListGroup.Item>
+        <br />
         <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        <br />
         {/* EOS/LOS input option 1: EOS */}
         <div className="container">
           <div className="row">
@@ -419,7 +443,7 @@ stored as state variables.
             </div>
           </div>
         </div>
-
+        
         <br />
 
         {/* EOS/LOS input option 2: LOS */}
@@ -440,13 +464,16 @@ stored as state variables.
             </div>
           </div>
         </div>
-
         <br />
+
+        
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr />
-
+        </ListGroup.Item>
+        <br />
+        <br />
+        <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
         {/* Pathogen input */}
@@ -521,13 +548,15 @@ stored as state variables.
             </div>
           </div>
         </div>
-        <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr />
+          
+        </ListGroup.Item>
+        <br />
 
-
+        <br />
+        <ListGroupItem>
         <h2 style={{ textAlign: "center", display: pathogenToggle ? 'block' : 'none' }}>Susceptibility Results</h2>
         {/* Susceptible input */}
         <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
@@ -569,7 +598,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
 
-
+        
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
@@ -662,8 +691,10 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "" ?
           <p style={{ color: "red" }}>Blood needs CSF</p> : null}
-
-        <hr />
+        </ListGroupItem>
+        <br/>
+      <br/>
+        <ListGroupItem>
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
         {/* Abdominal involvement inputs */}
         <div className="container">
@@ -727,9 +758,10 @@ stored as state variables.
             <span style={{ color: "red" }}>Please fill in this field.</span> : null
         }
         <br />
-
-        <hr/>
-
+        </ListGroupItem>
+        <br/>
+        <br/>
+        <ListGroupItem>
         {/* Terms and Conditions */}
         <input
           value="I have read and accepted the terms and conditions"
@@ -737,7 +769,7 @@ stored as state variables.
           type="checkbox"
           id="terms-and-conditions"
           className="form-field"/>
-        {' '}<label className="form-field" htmlFor="terms-and-conditions">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
+        {' '}<label className="form-field" htmlFor="terms-and-conditions" alignItems="center">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
         <br/>
         
         {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
@@ -745,7 +777,7 @@ stored as state variables.
         (status === 'invalid') && !termsAccepted ?
           <span style={{ color: "red" }}>Please accept the terms and conditions.</span> : null
         }
-
+        </ListGroupItem>
         <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <SubmitButton onClick={onSubmit} className="form-button" />
@@ -771,8 +803,11 @@ stored as state variables.
         </div>
 
       </form >
+
       <br />
+      </ListGroup>
     </div >
+
   )
 };
 export default FormComponent; // Exporting so that we can use in App.js

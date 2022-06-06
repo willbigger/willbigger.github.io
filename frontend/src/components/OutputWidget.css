@@ -9,7 +9,6 @@
     align-items: center;
 }
 
-.carousel-control-next,
-.carousel-control-prev /*, .carousel-indicators */ {
+.carousel-control{
     filter: invert(100%);
 }

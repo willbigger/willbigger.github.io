@@ -2,3 +2,11 @@
 .form-field {
     font-size: larger;
 }
+
+figcaption{
+    position: absolute;
+    bottom: 60rem;
+    margin: 0 34rem;
+    color: rgb(62, 62, 62);
+    font-size: 1.5rem;
+}
