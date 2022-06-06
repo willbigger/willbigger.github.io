@@ -135,7 +135,7 @@ function OutputWidget({ inputs, outputDisplay }) {
               </div>
 
               <div className="container" style={{ display: inputs.susceptible === 'Known' ? 'inline-block' : 'none' }}>
-                <Carousel activeIndex={index} onSelect={handleSelect} variant="dark">
+                <Carousel  variant="dark">
                   <Carousel.Item style={{paddingBottom: "10px"}} >
                     <h3 style={slidesStyle1} >Antibiotic Treatment 1st Choice</h3>
                     <p style={slidesStyle2}>{outputDisplay.treatment1}</p>
