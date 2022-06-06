@@ -2,9 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import narrow_b from './narrow_b.png'
+import Toggle from './Toggle';
 import TreatmentInfo from './TreatmentInfo';
 
-function OutputWidget({ inputs, outputDisplay }) {
+function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
 
   const slidesStyle1 ={
     fontSize: 20,
@@ -120,6 +121,13 @@ function OutputWidget({ inputs, outputDisplay }) {
             {/* If there was an exact match, display them. */}
 
             <div style={{ display: outputDisplay.noMatch ? 'none' : 'block' }}>
+              <Toggle
+                checked={inputs.susceptible === 'Known'}
+                onChecked="Culture and susceptibility results known"
+                onUnchecked="Pending culture or susceptibility results"
+                handleChange={(checked) => { setOutputInputs({...inputs, susceptible: inputs.susceptible === 'Known' ? 'Pending' : 'Known'}); }}
+              />
+
               {/* pending culture or susceptibility results */}
               <div className="container" style={{ display: inputs.susceptible === 'Known' ? 'none' : 'block' }}>
                 <div style={{ padding: '10px' }}>
@@ -129,7 +137,7 @@ function OutputWidget({ inputs, outputDisplay }) {
                 </div>
               </div>          
               
-              {/* susceptibility results known */}
+              {/* culture or susceptibility results known */}
               <div className="container" style={{ display: inputs.susceptible === 'Known' ? 'inline-block' : 'none' }}>
                 <img src={narrow_b} style={{ maxWidth: "100%", margin: "auto" }}/>
               </div>

@@ -798,7 +798,7 @@ stored as state variables.
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {(status === "loaded") && <OutputWidget inputs={outputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
 
         </div>
 
