@@ -319,7 +319,7 @@ stored as state variables.
       <br/>
       <article  className="article">
         <img className="image" src={baby} alt="baby" />
-        <h1 className="header"> asdaoshfoashfoiashfoiiashfoiashfoiiasoahsofhaoishfoasdasfasfasfasfasfasgsdgadsfjgdsjfdgjdfhjfgj</h1>
+        <h1 className="header"> Text Area Testing</h1>
       </article>
       
       
