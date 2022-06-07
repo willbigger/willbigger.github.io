@@ -6,7 +6,33 @@
 figcaption{
     position: absolute;
     bottom: 60rem;
-    margin: 0 34rem;
+    margin: 0 rem;
     color: rgb(62, 62, 62);
     font-size: 1.5rem;
+}
+
+.article {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    object-fit: cover;
+    max-width: 700px;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.header {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    text-align: left;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 0;
+    height: fit-content;
+    margin: auto;
 }

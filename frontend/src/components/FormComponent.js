@@ -317,17 +317,10 @@ stored as state variables.
     
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
       <br/>
-      <Container>
-        <figure>
-          <figcaption>
-            asdaoshfoashfoiashfoiiashfoias
-            hfoiiasoahsofhaoishfoasdasfasf
-            asfasfasfasgsdgadsfjgdsjfdgjdf
-            hjfgj
-          </figcaption>
-          <img src={baby} style={{maxWidth:"700px", maxHeight:"100%"}} className="rounded mx-auto d-block"></img>
-        </figure>
-      </Container>
+      <article  className="article">
+        <img className="image" src={baby} alt="baby" />
+        <h1 className="header"> asdaoshfoashfoiashfoiiashfoiashfoiiasoahsofhaoishfoasdasfasfasfasfasfasgsdgadsfjgdsjfdgjdfhjfgj</h1>
+      </article>
       
       
       <ListGroup>
