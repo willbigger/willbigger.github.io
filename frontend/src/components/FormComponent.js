@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import OutputWidget from './OutputWidget';
-import { DropdownButton, Dropdown,ListGroup, ListGroupItem,Container } from 'react-bootstrap';
-import baby from "./baby.jpeg"
-import './FormComponent.css'
+import { DropdownButton, Dropdown, ListGroup, ListGroupItem } from 'react-bootstrap';
+import axios from "axios"; // for get request for output data
 
+import FormComponentHeader from './FormComponentHeader';
+import OutputWidget from './OutputWidget';
 // import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
-import axios from "axios"; // for get request for output data
 import loading from './wait'
 
 import './FormComponent.css';
@@ -316,16 +315,10 @@ stored as state variables.
   return (
     
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
-      <br/>
-      <article  className="article">
-        <img className="image" src={baby} alt="baby" />
-        <h1 className="header"> Text Area Testing</h1>
-      </article>
-      
+      <FormComponentHeader />
       
       <ListGroup>
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
-      <br/>
       <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
         <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
