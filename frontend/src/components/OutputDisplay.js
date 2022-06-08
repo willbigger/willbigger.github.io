@@ -19,14 +19,7 @@ function OutputDisplay({ inputs, outputDisplay, setOutputInputs }) {
     display = <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
   }
 
-  return (
-    <div className="row" >
-      <div className="col" style={{ textAlign: 'left' }}>
-        <h2 style={{ textDecoration: "underline", textAlign: 'center', minWidth: '400px' }}>Recommended Treatment</h2>
-          {display}
-      </div>
-    </div>
-  );
+  return display;
 }
 
 export default OutputDisplay;

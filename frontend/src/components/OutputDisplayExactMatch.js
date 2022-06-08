@@ -1,26 +1,21 @@
+import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
-import narrow_b from './narrow_b.png'
 import Toggle from './Toggle';
+import OutputScale from './OutputScale';
 import TreatmentInfo from './TreatmentInfo';
+
+import './OutputScale.css';
 
 function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
   /* If there was an exact match, display them. */
   
-  const slidesStyle1 = {
-    fontSize: 20,
-    color: "black",
-    backgroundColor: 'orange', 
-    textAlign: "center", 
-    borderRadius:"5px" 
-  }
+  const [index, setIndex] = useState(0);
 
-  const slidesStyle2 = {
-    fontSize: 20,
-    color: "black",
-    textAlign: "center",
-  }
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
 
-  const susceptibilityKnown = (inputs.susceptible === 'Known');
+  const susceptibilityKnown = (inputs.susceptible === "Known");
 
   return (
     <div>
@@ -28,69 +23,66 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
         checked={susceptibilityKnown}
         onChecked="Culture and susceptibility results known"
         onUnchecked="Pending culture or susceptibility results"
-        handleChange={(checked) => { setOutputInputs({...inputs, susceptible: susceptibilityKnown ? 'Pending' : 'Known'}); }}
+        handleChange={(checked) => {
+          console.log(React.version);
+          setIndex(0);
+          setOutputInputs({...inputs, susceptible: susceptibilityKnown ? "Pending" : "Known"});
+        }}
       />
 
       {/* pending culture or susceptibility results */}
-      <div className="container" style={{ display: susceptibilityKnown ? 'none' : 'block' }}>
-        <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment</h5>
-          <p style={slidesStyle2}> {outputDisplay.treatment}</p>
-          <TreatmentInfo />
-        </div>
-      </div>          
+      <section className={susceptibilityKnown ? "d-none" : ""}>
+        <h3>Antibiotic Treatment</h3>
+        <p>{outputDisplay.treatment}</p>
+        <TreatmentInfo treatment={outputDisplay.treatment} />
+      </section>          
       
       {/* culture or susceptibility results known */}
-      <div className="container" style={{ display: susceptibilityKnown ? 'inline-block' : 'none' }}>
-        <img src={narrow_b} style={{ maxWidth: "100%", margin: "auto" }}/>
-      </div>
-
-      <div className="container" style={{ display: susceptibilityKnown ? 'inline-block' : 'none' }}>
-        <Carousel variant="dark" className='carousel-control'>
-          <Carousel.Item style={{paddingBottom: "10px"}} >
-            <h3 style={slidesStyle1} >Antibiotic Treatment 1st Choice</h3>
-            <p style={slidesStyle2}>{outputDisplay.treatment1}</p>
-            <TreatmentInfo />
-            <Carousel.Caption>
-              
-            </Carousel.Caption>
+      <section className={susceptibilityKnown ? "" : "d-none"}>
+        <Carousel
+          activeIndex={index}
+          controls={false}
+          slide={false}
+          fade={true}
+          indicators={false}
+          interval={null}
+          wrap={false}
+        >
+          <Carousel.Item>
+            <h3 className="choice-1">Antibiotic Treatment 1st Choice</h3>
+            <p>{outputDisplay.treatment1}</p>
+            <TreatmentInfo treatment={outputDisplay.treatment} />
           </Carousel.Item >
-          <Carousel.Item style={{paddingBottom: "10px"}} >
-            <h3 style={slidesStyle1}>Antibiotic Treatment 2nd Choice</h3>
-            <p style={slidesStyle2}>{outputDisplay.treatment2}</p>
-            <TreatmentInfo />
-            <Carousel.Caption>
-              
-            </Carousel.Caption>
+          <Carousel.Item>
+            <h3 className="choice-2">Antibiotic Treatment 2nd Choice</h3>
+            <p>{outputDisplay.treatment2}</p>
+            <TreatmentInfo treatment={outputDisplay.treatment} />
           </Carousel.Item>
-          <Carousel.Item style={{paddingBottom: "10px"}} >
-            <h3 style={slidesStyle1}>Antibiotic Treatment 3rd Choice</h3>
-            <p style={slidesStyle2}>{outputDisplay.treatment3}</p>
-            <TreatmentInfo />
-            <Carousel.Caption>
-              
-            </Carousel.Caption>
+          <Carousel.Item>
+            <h3 className="choice-3">Antibiotic Treatment 3rd Choice</h3>
+            <p>{outputDisplay.treatment3}</p>
+            <TreatmentInfo treatment={outputDisplay.treatment} />
           </Carousel.Item>
-          <Carousel.Item style={{paddingBottom: "10px"}} >
-            <h3 style={slidesStyle1}>Antibiotic Treatment 4th Choice</h3>
-            <p style={slidesStyle2}>{outputDisplay.treatment4}</p>
-            <TreatmentInfo />
-            <Carousel.Caption>
-              
-            </Carousel.Caption>
+          <Carousel.Item>
+            <h3 className="choice-4">Antibiotic Treatment 4th Choice</h3>
+            <p>{outputDisplay.treatment4}</p>
+            <TreatmentInfo treatment={outputDisplay.treatment} />
           </Carousel.Item>
         </Carousel>
-      </div>
-      <div className="container">
-        <div style={{ padding: '10px' }}>
-          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment Duration</h5>
-          <p style={slidesStyle2}>{outputDisplay.duration}</p>
-        </div>
-        <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none'}}>
-          <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Additional Recommendations</h5>
-          {outputDisplay.addRecs}
-        </div>
-      </div>
+        <OutputScale activeIndex={index} onSelect={handleSelect} />
+      </section>
+
+      <section>
+        <h3>Antibiotic Treatment Duration</h3>
+        <p>{outputDisplay.duration}</p>
+      </section>
+
+      {outputDisplay.addRecs &&
+        <section>
+          <h3>Additional Recommendations</h3>
+          <p>{outputDisplay.addRecs}</p>
+        </section>
+      }
     </div>
   )
 }

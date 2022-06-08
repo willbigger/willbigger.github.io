@@ -1,6 +1,7 @@
 import React from 'react';
 import OutputDisplay from './OutputDisplay';
-import Badge from 'react-bootstrap/Badge'
+
+import './OutputWidget.css';
 
 function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
   function fixSpaces(word) {
@@ -21,71 +22,66 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
   }
 
   return (
-    <div className="container" style={{ border: '1px black solid', padding: '20px', fontSize: "larger" }}>
+    <div id="output-widget" className="container">
       {/* Presenting what the user inputted */}
-      
       <div className="row" >
         <div className="col" >
           <h2 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h2>
-          
         </div>
       </div>
       
       <div className="row" >
         <div className="col" >
-          <div style={{ padding: '10px', textAlign: "left" }}>
-            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Age and Weight</h5>
+          <section>
+            <h3>Age and Weight</h3>
             {/* inputs were sent from FormComponent */}
-            Gestational Age: {inputs.gestationalAge} weeks
-            <br />
-            Postnatal Age: {inputs.postnatalAge} days
-            <br />
-            Birth Weight: {inputs.birthWeight} grams
-            <br />
-            Current Weight: {inputs.currentWeight} grams
-            <br />
-          </div>
-          <div style={{ padding: '10px', textAlign: "left" }}>
-
-            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}> Time Cultures Sent</h5>
-            Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
-            <br />
-          </div>
+            <ul>
+              <li>Gestational Age: {inputs.gestationalAge} weeks</li>
+              <li>Postnatal Age: {inputs.postnatalAge} days</li>
+              <li>Birth Weight: {inputs.birthWeight} grams</li>
+              <li>Current Weight: {inputs.currentWeight} grams</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Time Cultures Sent</h3>
+            <ul>
+              <li>Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}</li>
+            </ul>
+          </section>
         </div>
 
         <div className="col" >
-          <div style={{ padding: '10px', textAlign: "left" }}>
-
-            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Pathogen Isolation</h5>
-            {inputs.pathogen !== "No" ? "Pathogen isolated: " +
-              fixSpaces(inputs.pathogen) : "No pathogen isolated"}
-            <br />
-            Susceptibility results: {inputs.susceptible === '' ? 'Pending' : fixSpaces(inputs.susceptible)}
-            <br />
-          </div>
-          <div style={{ padding: '10px', textAlign: "left" }}>
-
-            <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Site of Infection</h5>
-            Site(s) identified: {fixSpaces(inputs.infectionSite)}
-            <br />
-          </div>
-          <div style={{ padding: '10px', textAlign: "left" }}>
-
-            <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Abdominal Involvement</h5>
-            {inputs.nec !== "No" ? "Abdominal involvement is present: " +
-              fixSpaces(inputs.nec) : "Abdominal involvement is not present"}
-          </div>
+          <section>
+            <h3>Pathogen Isolation</h3>
+            <ul>
+              <li>{inputs.pathogen !== "No" ? "Pathogen isolated: " + fixSpaces(inputs.pathogen) : "No pathogen isolated"}</li>
+              <li>Susceptibility results: {inputs.susceptible === '' ? 'Pending' : fixSpaces(inputs.susceptible)}</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Site of Infection</h3>
+            <ul>
+              <li>Site(s) identified: {fixSpaces(inputs.infectionSite)}</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Abdominal Involvement</h3>
+            <ul>
+              <li>Abdominal involvement is {inputs.nec !== "No" ? "present: " + fixSpaces(inputs.nec) : "not present"}</li>
+            </ul>
+          </section>
         </div>
       </div>
 
-      <div>
-        < hr />
+      < hr />
+    
+      <div className="row" >
+        <div className="col">
+          <h2>Recommended Treatment</h2>
+          <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
+        </div>
       </div>
-
-      <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
-
     </div>
-
   );
 }
 
