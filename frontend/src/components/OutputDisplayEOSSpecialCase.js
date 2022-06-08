@@ -15,7 +15,7 @@ function OutputDisplayEOSSpecialCase() {
     <div>
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment</h5>
           <dl style={{ columnCount: 2, textAlign: 'center' }}>
             <dt>Ampicilin</dt>
             <dd>50 mg/kg at 0,12 hours</dd>
@@ -27,7 +27,7 @@ function OutputDisplayEOSSpecialCase() {
 
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment Duration</h5>
           <p style={slidesStyle2}>{outputDisplay.duration}</p>
         </div>
       </div>

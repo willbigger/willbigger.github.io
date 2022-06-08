@@ -20,38 +20,43 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
     addRecs: "COVER 24 hours-Ampicllin 50 mg/kg at 0,12 hours, AND Gentamicin 4 mg/kg (one dose)"
   }
   let dose ="";
-  let time ="";
   if (inputs.gestationalAge<30&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
-    dose = 1
-    time= 0
+    dose = "4mg/kg, One dose at 0 hours."
   }
   if (inputs.gestationalAge<30&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
-    time ="0, 36"
+    dose = "4mg/kg, One dose at 0 hours, another does at 36 hours."
+  }
+  if (inputs.gestationalAge<30&&inputs.postnatalAge>28) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
   }
   if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
-    time ="0, 36"
+    dose = "4mg/kg, One dose at 0 hours, another does at 36 hours."
   }
-  if (inputs.gestationalAge<30&&inputs.postnatalAge>=28) {
-    time ="0, 24"
+  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
   }
-  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>7) {
-    time ="0, 36"
+  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>28) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
   }
-  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=37) {
-    time ="0, 36"
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
   }
-  if (dose ==="" && time ===""){
-    dose = "Not Specified"
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
+  }
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=28) {
+    dose = "4mg/kg, One dose at 0 hours, another does at 24 hours."
   }
 
   return (
     <div>
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment</h5>
           <dl style={{ columnCount: 2, textAlign: 'center' }}>
+          <br/>
             <dt> Nafcillin or Oxacillin</dt>
-            <br/>
+
             <dd>
               <Table striped bordered hover size="sm">
                 <thead>
@@ -70,10 +75,11 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
                 </tbody>
               </Table>
             </dd>
+            <br/>
             <dt>Gentamicin</dt>
             <br/>
             <dd>
-              {dose} dose at {time} hours.
+              {dose}
               <br/><br/>
             </dd>
             
@@ -83,14 +89,22 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
 
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 1st Choice</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Special Notes</h5>
+          <p style={slidesStyle2}>If ECMO or Therapeutic Hypothermia: One dose at 0 hours, another does at 36 hours.</p>
+          <p style={slidesStyle2}>For infants ≥ 48 weeks PMA, dosing is 5mg/kg at 0 and 24 hours</p>
+        </div>
+      </div>
+
+      <div className="container">
+        <div style={{ padding: '10px' }}>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment 1st Choice</h5>
           <p style={slidesStyle2}>Ampicillin, Gentamicin</p>
         </div>
       </div>
 
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 2nd Choice</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Antibiotic Treatment 2nd Choice</h5>
           <p style={slidesStyle2}>Vancomycin, Gentamicin</p>
         </div>
       </div>
@@ -98,7 +112,7 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
 
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Antibiotic Treatment Duration</h5>
           <p style={slidesStyle2}>{outputDisplay.duration}</p>
         </div>
       </div>

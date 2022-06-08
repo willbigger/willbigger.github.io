@@ -1,5 +1,6 @@
 import React from 'react';
 import OutputDisplay from './OutputDisplay';
+import Badge from 'react-bootstrap/Badge'
 
 function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
   function fixSpaces(word) {
@@ -22,16 +23,18 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
   return (
     <div className="container" style={{ border: '1px black solid', padding: '20px', fontSize: "larger" }}>
       {/* Presenting what the user inputted */}
+      
       <div className="row" >
         <div className="col" >
           <h2 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h2>
+          
         </div>
       </div>
       
       <div className="row" >
         <div className="col" >
           <div style={{ padding: '10px', textAlign: "left" }}>
-            <h5 style={{ backgroundColor: 'lightgray', textAlign: "center" }}>Age and Weight</h5>
+            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Age and Weight</h5>
             {/* inputs were sent from FormComponent */}
             Gestational Age: {inputs.gestationalAge} weeks
             <br />
@@ -44,7 +47,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}> Time Cultures Sent</h5>
+            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}> Time Cultures Sent</h5>
             Onset: {inputs.os === "EOS" ? "EOS ≤ 72h after birth" : "LOS ≥ 72h after birth"}
             <br />
           </div>
@@ -53,7 +56,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
         <div className="col" >
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Pathogen Isolation</h5>
+            <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Pathogen Isolation</h5>
             {inputs.pathogen !== "No" ? "Pathogen isolated: " +
               fixSpaces(inputs.pathogen) : "No pathogen isolated"}
             <br />
@@ -62,13 +65,13 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Site of Infection</h5>
+            <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px" }}>Site of Infection</h5>
             Site(s) identified: {fixSpaces(inputs.infectionSite)}
             <br />
           </div>
           <div style={{ padding: '10px', textAlign: "left" }}>
 
-            <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Abdominal Involvement</h5>
+            <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Abdominal Involvement</h5>
             {inputs.nec !== "No" ? "Abdominal involvement is present: " +
               fixSpaces(inputs.nec) : "Abdominal involvement is not present"}
           </div>

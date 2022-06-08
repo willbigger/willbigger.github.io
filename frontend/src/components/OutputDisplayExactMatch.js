@@ -9,8 +9,9 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
   const slidesStyle1 = {
     fontSize: 20,
     color: "black",
-    textAlign: "center",
-    backgroundColor: 'lightgray'
+    backgroundColor: 'orange', 
+    textAlign: "center", 
+    borderRadius:"5px" 
   }
 
   const slidesStyle2 = {
@@ -82,11 +83,11 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
       </div>
       <div className="container">
         <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
+          <h5 style={{  backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Antibiotic Treatment Duration</h5>
           <p style={slidesStyle2}>{outputDisplay.duration}</p>
         </div>
         <div style={{ padding: '10px', display: outputDisplay.addRecs ? 'block' : 'none'}}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Additional Recommendations</h5>
+          <h5 style={{ backgroundColor: 'orange', textAlign: "center", borderRadius:"5px"  }}>Additional Recommendations</h5>
           {outputDisplay.addRecs}
         </div>
       </div>
