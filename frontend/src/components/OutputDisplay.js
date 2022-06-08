@@ -5,21 +5,18 @@ import OutputDisplayLOSSpecialCase from './OutputDisplayLOSSpecialCase';
 import OutputDisplayExactMatch from './OutputDisplayExactMatch';
 
 function OutputDisplay({ inputs, outputDisplay, setOutputInputs }) {
-  let display;
   if (outputDisplay.noMatch) {
-    display = <OutputDisplayNoMatch />
+    return <OutputDisplayNoMatch />
   }
   else if (inputs.os === "EOS" && inputs.pathogen === "No" && (inputs.infectionSite.size === 1 && inputs.infectionSite.has("No")) && inputs.nec === "No") {
-    display = <OutputDisplayEOSSpecialCase />
+    return <OutputDisplayEOSSpecialCase />
   }
   else if (inputs.os === "LOS" && inputs.pathogen === "No" && (inputs.infectionSite.size === 1 && inputs.infectionSite.has("No")) && inputs.nec === "No") {
-    display = <OutputDisplayLOSSpecialCase inputs={inputs} />
+    return <OutputDisplayLOSSpecialCase inputs={inputs} />
   }
   else {
-    display = <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
+    return <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
   }
-
-  return display;
 }
 
 export default OutputDisplay;
