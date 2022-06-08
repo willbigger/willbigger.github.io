@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import OutputWidget from './OutputWidget';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { DropdownButton, Dropdown,ListGroup, ListGroupItem,Container } from 'react-bootstrap';
+import baby from "./baby.jpeg"
+import './FormComponent.css'
 
 // import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
@@ -23,6 +25,24 @@ function FormComponent() {
     currentWeight: "",
     os: "",
     pathogen: "",
+    susceptible: "",
+    infectionSite: new Set(),
+    bloodDropdownSelection: "",
+    nec: "",
+  });
+
+  /* These are the inputs stored as state variables.
+  These are stored separately so that the output widget
+  displays the inputs as of when the form was submitted.
+  */
+  const [outputInputs, setOutputInputs] = useState({
+    gestationalAge: "",
+    postnatalAge: "",
+    birthWeight: "",
+    currentWeight: "",
+    os: "",
+    pathogen: "",
+    susceptible: "",
     infectionSite: new Set(),
     bloodDropdownSelection: "",
     nec: "",
@@ -87,7 +107,20 @@ stored as state variables.
     }
     else {
       setPathogenToggle(false)
+      // reset susceptibility
+      setInputs({ ...inputs, susceptible: '' })
+      document.querySelectorAll('input[name="susceptible"]').forEach(el => el.checked = false);
     }
+  }
+
+  /*
+  Handler for the susceptible variable.
+  Similar to the pathogen variable, it
+  toggles the susceptible variable between yes
+  and no depending on which radio button is clicked.
+  */
+  const handleSusceptible = (event) => {
+    setInputs({ ...inputs, susceptible: event.target.value })
   }
 
   /*
@@ -160,7 +193,7 @@ stored as state variables.
     let validAge = true
     let validWeight = true
     if(inputs.os == "EOS") {
-      if (parseFloat(inputs.postnatalAge) > 3) {
+      if (parseFloat(inputs.postnatalAge) >= 4) {
         validAge = false
       }
     } else if (inputs.os == "LOS") {
@@ -174,7 +207,7 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -202,6 +235,7 @@ stored as state variables.
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
           setStatus('loaded')
+          setOutputInputs(inputs);
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -213,6 +247,7 @@ stored as state variables.
           });
         } else {
           setStatus('loaded')
+          setOutputInputs(inputs);
           setOutputDisplay({
             ...outputDisplay,
             noMatch: true,
@@ -259,6 +294,7 @@ stored as state variables.
       currentWeight: "",
       os: "",
       pathogen: "",
+      susceptible: "",
       bloodDropdownSelection: "",
       nec: ""
     })
@@ -278,11 +314,21 @@ stored as state variables.
 
 
   return (
+    
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
-
+      <br/>
+      <article  className="article">
+        <img className="image" src={baby} alt="baby" />
+        <h1 className="header"> Text Area Testing</h1>
+      </article>
+      
+      
+      <ListGroup>
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
+      <br/>
+      <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
-        <label className="form-field">Gestational Age (in weeks)</label>
+        <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
 
         <br />
         {/* Gestational Age input */}
@@ -292,8 +338,10 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
           type="text"
           className="form-field"
+          id="gestationalAge"
           name="gestationalAge"
         />
+        
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
@@ -303,7 +351,7 @@ stored as state variables.
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
-        <label className="form-field">Postnatal Age (in days)</label>
+        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (in days, at time of culture sent)</label>
 
         <br />
         {/* Postnatal Age input */}
@@ -312,6 +360,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
           className="form-field"
+          id="postnatalAge"
           name="postnatalAge"
         />
         
@@ -325,7 +374,7 @@ stored as state variables.
         {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
           <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
-        <label className="form-field">Birth Weight (in grams)</label>
+        <label className="form-field" htmlFor="birthWeight">Birth Weight (in grams)</label>
         <br />
         {/* Birth Weight input */}
         <input
@@ -333,6 +382,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
           className="form-field"
+          id="birthWeight"
           name="birthWeight"
         />
         <br />
@@ -344,7 +394,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
 
         <br />
-        <label className="form-field">Current Weight (in grams)</label>
+        <label className="form-field" htmlFor="currentWeight">Current Weight (in grams, at time of form completion)</label>
 
         <br />
         {/* Current Weight input */}
@@ -353,6 +403,7 @@ stored as state variables.
           onInput={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
           className="form-field"
+          id="currentWeight"
           name="currentWeight"
         />
         <br />
@@ -362,38 +413,60 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         {(status === 'invalid') && parseFloat(inputs.currentWeight) < 200 ?
           <span style={{ color: "red" }}>Current weight must be at least 200 grams.</span> : null}
-
-        <hr />
-
+        <br/>
+        </ListGroup.Item>
+        <br/>
+        <br />
+        <ListGroup.Item>
+        <br />
         <h2 style={{ textAlign: "center" }}>Early-Onset (EOS) or Late-Onset (LOS) Sepsis</h2>
+        <br />
         {/* EOS/LOS input option 1: EOS */}
-        <input
-          value="EOS"
-          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
-          type="radio"
-          className="form-field"
-          name="os" />
-        {' '}<label className="form-field">EOS (less than 72 hours after birth) </label>
-
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                value="EOS"
+                onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
+                type="radio"
+                className="form-field"
+                id="os-EOS"
+                name="os" />
+              {' '}<label className="form-field" htmlFor="os-EOS">EOS (less than 72 hours after birth) </label>
+            </div>
+          </div>
+        </div>
+        
         <br />
 
         {/* EOS/LOS input option 2: LOS */}
-        <input
-          value="LOS"
-          onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
-          type="radio"
-          className="form-field"
-          name="os"
-        // Notice that these radio buttons have the same name 
-        //so that only one can be selected at a time
-        />
-        {' '}<label className="form-field">LOS (72 or more hours after birth)</label>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <input
+                value="LOS"
+                onInput={(event) => setInputs({ ...inputs, os: event.target.value })}
+                type="radio"
+                className="form-field"
+                id="os-LOS"
+                name="os"
+              // Notice that these radio buttons have the same name 
+              //so that only one can be selected at a time
+              />
+              {' '}<label className="form-field" htmlFor="os-LOS">LOS (72 or more hours after birth)</label>
+            </div>
+          </div>
+        </div>
         <br />
+
+        
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr />
-
+        </ListGroup.Item>
+        <br />
+        <br />
+        <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Pathogen Isolated</h2>
         <h6 style={{ textAlign: "center" }}>(can enter Gram stain or specific species)</h6>
         {/* Pathogen input */}
@@ -407,18 +480,20 @@ stored as state variables.
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
+                id="pathogen-Yes"
                 name="pathogen" />
-              {' '}<label className="form-field">Yes</label>
+              {' '}<label className="form-field" htmlFor="pathogen-Yes">Yes</label>
 
               {/* If yes is selected for the pathogen input, show this dropdown */}
               <DropdownButton
                 alignRight
-                title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "" : inputs.pathogen.replaceAll('_', ' ')}
+                title={(inputs.pathogen === "No" || inputs.pathogen === "Yes") ? "Select..." : inputs.pathogen.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }}
               >
+
                 <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
                 <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
@@ -460,18 +535,63 @@ stored as state variables.
                 onClick={handlePathogenToggle}
                 type="radio"
                 className="form-field"
+                id="pathogen-No"
                 name="pathogen" />
-              {' '}<label className="form-field">No</label>
+              {' '}<label className="form-field" htmlFor="pathogen-No">No</label>
             </div>
           </div>
         </div>
-        <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr />
+          
+        </ListGroup.Item>
+        <br />
 
+        <br />
+        <ListGroupItem>
+        <h2 style={{ textAlign: "center", display: pathogenToggle ? 'block' : 'none' }}>Susceptibility Results</h2>
+        {/* Susceptible input */}
+        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+          <div className="row">
+            <div className="col">
+              {/* susceptible input option 1: Pending */}
+              <input
+                value="Pending"
+                onInput={handleSusceptible}
+                type="radio"
+                className="form-field"
+                id="susceptible-Pending"
+                name="susceptible" />
+              {' '}<label className="form-field" htmlFor="susceptible-Pending">Pending</label>
+            </div>
+          </div>
+        </div>
 
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+
+        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+          <div className="row">
+            <div className="col">
+              {/* susceptible input option 2: Known */}
+              <input
+                value="Known"
+                onInput={handleSusceptible}
+                type="radio"
+                className="form-field"
+                id="susceptible-Known"
+                name="susceptible" />
+              {' '}<label className="form-field" htmlFor="susceptible-Known">Known</label>
+            </div>
+          </div>
+        </div>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
+        {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
+          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
+
+        
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
@@ -484,8 +604,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-No"
                 name="infectionSite" />
-              {' '}<label className="form-field">None OR Pending Susceptibility Testing</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-No">None OR Culture Results Pending</label>
 
               <br />
               <input
@@ -493,12 +614,13 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Blood"
                 name="infectionSite" />
-              {' '}<label className="form-field">Blood</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Blood">Blood</label>
 
               <DropdownButton
                 alignRight
-                title={inputs.bloodDropdownSelection}
+                title={inputs.bloodDropdownSelection === "" ? "Select..." : inputs.bloodDropdownSelection}
                 id="dropdown-menu-align-right1"
                 variant="secondary-light"
                 onSelect={handleBloodSelection}
@@ -514,8 +636,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Urine"
                 name="infectionSite" />
-              {' '}<label className="form-field">Urine</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Urine">Urine</label>
 
               <br />
 
@@ -524,8 +647,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-CSF"
                 name="infectionSite" />
-              {' '}<label className="form-field">CSF</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-CSF">CSF</label>
 
               <br />
 
@@ -534,8 +658,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Peritoneal"
                 name="infectionSite" />
-              {' '}<label className="form-field">Peritoneal</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Peritoneal">Peritoneal</label>
 
               <br />
 
@@ -544,8 +669,9 @@ stored as state variables.
                 onInput={handleInfectionSite}
                 type="checkbox"
                 className="form-field"
+                id="infectionSite-Skin_with_Cellulitis"
                 name="infectionSite" />
-              {' '}<label className="form-field">Skin with Cellulitis</label>
+              {' '}<label className="form-field" htmlFor="infectionSite-Skin_with_Cellulitis">Skin with Cellulitis</label>
 
               <br />
             </div>
@@ -558,8 +684,10 @@ stored as state variables.
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "" ?
           <p style={{ color: "red" }}>Blood needs CSF</p> : null}
-
-        <hr />
+        </ListGroupItem>
+        <br/>
+      <br/>
+        <ListGroupItem>
         <h2 style={{ textAlign: "center" }}>Abdominal Involvement Present?</h2>
         {/* Abdominal involvement inputs */}
         <div className="container">
@@ -571,12 +699,13 @@ stored as state variables.
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
+                id="nec-Yes"
                 name="nec" />
-              {' '}<label className="form-field">Yes</label>
+              {' '}<label className="form-field" htmlFor="nec-Yes">Yes</label>
 
               <DropdownButton
                 alignRight
-                title={(inputs.nec === "No" || inputs.nec === "Yes") ? "" : inputs.nec.replaceAll('_', ' ')}
+                title={(inputs.nec === "No" || inputs.nec === "Yes") ? "Select..." : inputs.nec.replaceAll('_', ' ')}
                 id="dropdown-menu-align-right"
                 variant="secondary-light"
                 onSelect={(event) => setInputs({ ...inputs, nec: event.replaceAll(' ', '_') })}
@@ -608,8 +737,9 @@ stored as state variables.
                 onClick={handleNECToggle}
                 type="radio"
                 className="form-field"
+                id="nec-No"
                 name="nec" />
-              {' '}<label className="form-field">No</label>
+              {' '}<label className="form-field" htmlFor="nec-No">No</label>
               <br />
             </div>
           </div>
@@ -621,16 +751,18 @@ stored as state variables.
             <span style={{ color: "red" }}>Please fill in this field.</span> : null
         }
         <br />
-
-        <hr/>
-
+        </ListGroupItem>
+        <br/>
+        <br/>
+        <ListGroupItem>
         {/* Terms and Conditions */}
         <input
           value="I have read and accepted the terms and conditions"
           onClick={(event) => setTermsAccepted(event.target.checked)}
           type="checkbox"
+          id="terms-and-conditions"
           className="form-field"/>
-        {' '}<label className="form-field">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
+        {' '}<label className="form-field" htmlFor="terms-and-conditions" alignItems="center">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
         <br/>
         
         {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
@@ -638,7 +770,7 @@ stored as state variables.
         (status === 'invalid') && !termsAccepted ?
           <span style={{ color: "red" }}>Please accept the terms and conditions.</span> : null
         }
-
+        </ListGroupItem>
         <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
           <div className="btn-group mr-2" style={{ fontSize: 'xxx-large' }}>
             <SubmitButton onClick={onSubmit} className="form-button" />
@@ -659,13 +791,16 @@ stored as state variables.
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {(status === "loaded") && <OutputWidget inputs={inputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
 
         </div>
 
       </form >
+
       <br />
+      </ListGroup>
     </div >
+
   )
 };
 export default FormComponent; // Exporting so that we can use in App.js
