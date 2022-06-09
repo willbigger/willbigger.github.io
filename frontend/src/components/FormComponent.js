@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DropdownButton, Dropdown, ListGroup, ListGroupItem } from 'react-bootstrap';
 import axios from "axios"; // for get request for output data
 
@@ -13,6 +13,10 @@ import './FormComponent.css';
 
 
 function FormComponent() {
+  /*
+  This state stores whether the page has been initialized
+  */
+  const [initialized, setInitialized] = useState(false);
 
   /* These are the inputs stored as state variables.
   We had to import { useState } to do this.
@@ -89,6 +93,11 @@ stored as state variables.
   Terms and conditions accepted toggle
    */
   const [termsAccepted, setTermsAccepted] = useState(false);
+  
+  /*
+  This state stores the most recently viewed antibiotic treatment
+  */
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   /*
   Handler for the pathogen variable.
@@ -311,6 +320,53 @@ stored as state variables.
 
   }
 
+  /*
+  Since browsers preserve form fields after using the back/forward buttons,
+  the form fields can become inconsistent with the FormComponent states.
+  To fix this, we store all states to the browser history so that we can
+  restore them if the user navigates back to the form.
+  */
+  useEffect(
+    () => {
+      if (initialized) {
+        // page has already been initialized, update state in browser history
+        window.history.replaceState({
+          state: {
+            inputs: inputs,
+            outputInputs: outputInputs,
+            outputDisplay: outputDisplay,
+            status: status,
+            pathogenToggle: pathogenToggle,
+            bloodToggle: bloodToggle,
+            necToggle: necToggle,
+            termsAccepted: termsAccepted,
+            carouselIndex: carouselIndex,
+          }
+        }, '');
+        // console.log('Saved page state', window.history.state);
+      }
+      else if (window.history.state !== null && !window.performance.getEntriesByType('navigation').some((entry) => entry.type === "reload")) {
+        // if the state is not null and the user did not reload the page to get here, restore the state from the browser history
+        let state = window.history.state.state;
+        setInitialized(true);
+        setInputs(state.inputs);
+        setOutputInputs(state.outputInputs);
+        setOutputDisplay(state.outputDisplay);
+        setStatus(state.status);
+        setPathogenToggle(state.pathogenToggle);
+        setBloodToggle(state.bloodToggle);
+        setnecToggle(state.necToggle);
+        setTermsAccepted(state.termsAccepted);
+        setCarouselIndex(state.carouselIndex);
+        // console.log('Reloaded previous page state', window.history.state);
+      }
+      else {
+        // user was not on page previously or refreshed, so leave forms blank and mark as initialized
+        setInitialized(true);
+      }
+    },
+    [inputs, outputInputs, outputDisplay, status, pathogenToggle, bloodToggle, necToggle, termsAccepted, carouselIndex] // states to monitor
+  );
 
   return (
     
@@ -784,7 +840,7 @@ stored as state variables.
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />}
 
         </div>
 

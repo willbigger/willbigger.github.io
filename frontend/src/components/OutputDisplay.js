@@ -4,7 +4,7 @@ import OutputDisplayEOSSpecialCase from './OutputDisplayEOSSpecialCase';
 import OutputDisplayLOSSpecialCase from './OutputDisplayLOSSpecialCase';
 import OutputDisplayExactMatch from './OutputDisplayExactMatch';
 
-function OutputDisplay({ inputs, outputDisplay, setOutputInputs }) {
+function OutputDisplay({ inputs, outputDisplay, setOutputInputs, carouselIndex, setCarouselIndex }) {
   if (outputDisplay.noMatch) {
     return <OutputDisplayNoMatch />
   }
@@ -15,7 +15,7 @@ function OutputDisplay({ inputs, outputDisplay, setOutputInputs }) {
     return <OutputDisplayLOSSpecialCase inputs={inputs} />
   }
   else {
-    return <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
+    return <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />
   }
 }
 

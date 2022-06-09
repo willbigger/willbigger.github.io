@@ -6,13 +6,11 @@ import TreatmentInfo from './TreatmentInfo';
 
 import './OutputScale.css';
 
-function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
+function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carouselIndex, setCarouselIndex }) {
   /* If there was an exact match, display them. */
-  
-  const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
-    setIndex(selectedIndex);
+    setCarouselIndex(selectedIndex);
   };
 
   const susceptibilityKnown = (inputs.susceptible === "Known");
@@ -25,7 +23,6 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
         onUnchecked="Pending culture or susceptibility results"
         handleChange={(checked) => {
           console.log(React.version);
-          setIndex(0);
           setOutputInputs({...inputs, susceptible: susceptibilityKnown ? "Pending" : "Known"});
         }}
       />
@@ -40,7 +37,7 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
       {/* culture or susceptibility results known */}
       <section className={susceptibilityKnown ? "" : "d-none"}>
         <Carousel
-          activeIndex={index}
+          activeIndex={carouselIndex}
           controls={false}
           slide={false}
           fade={true}
@@ -69,7 +66,7 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs }) {
             <TreatmentInfo treatment={outputDisplay.treatment} />
           </Carousel.Item>
         </Carousel>
-        <OutputScale activeIndex={index} onSelect={handleSelect} />
+        <OutputScale activeIndex={carouselIndex} onSelect={handleSelect} />
       </section>
 
       <section>

@@ -3,7 +3,7 @@ import OutputDisplay from './OutputDisplay';
 
 import './OutputWidget.css';
 
-function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
+function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, setCarouselIndex }) {
   function fixSpaces(word) {
     let newWord = ""
     if (typeof (word) === "string") {
@@ -78,7 +78,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs }) {
       <div className="row" >
         <div className="col">
           <h2>Recommended Treatment</h2>
-          <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} />
+          <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />
         </div>
       </div>
     </div>
