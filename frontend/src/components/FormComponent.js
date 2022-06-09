@@ -345,8 +345,8 @@ stored as state variables.
         }, '');
         // console.log('Saved page state', window.history.state);
       }
-      else if (window.history.state !== null && !window.performance.getEntriesByType('navigation').some((entry) => entry.type === "reload")) {
-        // if the state is not null and the user did not reload the page to get here, restore the state from the browser history
+      else if (window.history.state !== null && window.performance.getEntriesByType('navigation').some((entry) => entry.type === "back_forward")) {
+        // if the state is not null and the user used the back/forward button to get here, restore the state from the browser history
         let state = window.history.state.state;
         setInitialized(true);
         setInputs(state.inputs);
@@ -361,7 +361,7 @@ stored as state variables.
         // console.log('Reloaded previous page state', window.history.state);
       }
       else {
-        // user was not on page previously or refreshed, so leave forms blank and mark as initialized
+        // user clicked a link here or refreshed, so leave forms blank and mark as initialized
         setInitialized(true);
       }
     },
