@@ -634,13 +634,13 @@ stored as state variables.
             </div>
           </div>
         </div>
+
         <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
         <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
 
-        
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
