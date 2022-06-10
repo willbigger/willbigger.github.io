@@ -30,6 +30,9 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
   if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=28) {
     gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
+  if (inputs.postnatalAge>=48) {
+    gentamicinDose = "5mg/kg at 0 and 24 hours."
+  }
 
   return (
     <div>
@@ -64,7 +67,6 @@ function OutputDisplayLOSSpecialCase({ inputs }) {
         <h3>Special Notes</h3>
         <ul>
           <li>If ECMO or Therapeutic Hypothermia: one dose at 0 hours, another dose at 36 hours.</li>
-          <li>For infants ≥ 48 weeks PMA, dosing is 5mg/kg at 0 and 24 hours.</li>
         </ul>
       </section>
 
