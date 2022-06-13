@@ -242,7 +242,8 @@ stored as state variables.
 
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
-          setStatus('loaded')
+          setStatus('loaded');
+          setCarouselIndex(0);
           setOutputInputs(inputs);
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
@@ -254,7 +255,8 @@ stored as state variables.
             addRecs: response.data[0].additional_recommendations,
           });
         } else {
-          setStatus('loaded')
+          setStatus('loaded');
+          setCarouselIndex(0);
           setOutputInputs(inputs);
           setOutputDisplay({
             ...outputDisplay,
