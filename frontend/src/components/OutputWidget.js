@@ -36,7 +36,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
             <h3>Age and Weight</h3>
             {/* inputs were sent from FormComponent */}
             <ul>
-              <li>Gestational Age: {inputs.gestationalAge} weeks</li>
+              <li>Gestational Age: {Math.trunc(inputs.gestationalAge)} weeks, {Math.round(inputs.gestationalAge * 7 % 7)} days</li>
               <li>Postnatal Age: {inputs.postnatalAge} days</li>
               <li>Birth Weight: {inputs.birthWeight} grams</li>
               <li>Current Weight: {inputs.currentWeight} grams</li>

@@ -22,7 +22,8 @@ function FormComponent() {
   We had to import { useState } to do this.
   */
   const [inputs, setInputs] = useState({
-    gestationalAge: "",
+    gestationalAgeWeeks: "",
+    gestationalAgeDays: "",
     postnatalAge: "",
     birthWeight: "",
     currentWeight: "",
@@ -209,13 +210,13 @@ stored as state variables.
         validAge = false
       }
     }
-    if(parseFloat(inputs.gestationalAge) < 20 || parseFloat(inputs.gestationalAge) > 45) {
+    if(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) < 20 * 7 || parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) > 45 * 7) {
       validAge = false
     }
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.gestationalAgeDays && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -244,7 +245,10 @@ stored as state variables.
         if (response.data.length === 1) {
           setStatus('loaded');
           setCarouselIndex(0);
-          setOutputInputs(inputs);
+          setOutputInputs({
+            ...inputs,
+            gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7,
+          });
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -257,7 +261,10 @@ stored as state variables.
         } else {
           setStatus('loaded');
           setCarouselIndex(0);
-          setOutputInputs(inputs);
+          setOutputInputs({
+            ...inputs,
+            gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7,
+          });
           setOutputDisplay({
             ...outputDisplay,
             noMatch: true,
@@ -297,7 +304,8 @@ stored as state variables.
 
     setInputs({
       ...inputs,
-      gestationalAge: "",
+      gestationalAgeWeeks: "",
+      gestationalAgeDays: "",
       postnatalAge: "",
       antibiotic_duration: "",
       birthWeight: "",
@@ -379,30 +387,65 @@ stored as state variables.
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
       <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
-        <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
+        <label className="form-field" htmlFor="gestationalAgeWeeks">Gestational Age</label>
 
         <br />
         {/* Gestational Age input */}
         <input
-          textAlign={'center'}
-          value={inputs.gestationalAge}
-          onInput={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
+          value={inputs.gestationalAgeWeeks}
+          onInput={(event) => setInputs({
+            ...inputs,
+            gestationalAgeWeeks: event.target.value,
+            gestationalAgeDays: inputs.gestationalAgeDays === "" ? 0 : inputs.gestationalAgeDays,
+          })}
+          onBlur={(event) => {
+            if (!Number.isNaN(parseFloat(inputs.gestationalAgeWeeks)) && !Number.isNaN(parseFloat(inputs.gestationalAgeDays))) {
+              setInputs({
+                ...inputs,
+                gestationalAgeWeeks: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7),
+                gestationalAgeDays: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays)) % 7,
+              });
+            }
+          }}
           type="text"
+          inputmode="decimal"
           className="form-field"
-          id="gestationalAge"
-          name="gestationalAge"
-        />
+          id="gestationalAgeWeeks"
+          name="gestationalAgeWeeks"
+        /><span className="form-field">&nbsp;weeks, </span>
+        <input
+          value={inputs.gestationalAgeDays}
+          onInput={(event) => setInputs({
+            ...inputs,
+            gestationalAgeWeeks: inputs.gestationalAgeWeeks === "" ? 0 : inputs.gestationalAgeWeeks,
+            gestationalAgeDays: event.target.value
+          })}
+          onBlur={(event) => {
+            if (!Number.isNaN(parseFloat(inputs.gestationalAgeWeeks)) && !Number.isNaN(parseFloat(inputs.gestationalAgeDays))) {
+              setInputs({
+                ...inputs,
+                gestationalAgeWeeks: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7),
+                gestationalAgeDays: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays)) % 7,
+              });
+            }
+          }}
+          type="text"
+          inputmode="decimal"
+          className="form-field"
+          id="gestationalAgeDays"
+          name="gestationalAgeDays"
+        /><span className="form-field">&nbsp;days</span>
         
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
-        {(status === 'invalid') && !inputs.gestationalAge ?
+        {(status === 'invalid') && !(inputs.gestationalAgeWeeks && inputs.gestationalAgeDays) ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
-        {(status === 'invalid') && (inputs.gestationalAge < 20 || inputs.gestationalAge > 45)  ?
+        {(status === 'invalid') && (parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 < 20 || parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 > 45)  ?
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
-        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (in days, at time of culture sent)</label>
+        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (at time of culture sent)</label>
 
         <br />
         {/* Postnatal Age input */}
@@ -410,10 +453,11 @@ stored as state variables.
           value={inputs.postnatalAge}
           onInput={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="postnatalAge"
           name="postnatalAge"
-        />
+        /><span className="form-field">&nbsp;days</span>
         
         < br />
         {/* Providing an error message if the user tries to submit 
@@ -425,17 +469,18 @@ stored as state variables.
         {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
           <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
-        <label className="form-field" htmlFor="birthWeight">Birth Weight (in grams)</label>
+        <label className="form-field" htmlFor="birthWeight">Birth Weight</label>
         <br />
         {/* Birth Weight input */}
         <input
           value={inputs.birthWeight}
           onInput={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="birthWeight"
           name="birthWeight"
-        />
+        /><span className="form-field">&nbsp;grams</span>
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Birth Weight input is empty */}
@@ -445,7 +490,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
 
         <br />
-        <label className="form-field" htmlFor="currentWeight">Current Weight (in grams, at time of form completion)</label>
+        <label className="form-field" htmlFor="currentWeight">Current Weight (at time of form completion)</label>
 
         <br />
         {/* Current Weight input */}
@@ -453,10 +498,11 @@ stored as state variables.
           value={inputs.currentWeight}
           onInput={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="currentWeight"
           name="currentWeight"
-        />
+        /><span className="form-field">&nbsp;grams</span>
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Current Weight input is empty */}
