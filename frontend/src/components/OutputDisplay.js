@@ -12,7 +12,7 @@ function OutputDisplay({ inputs, outputDisplay, setOutputInputs, carouselIndex, 
     return <OutputDisplayEOSSpecialCase />
   }
   else if (inputs.os === "LOS" && inputs.pathogen === "No" && (inputs.infectionSite.size === 1 && inputs.infectionSite.has("No")) && inputs.nec === "No") {
-    return <OutputDisplayLOSSpecialCase inputs={inputs} />
+    return <OutputDisplayLOSSpecialCase inputs={inputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex}/>
   }
   else {
     return <OutputDisplayExactMatch inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />

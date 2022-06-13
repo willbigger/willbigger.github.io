@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import Toggle from './Toggle';
 import OutputScale from './OutputScale';
 import TreatmentInfo from './TreatmentInfo';
+
 
 import './OutputScale.css';
 
