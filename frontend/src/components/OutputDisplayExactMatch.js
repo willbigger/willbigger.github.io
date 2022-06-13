@@ -36,7 +36,11 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carou
       
       {/* culture or susceptibility results known */}
       <section className={susceptibilityKnown ? "" : "d-none"}>
+        <h3>Spectrum</h3>
         <OutputScale activeIndex={carouselIndex} onSelect={handleSelect} />
+      </section>
+      
+      <section className={susceptibilityKnown ? "" : "d-none"}>
         <Carousel
           activeIndex={carouselIndex}
           controls={false}
