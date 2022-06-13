@@ -19,18 +19,18 @@
     display: flex;
     justify-content: space-evenly;
     gap: 1em;
-    margin-bottom: 1em;
 }
 
 .output-scale .btn {
     flex: 1;
     text-align: center;
-    border: none;
     border: 2px dashed gray;
+    opacity: 60%;
 }
 
 .output-scale .btn:not(:disabled):not(.disabled).active {
     border: 2px solid black;
+    opacity: 100%;
 }
 
 .choice-1 {

@@ -242,7 +242,8 @@ stored as state variables.
 
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
-          setStatus('loaded')
+          setStatus('loaded');
+          setCarouselIndex(0);
           setOutputInputs(inputs);
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
@@ -254,7 +255,8 @@ stored as state variables.
             addRecs: response.data[0].additional_recommendations,
           });
         } else {
-          setStatus('loaded')
+          setStatus('loaded');
+          setCarouselIndex(0);
           setOutputInputs(inputs);
           setOutputDisplay({
             ...outputDisplay,
@@ -597,11 +599,11 @@ stored as state variables.
         </ListGroup.Item>
         <br />
 
-        <br />
-        <ListGroupItem>
-        <h2 style={{ textAlign: "center", display: pathogenToggle ? 'block' : 'none' }}>Susceptibility Results</h2>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        <ListGroup.Item style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <h2 style={{ textAlign: "center" }}>Susceptibility Results</h2>
         {/* Susceptible input */}
-        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <div className="container">
           <div className="row">
             <div className="col">
               {/* susceptible input option 1: Pending */}
@@ -617,9 +619,9 @@ stored as state variables.
           </div>
         </div>
 
-        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        <br />
 
-        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <div className="container">
           <div className="row">
             <div className="col">
               {/* susceptible input option 2: Known */}
@@ -635,12 +637,16 @@ stored as state variables.
           </div>
         </div>
 
-        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
+        
+        </ListGroup.Item>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
 
+        <br />
+        <ListGroupItem>
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
