@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
-import OutputWidget from './OutputWidget';
-import { DropdownButton, Dropdown,ListGroup, ListGroupItem,Container } from 'react-bootstrap';
-import baby from "./baby.jpeg"
-import './FormComponent.css'
+import React, { useState, useEffect } from 'react';
+import { DropdownButton, Dropdown, ListGroup, ListGroupItem } from 'react-bootstrap';
+import axios from "axios"; // for get request for output data
 
+import FormComponentHeader from './FormComponentHeader';
+import OutputWidget from './OutputWidget';
 // import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
-import axios from "axios"; // for get request for output data
 import loading from './wait'
 
 import './FormComponent.css';
 
 
 function FormComponent() {
+  /*
+  This state stores whether the page has been initialized
+  */
+  const [initialized, setInitialized] = useState(false);
 
   /* These are the inputs stored as state variables.
   We had to import { useState } to do this.
   */
   const [inputs, setInputs] = useState({
-    gestationalAge: "",
+    gestationalAgeWeeks: "",
+    gestationalAgeDays: "",
     postnatalAge: "",
     birthWeight: "",
     currentWeight: "",
@@ -90,6 +94,11 @@ stored as state variables.
   Terms and conditions accepted toggle
    */
   const [termsAccepted, setTermsAccepted] = useState(false);
+  
+  /*
+  This state stores the most recently viewed antibiotic treatment
+  */
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   /*
   Handler for the pathogen variable.
@@ -201,17 +210,17 @@ stored as state variables.
         validAge = false
       }
     }
-    if(parseFloat(inputs.gestationalAge) < 20 || parseFloat(inputs.gestationalAge) > 45) {
+    if(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) < 20 * 7 || parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) > 45 * 7) {
       validAge = false
     }
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAge && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.gestationalAgeDays && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
-      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:5000";
+      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:8000";
       const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
       let infectionSite = "No";
       for (let i = 0; i < infectionSiteOrder.length; i++) {
@@ -234,8 +243,12 @@ stored as state variables.
 
       axios.get(url).then((response) => {
         if (response.data.length === 1) {
-          setStatus('loaded')
-          setOutputInputs(inputs);
+          setStatus('loaded');
+          setCarouselIndex(0);
+          setOutputInputs({
+            ...inputs,
+            gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7,
+          });
           setOutputDisplay({
             treatment: response.data[0].antibiotic_treatment,
             treatment1: response.data[0].antibiotic_treatment_1,
@@ -246,8 +259,12 @@ stored as state variables.
             addRecs: response.data[0].additional_recommendations,
           });
         } else {
-          setStatus('loaded')
-          setOutputInputs(inputs);
+          setStatus('loaded');
+          setCarouselIndex(0);
+          setOutputInputs({
+            ...inputs,
+            gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7,
+          });
           setOutputDisplay({
             ...outputDisplay,
             noMatch: true,
@@ -287,7 +304,8 @@ stored as state variables.
 
     setInputs({
       ...inputs,
-      gestationalAge: "",
+      gestationalAgeWeeks: "",
+      gestationalAgeDays: "",
       postnatalAge: "",
       antibiotic_duration: "",
       birthWeight: "",
@@ -312,46 +330,122 @@ stored as state variables.
 
   }
 
+  /*
+  Since browsers preserve form fields after using the back/forward buttons,
+  the form fields can become inconsistent with the FormComponent states.
+  To fix this, we store all states to the browser history so that we can
+  restore them if the user navigates back to the form.
+  */
+  useEffect(
+    () => {
+      if (initialized) {
+        // page has already been initialized, update state in browser history
+        window.history.replaceState({
+          state: {
+            inputs: inputs,
+            outputInputs: outputInputs,
+            outputDisplay: outputDisplay,
+            status: status,
+            pathogenToggle: pathogenToggle,
+            bloodToggle: bloodToggle,
+            necToggle: necToggle,
+            termsAccepted: termsAccepted,
+            carouselIndex: carouselIndex,
+          }
+        }, '');
+        // console.log('Saved page state', window.history.state);
+      }
+      else if (window.history.state !== null && window.performance.getEntriesByType('navigation').some((entry) => entry.type === "back_forward")) {
+        // if the state is not null and the user used the back/forward button to get here, restore the state from the browser history
+        let state = window.history.state.state;
+        setInitialized(true);
+        setInputs(state.inputs);
+        setOutputInputs(state.outputInputs);
+        setOutputDisplay(state.outputDisplay);
+        setStatus(state.status);
+        setPathogenToggle(state.pathogenToggle);
+        setBloodToggle(state.bloodToggle);
+        setnecToggle(state.necToggle);
+        setTermsAccepted(state.termsAccepted);
+        setCarouselIndex(state.carouselIndex);
+        // console.log('Reloaded previous page state', window.history.state);
+      }
+      else {
+        // user clicked a link here or refreshed, so leave forms blank and mark as initialized
+        setInitialized(true);
+      }
+    },
+    [inputs, outputInputs, outputDisplay, status, pathogenToggle, bloodToggle, necToggle, termsAccepted, carouselIndex] // states to monitor
+  );
 
   return (
     
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
-      <br/>
-      <article  className="article">
-        <img className="image" src={baby} alt="baby" />
-        <h1 className="header"> Text Area Testing</h1>
-      </article>
-      
+      <FormComponentHeader />
       
       <ListGroup>
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
-      <br/>
       <ListGroup.Item>
         <h2 style={{ textAlign: "center" }}>Age and Weight</h2>
-        <label className="form-field" htmlFor="gestationalAge">Gestational Age (in weeks)</label>
+        <label className="form-field" htmlFor="gestationalAgeWeeks">Gestational Age</label>
 
         <br />
         {/* Gestational Age input */}
         <input
-          textAlign={'center'}
-          value={inputs.gestationalAge}
-          onInput={(event) => setInputs({ ...inputs, gestationalAge: event.target.value })}
+          value={inputs.gestationalAgeWeeks}
+          onInput={(event) => setInputs({
+            ...inputs,
+            gestationalAgeWeeks: event.target.value,
+            gestationalAgeDays: inputs.gestationalAgeDays === "" ? 0 : inputs.gestationalAgeDays,
+          })}
+          onBlur={(event) => {
+            if (!Number.isNaN(parseFloat(inputs.gestationalAgeWeeks)) && !Number.isNaN(parseFloat(inputs.gestationalAgeDays))) {
+              setInputs({
+                ...inputs,
+                gestationalAgeWeeks: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7),
+                gestationalAgeDays: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays)) % 7,
+              });
+            }
+          }}
           type="text"
+          inputmode="decimal"
           className="form-field"
-          id="gestationalAge"
-          name="gestationalAge"
-        />
+          id="gestationalAgeWeeks"
+          name="gestationalAgeWeeks"
+        /><span className="form-field">&nbsp;weeks, </span>
+        <input
+          value={inputs.gestationalAgeDays}
+          onInput={(event) => setInputs({
+            ...inputs,
+            gestationalAgeWeeks: inputs.gestationalAgeWeeks === "" ? 0 : inputs.gestationalAgeWeeks,
+            gestationalAgeDays: event.target.value
+          })}
+          onBlur={(event) => {
+            if (!Number.isNaN(parseFloat(inputs.gestationalAgeWeeks)) && !Number.isNaN(parseFloat(inputs.gestationalAgeDays))) {
+              setInputs({
+                ...inputs,
+                gestationalAgeWeeks: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7),
+                gestationalAgeDays: Math.trunc(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays)) % 7,
+              });
+            }
+          }}
+          type="text"
+          inputmode="decimal"
+          className="form-field"
+          id="gestationalAgeDays"
+          name="gestationalAgeDays"
+        /><span className="form-field">&nbsp;days</span>
         
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
-        {(status === 'invalid') && !inputs.gestationalAge ?
+        {(status === 'invalid') && !(inputs.gestationalAgeWeeks && inputs.gestationalAgeDays) ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
-        {(status === 'invalid') && (inputs.gestationalAge < 20 || inputs.gestationalAge > 45)  ?
+        {(status === 'invalid') && (parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 < 20 || parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 > 45)  ?
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
-        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (in days, at time of culture sent)</label>
+        <label className="form-field" htmlFor="postnatalAge">Postnatal Age (at time of culture sent)</label>
 
         <br />
         {/* Postnatal Age input */}
@@ -359,10 +453,11 @@ stored as state variables.
           value={inputs.postnatalAge}
           onInput={(event) => setInputs({ ...inputs, postnatalAge: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="postnatalAge"
           name="postnatalAge"
-        />
+        /><span className="form-field">&nbsp;days</span>
         
         < br />
         {/* Providing an error message if the user tries to submit 
@@ -374,17 +469,18 @@ stored as state variables.
         {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
           <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
-        <label className="form-field" htmlFor="birthWeight">Birth Weight (in grams)</label>
+        <label className="form-field" htmlFor="birthWeight">Birth Weight</label>
         <br />
         {/* Birth Weight input */}
         <input
           value={inputs.birthWeight}
           onInput={(event) => setInputs({ ...inputs, birthWeight: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="birthWeight"
           name="birthWeight"
-        />
+        /><span className="form-field">&nbsp;grams</span>
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Birth Weight input is empty */}
@@ -394,7 +490,7 @@ stored as state variables.
           <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
 
         <br />
-        <label className="form-field" htmlFor="currentWeight">Current Weight (in grams, at time of form completion)</label>
+        <label className="form-field" htmlFor="currentWeight">Current Weight (at time of form completion)</label>
 
         <br />
         {/* Current Weight input */}
@@ -402,10 +498,11 @@ stored as state variables.
           value={inputs.currentWeight}
           onInput={(event) => setInputs({ ...inputs, currentWeight: event.target.value })}
           type="text"
+          inputmode="decimal"
           className="form-field"
           id="currentWeight"
           name="currentWeight"
-        />
+        /><span className="form-field">&nbsp;grams</span>
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Current Weight input is empty */}
@@ -548,11 +645,11 @@ stored as state variables.
         </ListGroup.Item>
         <br />
 
-        <br />
-        <ListGroupItem>
-        <h2 style={{ textAlign: "center", display: pathogenToggle ? 'block' : 'none' }}>Susceptibility Results</h2>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        <ListGroup.Item style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <h2 style={{ textAlign: "center" }}>Susceptibility Results</h2>
         {/* Susceptible input */}
-        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <div className="container">
           <div className="row">
             <div className="col">
               {/* susceptible input option 1: Pending */}
@@ -568,9 +665,9 @@ stored as state variables.
           </div>
         </div>
 
-        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+        <br />
 
-        <div className="container" style={{ display: pathogenToggle ? 'block' : 'none' }}>
+        <div className="container">
           <div className="row">
             <div className="col">
               {/* susceptible input option 2: Known */}
@@ -585,13 +682,17 @@ stored as state variables.
             </div>
           </div>
         </div>
-        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+
+        <br />
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        <hr style={{ display: pathogenToggle ? 'block' : 'none' }}/>
-
         
+        </ListGroup.Item>
+        <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
+
+        <br />
+        <ListGroupItem>
         <h2 style={{ textAlign: "center" }}>Site of Infection</h2>
 
         <h6 style={{ textAlign: "center" }}>(check all that apply)</h6>
@@ -791,7 +892,7 @@ stored as state variables.
         {/* If the form is been submitted but is NOT Valid, print error message instead. */}
         {(status === 'invalid') ? <div className="failure-message" style={{ color: "red", textAlign: 'center' }}>Form is incomplete.</div> : null}
         <div style={{ justifyContent: 'center' }}>
-          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} style={{ display: 'block' }} />}
+          {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />}
 
         </div>
 

@@ -1,39 +1,8 @@
-
 .form-field {
     font-size: larger;
 }
 
-figcaption{
-    position: absolute;
-    bottom: 60rem;
-    margin: 0 rem;
-    color: rgb(62, 62, 62);
-    font-size: 1.5rem;
-}
-
-.article {
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.image {
-    object-fit: cover;
-    max-width: 700px;
-    height: 100%;
-    border-radius: 8px;
-}
-
-.header {
-    font-size: 20px;
-    color: rgb(255, 255, 255);
-    text-align: left;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 30px;
-    right: 0;
-    border-width: 40px;
-    height: fit-content;
-    margin: auto;
+input[type="text"].form-field {
+    text-align: right;
+    max-width: 4em;
 }

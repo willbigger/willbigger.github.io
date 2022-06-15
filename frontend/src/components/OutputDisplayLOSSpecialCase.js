@@ -1,107 +1,103 @@
-import { Carousel,Table } from 'react-bootstrap';
+import { Carousel} from 'react-bootstrap';
 import React from 'react';
-
-function OutputDisplayLOSSpecialCase({ inputs }) {
-  const slidesStyle2 = {
-    fontSize: 20,
-    color: "black",
-    textAlign: "center",
-  }
-
-  const slidesStyle1 = {
-    fontSize: 20,
-    color: "black",
-    textAlign: "center",
-    backgroundColor: 'lightgray'
-  }
-  const outputDisplay = {
-    treatment: "Nafcillin, Gentamicin",
-    duration: "48 hours",
-    addRecs: "COVER 24 hours-Ampicllin 50 mg/kg at 0,12 hours, AND Gentamicin 4 mg/kg (one dose)"
-  }
-  let dose ="";
-  let time ="";
+import OutputScaleSpec from './OutputScaleSpec1';
+import './OutputScale.css';
+function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex }) {
+  
+  const handleSelect = (selectedIndex) => {
+    setCarouselIndex(selectedIndex);
+  };
+  
+  let gentamicinDose ="";
   if (inputs.gestationalAge<30&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
-    dose = 1
-    time= 0
+    gentamicinDose = "4mg/kg, one dose at 0 hours."
   }
   if (inputs.gestationalAge<30&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
-    time ="0, 36"
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 36 hours."
+  }
+  if (inputs.gestationalAge<30&&inputs.postnatalAge>28) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
   if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
-    time ="0, 36"
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 36 hours."
   }
-  if (inputs.gestationalAge<30&&inputs.postnatalAge>=28) {
-    time ="0, 24"
+  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
-  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>7) {
-    time ="0, 36"
+  if (inputs.gestationalAge>=30&&inputs.gestationalAge<=34&&inputs.postnatalAge>28) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
-  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=37) {
-    time ="0, 36"
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
-  if (dose ==="" && time ===""){
-    dose = "Not Specified"
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=8&&inputs.postnatalAge<=28) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
   }
+  if (inputs.gestationalAge>=35&&inputs.gestationalAge<=47&&inputs.postnatalAge>=28) {
+    gentamicinDose = "4mg/kg, one dose at 0 hours, another dose at 24 hours."
+  }
+  if (inputs.postnatalAge>=48) {
+    gentamicinDose = "5mg/kg at 0 and 24 hours."
+  }
+  let NafcillinDose ="";
+  if (inputs.currentWeight >2000 &&inputs.postnatalAge>7){
+    NafcillinDose = "25 mg/kg(50 mg/kg for Meningitis at every 6 hours"
+  }
+  if (inputs.currentWeight <=2000 &&inputs.postnatalAge>7){
+    NafcillinDose = "25 mg/kg(50 mg/kg for Meningitis at every 8 hours"
+  }
+  if (inputs.currentWeight >2000 &&inputs.postnatalAge<=7){
+    NafcillinDose = "25 mg/kg(50 mg/kg for Meningitis at every 8 hours"
+  }
+  if (inputs.currentWeight <=2000 &&inputs.postnatalAge<=7){
+    NafcillinDose = "25 mg/kg(50 mg/kg for Meningitis at every 12 hours"
+  }
+
 
   return (
     <div>
-      <div className="container">
-        <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment</h5>
-          <dl style={{ columnCount: 2, textAlign: 'center' }}>
-            <dt> Nafcillin or Oxacillin</dt>
-            <br/>
-            <dd>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>12 Hour</th>
-                    <th>8 Hour</th>
-                    <th>6 Hour</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Last dose at 36 hours after first</td>
-                    <td>Last dose at 42 hours after first</td>
-                    <td>Last dose at 42 hours after first</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </dd>
-            <dt>Gentamicin</dt>
-            <br/>
-            <dd>
-              {dose} dose at {time} hours.
-              <br/><br/>
-            </dd>
-            
-          </dl>
-        </div>
-      </div>
+      <section>
+        <h3>Antibiotic Treatment</h3>
+        <dl>
+          <dt className='under'>Nafcillin or Oxacillin</dt>
+          <dd>{NafcillinDose}</dd>
+          <dt className='under'>Gentamicin</dt>
+          <dd>{gentamicinDose}</dd>
+        </dl>
+      </section>
 
-      <div className="container">
-        <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 1st Choice</h5>
-          <p style={slidesStyle2}>Ampicillin, Gentamicin</p>
-        </div>
-      </div>
+      <section>
+        <h3>Special Notes</h3>
+        <ul>
+          <li>If ECMO or Therapeutic Hypothermia: one dose at 0 hours, another dose at 36 hours.</li>
+        </ul>
+      </section>
 
-      <div className="container">
-        <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment 2nd Choice</h5>
-          <p style={slidesStyle2}>Vancomycin, Gentamicin</p>
-        </div>
-      </div>
+      <section>
+        <OutputScaleSpec activeIndex={carouselIndex} onSelect={handleSelect} />
+          <Carousel
+            activeIndex={carouselIndex}
+            controls={false}
+            slide={false}
+            fade={true}
+            indicators={false}
+            interval={null}
+            wrap={false}
+          >
+            <Carousel.Item>
+              <p>Ampicillin, Gentamicin</p>
+            </Carousel.Item >
+            <Carousel.Item>
+              <p>Vancomycin, Gentamicin</p>
+            </Carousel.Item>
+          </Carousel>
+        
+      </section>
 
-
-      <div className="container">
-        <div style={{ padding: '10px' }}>
-          <h5 style={{ backgroundColor: 'lightgray', textAlign: 'center' }}>Antibiotic Treatment Duration</h5>
-          <p style={slidesStyle2}>{outputDisplay.duration}</p>
-        </div>
-      </div>
+      <section>
+        <h3>Antibiotic Treatment Duration</h3>
+        <p>48 hours</p>
+      </section>
     </div>
   )
 }
