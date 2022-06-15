@@ -412,7 +412,7 @@ stored as state variables.
           className="form-field"
           id="gestationalAgeWeeks"
           name="gestationalAgeWeeks"
-        /><span className="form-field">&nbsp;weeks, </span>
+        /><span className="form-field">&nbsp;weeks  </span>
         <input
           value={inputs.gestationalAgeDays}
           onInput={(event) => setInputs({
