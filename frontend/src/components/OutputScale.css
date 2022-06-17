@@ -6,31 +6,53 @@
     --choice-text: black;
 }
 
-/* dark colors */
-/* :root {
-    --choice-1: #C46F00;
-    --choice-2: #2C7600;
-    --choice-3: #006960;
-    --choice-4: #003399;
-    --choice-text: white;
-} */
-
 .output-scale {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1em;
+    display: grid;
+    gap: 0.25em 1em;
+    align-items: center;
+}
+
+@media (max-width: 767.98px) {
+    .choice-label {
+        grid-column: 1;
+    }
+    
+    .output-scale .btn {
+        grid-column: 2;
+    }
+
+    .choice-label .arrow::after {
+        content: "↓";
+    }
+}
+
+@media (min-width: 768px) {
+    .choice-label {
+        grid-row: 1;
+    }
+    
+    .output-scale .btn {
+        grid-row: 2;
+    }
+
+    .choice-label .arrow::after {
+        content: "→";
+    }
+}
+
+.choice-label {
+    text-align: center;
+    font-size: smaller;
 }
 
 .output-scale .btn {
-    flex: 1;
     text-align: center;
     border: 2px dashed gray;
-    opacity: 60%;
 }
 
 .output-scale .btn:not(:disabled):not(.disabled).active {
     border: 2px solid black;
-    opacity: 100%;
+    font-weight: 500;
 }
 
 .choice-1 {
@@ -52,6 +74,7 @@
     background-color: var(--choice-4) !important;
     color: var(--choice-text) !important;
 }
-.under{
+
+.under {
     text-decoration: underline;
 }
