@@ -22,6 +22,7 @@
 
 #output-widget dt {
     font-weight: normal;
+    text-decoration: underline;
 }
 
 #output-widget p, #output-widget dl {

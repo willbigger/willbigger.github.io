@@ -74,7 +74,3 @@
     background-color: var(--choice-4) !important;
     color: var(--choice-text) !important;
 }
-
-.under {
-    text-decoration: underline;
-}
