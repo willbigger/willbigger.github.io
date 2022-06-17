@@ -59,9 +59,9 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
       <section>
         <h3>Antibiotic Treatment</h3>
         <dl>
-          <dt className='under'>Nafcillin or Oxacillin</dt>
+          <dt>Nafcillin or Oxacillin</dt>
           <dd>{NafcillinDose}</dd>
-          <dt className='under'>Gentamicin</dt>
+          <dt>Gentamicin</dt>
           <dd>{gentamicinDose}</dd>
         </dl>
       </section>
