@@ -11,6 +11,7 @@ function About() {
         {/* About:
       <br />
       <br /> */}
+      
 
         <p style={{maxWidth:"50rem", fontSize:"larger"}}>
 

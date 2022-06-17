@@ -24,6 +24,7 @@ app.use(cors(corsOptions))
 
 require("dotenv/config");
 
+
 DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
 app.get("/outputs", async (req, res) => {
@@ -70,7 +71,7 @@ mongoose.connect(DB_CONNECTION_STRING)
     console.log("Failed to connect to database.")
   });
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8000
 
 app.listen(PORT, () => {
   console.log("Listening on port " + PORT);
