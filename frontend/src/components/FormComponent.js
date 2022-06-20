@@ -590,7 +590,7 @@ stored as state variables.
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }}
               >
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Gram-positive Organisms</Dropdown.Item>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-positive Organisms</Dropdown.Header>
                 
                 <Dropdown.Item eventKey="Gram Positive">Gram Positive Cocci</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
@@ -600,7 +600,7 @@ stored as state variables.
                 <Dropdown.Item eventKey="Enterococcus">Enterococcus Fecalis</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Gram-negative Organisms</Dropdown.Item>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-negative Organisms</Dropdown.Header>
 
                 <Dropdown.Item eventKey="Gram Negative Rods">Gram Negative Rods</Dropdown.Item>
                 <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
@@ -609,20 +609,20 @@ stored as state variables.
                 <Dropdown.Item eventKey="Pseudomonas">Pseudomonas Species</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Fungi-Candida Species</Dropdown.Item>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Fungi-Candida Species</Dropdown.Header>
                 
                 <Dropdown.Item eventKey="Candida Albicans">Candida Albicans</Dropdown.Item>
                 <Dropdown.Item eventKey="Candida Parasilosis">Candida Parasilosis</Dropdown.Item>
                 <Dropdown.Item eventKey="Non Candida Albicans">Non Candida Albicans</Dropdown.Item>
 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Mold</Dropdown.Item>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Mold</Dropdown.Header>
                 
                 <Dropdown.Item eventKey="Aspergillus">Aspergillus Species</Dropdown.Item>
                 <Dropdown.Item eventKey="Rhizopus">Rhizopus Species</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Other</Dropdown.Item>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Other</Dropdown.Header>
                 <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
 
               </DropdownButton>
