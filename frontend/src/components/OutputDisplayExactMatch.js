@@ -54,22 +54,22 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carou
           <Carousel.Item>
             <h3 className="choice-1">Antibiotic Treatment 1st Choice</h3>
             <p>{outputDisplay.treatment1}</p>
-            <TreatmentInfo treatment={outputDisplay.treatment} />
+            <TreatmentInfo treatment={outputDisplay.treatment1} />
           </Carousel.Item >
           <Carousel.Item>
             <h3 className="choice-2">Antibiotic Treatment 2nd Choice</h3>
             <p>{outputDisplay.treatment2}</p>
-            <TreatmentInfo treatment={outputDisplay.treatment} />
+            <TreatmentInfo treatment={outputDisplay.treatment2} />
           </Carousel.Item>
           <Carousel.Item>
             <h3 className="choice-3">Antibiotic Treatment 3rd Choice</h3>
             <p>{outputDisplay.treatment3}</p>
-            <TreatmentInfo treatment={outputDisplay.treatment} />
+            <TreatmentInfo treatment={outputDisplay.treatment3} />
           </Carousel.Item>
           <Carousel.Item>
             <h3 className="choice-4">Antibiotic Treatment 4th Choice</h3>
             <p>{outputDisplay.treatment4}</p>
-            <TreatmentInfo treatment={outputDisplay.treatment} />
+            <TreatmentInfo treatment={outputDisplay.treatment4} />
           </Carousel.Item>
         </Carousel>
       </section>
