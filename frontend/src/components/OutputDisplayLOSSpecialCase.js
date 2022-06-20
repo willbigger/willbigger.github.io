@@ -66,13 +66,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
         </dl>
       </section>
 
-      <section>
-        <h3>Special Notes</h3>
-        <ul>
-          <li>If ECMO or Therapeutic Hypothermia: one dose at 0 hours, another dose at 36 hours.</li>
-        </ul>
-      </section>
-
+      <h3>Alternative Antibiotic Treatment</h3>
       <section>
         <OutputScaleSpec activeIndex={carouselIndex} onSelect={handleSelect} />
           <Carousel
@@ -85,14 +79,27 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
             wrap={false}
           >
             <Carousel.Item>
-              <p>Ampicillin, Gentamicin</p>
+              <p></p>
+              <p className='under'>Ampicillin, Gentamicin</p>
+              <p>(Preferred if concern for gastrointestinal disease or urinary tract infection)</p>
             </Carousel.Item >
             <Carousel.Item>
-              <p>Vancomycin, Gentamicin</p>
+              <p></p>
+              <p className='under'>Vancomycin, Gentamicin</p>
+              <p>(Preferred coverage if MRSA colonization/previous infection)</p>
             </Carousel.Item>
           </Carousel>
         
       </section>
+
+
+      <section className='center'>
+        <h3>Special Notes</h3>
+        <p>If ECMO or Therapeutic Hypothermia: </p>
+        <p>one dose at 0 hours, another dose at 36 hours.</p>
+      </section>
+
+      
 
       <section>
         <h3>Antibiotic Treatment Duration</h3>
