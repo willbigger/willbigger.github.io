@@ -41,8 +41,10 @@
 }
 
 .treatment-info {
-    display: block;
-    max-height: 400px;
     max-width: 100%;
     margin: auto;
+}
+
+.treatment-info .table th {
+    text-align: center;
 }
