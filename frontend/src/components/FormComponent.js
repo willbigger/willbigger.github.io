@@ -216,7 +216,7 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.gestationalAgeDays && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -439,7 +439,7 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
-        {(status === 'invalid') && !inputs.gestationalAgeWeeks ?
+        {(status === 'invalid') && !(inputs.gestationalAgeWeeks && inputs.gestationalAgeDays) ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
         {(status === 'invalid') && (parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 < 20 || parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 > 45)  ?
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
