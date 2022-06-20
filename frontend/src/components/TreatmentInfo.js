@@ -1,5 +1,6 @@
 import React from 'react';
 import aaa from './DosingImg/Acyclovir.png';
+import ReactImageFallback from "react-image-fallback";
 
 function TreatmentInfo({ treatment }) {
     var treat = treatment.toString();
@@ -19,6 +20,12 @@ function TreatmentInfo({ treatment }) {
 
             */}
             <img className="treatment-info" src={require(`${test}`)}alt={treatment}></img>
+            <ReactImageFallback
+                    src={require(`${dosingName}`)}
+                    fallbackImage={aaa}
+                    initialImage="loader.gif"
+                    alt="missing img"
+                    className="treatment-info" />
         </>
     );
 }
