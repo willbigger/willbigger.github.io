@@ -59,9 +59,9 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
       <section>
         <h3>Antibiotic Treatment</h3>
         <dl>
-          <dt className='under'>Nafcillin or Oxacillin</dt>
+          <dt>Nafcillin or Oxacillin</dt>
           <dd>{NafcillinDose}</dd>
-          <dt className='under'>Gentamicin</dt>
+          <dt>Gentamicin</dt>
           <dd>{gentamicinDose}</dd>
         </dl>
       </section>
@@ -80,12 +80,12 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
         >
           <Carousel.Item>
             <p></p>
-            <p className='under'>Ampicillin, Gentamicin</p>
+            <p>Ampicillin, Gentamicin</p>
             <p>(Preferred if concern for gastrointestinal disease or urinary tract infection)</p>
           </Carousel.Item >
           <Carousel.Item>
             <p></p>
-            <p className='under'>Vancomycin, Gentamicin</p>
+            <p>Vancomycin, Gentamicin</p>
             <p>(Preferred coverage if MRSA colonization/previous infection)</p>
           </Carousel.Item>
         </Carousel>
