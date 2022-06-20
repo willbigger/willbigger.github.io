@@ -69,6 +69,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
       <section>
         <h3>Alternative Antibiotic Treatment</h3>
         <OutputScaleSpec1 activeIndex={carouselIndex} onSelect={handleSelect} />
+        <br />
         <Carousel
           activeIndex={carouselIndex}
           controls={false}
@@ -79,14 +80,16 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
           wrap={false}
         >
           <Carousel.Item>
-            <p></p>
-            <p>Ampicillin, Gentamicin</p>
-            <p>(Preferred if concern for gastrointestinal disease or urinary tract infection)</p>
+            <dl>
+              <dt>Ampicillin, Gentamicin</dt>
+              <dd>(Preferred if concern for gastrointestinal disease or urinary tract infection)</dd>
+            </dl>
           </Carousel.Item >
           <Carousel.Item>
-            <p></p>
-            <p>Vancomycin, Gentamicin</p>
-            <p>(Preferred coverage if MRSA colonization/previous infection)</p>
+            <dl>
+              <dt>Vancomycin, Gentamicin</dt>
+              <dd>(Preferred coverage if MRSA colonization/previous infection)</dd>
+            </dl>
           </Carousel.Item>
         </Carousel>
         
