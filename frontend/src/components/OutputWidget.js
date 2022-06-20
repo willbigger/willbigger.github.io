@@ -24,14 +24,14 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
   return (
     <div id="output-widget" className="container">
       {/* Presenting what the user inputted */}
-      <div className="row" >
-        <div className="col" >
+      <div className="row">
+        <div className="col">
           <h2 style={{ textAlign: 'center', textDecoration: "underline" }}>Your Submission</h2>
         </div>
       </div>
       
-      <div className="row" >
-        <div className="col" >
+      <div className="row">
+        <div className="col-12 col-md-6">
           <section>
             <h3>Age and Weight</h3>
             {/* inputs were sent from FormComponent */}
@@ -50,7 +50,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
           </section>
         </div>
 
-        <div className="col" >
+        <div className="col">
           <section>
             <h3>Pathogen Isolation</h3>
             <ul>
@@ -75,7 +75,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
 
       < hr />
     
-      <div className="row" >
+      <div className="row">
         <div className="col">
           <h2>Recommended Treatment</h2>
           <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />
