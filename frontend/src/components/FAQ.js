@@ -60,10 +60,10 @@ function FAQ () {
     <div style={{
       display: 'block', width: width*0.9, padding: 30
     }}>
-    <h2 style={{textAlign: "center"}}>FAQ</h2>
+    <h2 style={{textAlign: "center"}}>FAQ (Frequently Asked Questions)</h2>
     <Collapse>
       <Panel header="Is it safe to only cover a period of 24 hours for Early-Onset Sepsis (EOS) evaluations?" key="1">  
-        <p>Yes. Several studies and meta-analyses have demonstrated that EOS pathogens are isolated within 24 hours of the blood culture being obtained.</p>
+        <p>Yes. Several studies and meta-analyses have demonstrated that EOS pathogens are isolated<br></br>within 24 hours of the blood culture being obtained.</p>
       
         <Table striped bordered hover size="sm">
           <thead>
@@ -76,43 +76,43 @@ function FAQ () {
           <tbody>
             <tr>
               <td>Marks et al. 2020 <p><a href="https://pubmed.ncbi.nlm.nih.gov/32621356/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/32621356/</a><br></br></p></td>
-              <td>EOS Blood cultures <p><br></br>1. ≥34 weeks GA <br></br>2. Meta-analysis of 6 studies of PT and FT infants<br></br></p></td>
-              <td><p>1. All pathogenic blood cultures collected pre-therapy from neonates suspected of EOS returned a positive result within 24 hours of incubation.<br></br>2. Similar EOS studies have found that 92–100% of blood cultures are positive by 24 hours.</p></td>
+              <td>EOS Blood cultures <p><br></br>1. ≥34 weeks GA <br></br>2. Meta-analysis of 6<br></br>studies of PT and FT<br></br>infants<br></br></p></td>
+              <td>1. All pathogenic blood <br></br>cultures collected pre-<br></br>therapy from neonates<br></br>suspected of EOS<br></br>returned a positive<br></br>result within 24 hours of<br></br> incubation.<br></br>2. Similar EOS studies<br></br>have found that 92–<br></br>100% of blood cultures<br></br>are positive by 24 hours.</td>
             </tr>
             <tr>
               <td>De Rose et al. 2021 <p><a href="https://pubmed.ncbi.nlm.nih.gov/33525647/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/33525647/</a><br></br></p></td>
               <td>EOS Blood cultures <p><br></br>≥34 weeks GA <br></br></p></td>
-              <td>Time to positivity (TTP) of pathogens was 17.7 ± 12.5 hours vs. 80.5 ± 55.8 hours of contaminants (p = 0.003). The TTP of positive blood culture {'<'}12 hours in 80% of cases. Admission CRP levels were similar in infants with  positive and negative blood cultures (p = 0.067).</td>
+              <td>Time to positivity (TTP)<br></br>of pathogens was 17.7 ±<br></br>12.5 hours vs. 80.5 ±<br></br> 55.8 hours of<br></br> contaminants (p = <br></br>0.003). The TTP of <br></br>positive blood culture<br></br>{'<'}12 hours in 80% of<br></br>cases. Admission CRP<br></br>levels were similar in<br></br>infants with positive<br></br>and negative blood<br></br>cultures (p = 0.067).</td>
             </tr>
             <tr>
               <td>Guerti et al. 2011 <p><a href="https://pubmed.ncbi.nlm.nih.gov/21163823/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/21163823/</a><br></br></p></td>
-              <td>EOS and LOS Blood cultures</td>
-              <td>TTP for Gram-negative organisms was 11.17 hours (Q1-Q3: 8.84-15.67).  For  Gram-positive isolates, TTP for coagulase-negative staphylococci (CoNS) was 26.67 hours (Q1-Q3: 19.00-38.17), and for non-CoNS, TTP was 12.83 hours (Q1-Q3: 10.50-18.17, P{'<'}0.001).</td>
+              <td>EOS and LOS Blood<br></br>cultures</td>
+              <td>TTP for Gram-negative<br></br>organisms was 11.17<br></br>hours (Q1-Q3: 8.84-<br></br>15.67). For Gram-<br></br>positive isolates, TTP<br></br>for coagulase-negative<br></br>staphylococci (CoNS)<br></br>was 26.67 hours (Q1-<br></br>Q3: 19.00-38.17), and<br></br> for non-CoNS, TTP was<br></br>12.83 hours (Q1-Q3:<br></br> 10.50-18.17, P{'<'}0.001).</td>
             </tr>
             <tr>
               <td>Huggard et al. 2021<p><a href="https://pubmed.ncbi.nlm.nih.gov/31072183/"target="_blank">https://pubmed.ncbi.nlm.nih.gov/31072183/</a><br></br></p></td>
-              <td>EOS<p><br></br>Well-appearing newborns <br></br></p></td>
-              <td>98% of pathogens were isolated by 24 hours. Gram-negative organisms had the shortest TTP, with Klebsiella spp. having a median TTP of 10 hours and E. coli 11 hours. For Gram-positives, GBS TTP was 12 hours, Enterococcus species 14 hours, and S. aureus 15 hours. All of the Klebsiella spp. and other Coliforms were detected within 24 hours, with, 95.2% of E.coli, 94.4% of GBS, 95.5% of Enterococci, and 95.7% of S. aureus, positive by 24 hours.</td>
+              <td>EOS<p><br></br>Well-<br></br>appearing newborns<br></br></p></td>
+              <td>98% of pathogens were<br></br>isolated by 24 hours.<br></br>Gram-negative<br></br>organisms had the<br></br>shortest TTP, with<br></br>Klebsiella spp. having a<br></br>median TTP of 10 hours<br></br>and E. coli 11 hours. For<br></br>Gram-positives, GBS<br></br>TTP was 12 hours,<br></br> Enterococcus species<br></br>14 hours, and S. aureus<br></br>15 hours. All of the<br></br>Klebsiella spp. and<br></br>other Coliforms were<br></br>detected within 24<br></br>hours, with, 95.2% of<br></br>E.coli, 94.4% of GBS,<br></br>95.5% of Enterococci,<br></br>and 95.7% of S. aureus,<br></br>positive by 24 hours.</td>
             </tr>
             <tr>
               <td>Kuźniewicz, et al. 2020<p><a href="https://pubmed.ncbi.nlm.nih.gov/32379197/"target="_blank">https://pubmed.ncbi.nlm.nih.gov/32379197/</a><br></br></p></td>
-              <td>EOS Blood Cultures 19 centers<p><br></br>PT and FT infants <br></br></p></td>
-              <td><p><a href="http://localhost:3000/faq"target="_blank">GBS  and E. coli accounted for 74% of blood culture isolates. TTP was 21.0 hours (Q1-Q3: 17.1-25.3 hours). Blood cultures were positive by 24 hours in 68% of cases; by 36 hours in 94% of cases; and by 48 hours in 97% of cases. Receiving maternal intrapartum antibiotic prophylaxis, GA {'<'}35 weeks, nor blood culture system did not impact median TTP.</a><br></br></p></td>
+              <td>EOS Blood Cultures<br></br>19 centers<p><br></br>PT and FT infants <br></br></p></td>
+              <td><p><a href="http://localhost:3000/faq"target="_blank">GBS  and E. coli<br></br>accounted for 74% of<br></br>blood culture isolates.<br></br>TTP was 21.0 hours<br></br>(Q1-Q3: 17.1-25.3<br></br>hours). Blood cultures<br></br>were positive by 24<br></br>hours in 68% of cases;<br></br>by 36 hours in 94% of<br></br>cases; and by 48 hours<br></br>in 97% of cases.<br></br>Receiving maternal<br></br>intrapartum antibiotic<br></br>prophylaxis, GA {'<'}35<br></br>weeks, nor blood culture<br></br>system did not impact<br></br>median TTP.</a><br></br></p></td>
             </tr>
             <tr>
               <td>Le et al. 2021<p><a href="https://pubmed.ncbi.nlm.nih.gov/33491088/"target="_blank">https://pubmed.ncbi.nlm.nih.gov/33491088/</a><br></br></p></td>
               <td>EOS<p><br></br>VLBW ({'<'}1500 g) <br></br></p></td>
-              <td><p><a href="http://localhost:3000/faq"target="_blank">Short-course ampicillin (2 doses, 50 mg/kg every 12 hours) covers a period of 34 hours for E. coli and 82 hours for GBS. Single-dose 5 mg/kg gentamicin maintained {'>'} MIC 2 for 26 hours.</a><br></br></p></td>
+              <td><p><a href="http://localhost:3000/faq"target="_blank">Short-course ampicillin<br></br>(2 doses, 50 mg/kg<br></br>every 12 hours) covers<br></br>a period of 34 hours for<br></br>E. coli and 82 hours for<br></br>GBS. Single-dose 5<br></br>mg/kg gentamicin<br></br>maintained {'>'} MIC 2 for<br></br>26 hours.</a><br></br></p></td>
             </tr>
             <tr>
-              <br></br>GA=gestational age, GBS=Group B Streptococcus, TTP=time to positivity, Q1-Q3=interquartile range, FT= full term, PT=Preterm.<br></br>
+              <br></br>GA=gestational age, GBS=Group B Streptococcus, TTP=time to positivity, Q1-Q3=interquartile<br></br>range, FT= full term, PT=Preterm.<br></br>
             </tr>
           </tbody>
         </Table>      
       </Panel>
 
       <Panel header="Is it safe to only cover a period of 48 hours for Late-Onset Sepsis (LOS) evaluations?" key="2">    
-        <p>Yes. Several studies and meta-analyses have demonstrated that LOS pathogens are isolated within 48 hours of the cultures being obtained.</p>
+        <p>Yes. Several studies and meta-analyses have demonstrated that LOS pathogens are isolated<br></br>within 48 hours of the cultures being obtained.</p>
         <Table striped bordered hover size="sm">
           <tbody>
             <tr>
@@ -120,27 +120,29 @@ function FAQ () {
                 Guerti et al. 2011
                 <p><a href="https://pubmed.ncbi.nlm.nih.gov/21163823/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/21163823/</a><br></br></p>
                 </td>
-                <td>Early and Late-Onset Sepsis <br></br>Preterm and Full term infants </td>
-                <td>TTP for Gram-negative organisms was 11.17 hours (Q1-Q3: 8.84-15.67). For Gram-positive isolates, TTP for coagulase-negative staphylococci (CoNS) was 26.67 hours (Q1-Q3: 19.00-38.17), and for non-CoNS, TTP was 12.83 hours (Q1-Q3: 10.50-18.17, P {'<'} 0.001).</td>    
-              </tr>
-            </tbody>
-          </Table>
+                <td>Early and Late-Onset<br></br>Sepsis<br></br>Preterm and Full term<br></br>infants</td>
+                <td>TTP for Gram-negative<br></br>organisms was 11.17<br></br>hours (Q1-Q3: 8.84-<br></br>15.67). For Gram- <br></br> positive isolates, TTP <br></br> for CoNS was 26.67 <br></br> hours (Q1-Q3: 19.00- <br></br> 38.17), and for non- <br></br> CoNS, TTP was 12.83 <br></br> hours (Q1-Q3: 10.50- <br></br> 18.17, P {'<'} 0.001).</td>    
+            </tr>
+          </tbody>
+        </Table>
 
-          <Table striped bordered hover size="sm">
+        <br></br>
+        
+        <Table striped bordered hover size="sm">
           <tbody>
             <tr>
               <td>
                 Mukhopadhyay S et al. 2022
                 <p><a href="https://pubmed.ncbi.nlm.nih.gov/35273079/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/35273079/</a><br></br></p>
                 </td>
-                <td>Late-Onset Sepsis <br></br>Preterm and Full term infants <br></br>16 centers</td>
-                <td>Median TTP (Q1-Q3) was 23.5 hours (18.4-29.9); 85%  resulted in 36 hours. Excluding CoNS, 93.5% cultures were positive by 36 hours.</td>    
-              </tr>
-              <p>
-                <br></br>GA=gestational age, GBS=Group B Streptococcus, TTP=time to positivity, Q1-Q3=interquartile range.<br></br>
-              </p>
-            </tbody>
-          </Table>
+                <td>Late-Onset Sepsis<br></br>Preterm and Full term<br></br>infants <br></br>16 centers</td>
+                <td>Median TTP (Q1-Q3)<br></br>was 23.5 hours<br></br>(18.4-29.9); 85%<br></br> resulted in 36 hours. <br></br> Excluding CoNS,<br></br>93.5% cultures were<br></br>positive by 36 hours.</td>    
+            </tr>
+            <p>
+              <br></br>GA=gestational age, GBS=Group B Streptococcus,  CoNS=Coagulase-negative<br></br>staphylococci,, TTP=time to positivity, Q1-Q3=interquartile range.<br></br>
+            </p>
+          </tbody>
+        </Table>
       </Panel>
 
       <Panel header="Which antibiotics are optimal for Late-onset sepsis?" key="3">  
@@ -172,9 +174,9 @@ function FAQ () {
       <Panel header="Should I double cover Gram-negative infections?" key="5">  
         In certain scenarios: This is an evolving area of investigation. While pending identification and<br></br> 
         susceptibilities, due to emerging resistance especially with E. coli, a 3rd generation<br></br>
-         cephalosporin is often added. For treatment after susceptibilities, some experts recommend<br></br>
-         double coverage until confirmation of negative culture, first 7 days of treatment and/or with<br></br>
-         abscess or meningitis. No neonatal studies to date. 
+        cephalosporin is often added. For treatment after susceptibilities, some experts recommend<br></br>
+        double coverage until confirmation of negative culture, first 7 days of treatment and/or with<br></br>
+        abscess or meningitis. No neonatal studies to date. 
       </Panel>
 
       <Panel header="Do 3rd generation cephalosporins have pseudomonas coverage?" key="6">        
@@ -220,7 +222,6 @@ function FAQ () {
       </Panel>
 
       <Panel header="Are the C-reactive protein (CRP) and other proinflammatory mediators helpful?" key="12">  
-        <br></br>
         CRP for EOS has been found to prolong antibiotics and hospital days as it may be elevated due<br></br>
         to inflammation and physical changes that occur around delivery. For LOS, it usually does not<br></br>
         aid in the decision of whether or not a sepsis evaluation with antibiotics is needed. In the face of<br></br> 
@@ -229,13 +230,11 @@ function FAQ () {
       </Panel>
 
       <Panel header="Do I need to document a negative culture for urinary tract infections (UTIs)?" key="13">  
-        <br></br>
         No. Unless Gram-negative UTI with persistent symptoms 7 days after treatment or fungal UTI.<br></br>
         Aviles-Otaro 2021 et al. (<a href="https://pubmed.ncbi.nlm.nih.gov/33136069/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/33136069/</a>)
       </Panel>
 
       <Panel header="Do I need to start prophylaxis after a Urinary tract infection (UTI) in a NICU patient?" key="14">  
-        <br></br>
         <p>No. If there is a known congenital renal anomaly, discuss the need or not with Pediatric<br></br>
         Nephrologist. The incidence of recurrent UTI is not different with or without UTI prophylaxis in<br></br>
         preterm infants. <br></br>
@@ -246,11 +245,11 @@ function FAQ () {
         probiotic(s), dosage, duration and safety. <br></br> 
         Sadeghi-Bojd . et. al 2020 (<a href="https://pubmed.ncbi.nlm.nih.gov/31100124/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/31100124/</a>);<br></br>
         Lee SJ et al. 2016 (<a href="​​https://pubmed.ncbi.nlm.nih.gov/27059742/" target="_blank">​​https://pubmed.ncbi.nlm.nih.gov/27059742/</a>);<br></br>
-        Que et al. 2021 (<a href="https://pubmed.ncbi.nlm.nih.gov/34853053/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/34853053/</a>)<br></br></p>
+        Que et al. 2021 (<a href="https://pubmed.ncbi.nlm.nih.gov/34853053/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/34853053/</a>)</p>
       </Panel>
 
       <Panel header="Which antibiotics have the best Central Nervous System (CNS) penetration when I am concerned about Meningitis?" key="15">  
-        <p> Nau et al. 2010 (<a href="https://pubmed.ncbi.nlm.nih.gov/20930076/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/20930076/</a>)<br></br>  
+        <p>Nau et al. 2010 (<a href="https://pubmed.ncbi.nlm.nih.gov/20930076/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/20930076/</a>)<br></br>  
           <br></br>  
             Factors influence CNS drug penetration: <br></br>  
             1. Small, lipophilic drugs with low protein binding translocate best across the blood brain barrier. <br></br>  
@@ -351,7 +350,7 @@ function FAQ () {
             <tr>
               <th>Antibiotic</th>
               <th>Trough (mcg/ml)</th>
-              <th>Peak (mcg/ml) (drawn 30 minutes after end of infusion)</th>
+              <th>Peak (mcg/ml)<br></br>(drawn 30 minutes<br></br>after end of infusion)</th>
               <th>Notes</th>
             </tr>
           </thead>
@@ -360,34 +359,35 @@ function FAQ () {
               <td>Vancomycin</td>
               <td>8-15</td>
               <td>n/a</td>
-              <td><li>Obtain peak if treating</li><li>Trough is drawn just prior to the 3rd dose</li></td>
+              <td><ul><li>Obtain peak if treating meningitis</li></ul><ul><li>Trough is drawn just prior to the 3rd dose</li></ul></td>
             </tr>
             <tr>
               <td>Gentamicin</td>
               <td>≤1.5</td>
               <td>8-10</td>
-              <td><li>Trough is drawn just prior to the 2nd dose</li></td>
+              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
             </tr>
             <tr>
               <td>Amikacin</td>
               <td>2-5</td>
               <td>20-30</td>
-              <td><li>Trough is drawn just prior to the 2nd dose</li></td>
+              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
             </tr>
             <tr>
               <td>Tobramycin</td>
               <td>≤1</td>
               <td>5-12</td>
-              <td><li>Trough is drawn just prior to the 2nd dose</li></td>
+              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
             </tr>
           </tbody>
           </Table>
       </Panel>
 
-      <Panel header="Below are new additions (June 17 2022)?" key="17" style={{marginBottom:"175px"}}>  
+      <Panel header="Below are new additions (June 17 2022)?" key="17" style={{marginBottom:"175px", border:"175px"}}>  
         Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
-        10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5 and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>
-        https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials.
+        10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5<br></br> 
+        and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>  
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20<br></br>in%20the%20trials.</a>
       </Panel>
     </Collapse>
   </div>
