@@ -60,7 +60,7 @@ function FAQ () {
     <div style={{
       display: 'block', width: width*0.9, padding: 30
     }}>
-    <h2 style={{textAlign: "center"}}>FAQ (Frequently Asked Questions)</h2>
+    <h2 style={{textAlign: "center"}}>Frequently Asked Questions</h2>
     <Collapse>
       <Panel header="Is it safe to only cover a period of 24 hours for Early-Onset Sepsis (EOS) evaluations?" key="1">  
         <p>Yes. Several studies and meta-analyses have demonstrated that EOS pathogens are isolated<br></br>within 24 hours of the blood culture being obtained.</p>
@@ -216,8 +216,8 @@ function FAQ () {
 
       <Panel header="How long should I treat necrotizing enterocolitis?" key="11">  
         NEC treatment should be guided initially by resolution of the patient's signs and symptoms.<br></br>
-        Antibiotic therapy can be stopped when abdominal radiograph has normalized and<br></br>
-        signs and symptoms including WBC {'<'}25,000, platelets {'<'}150,000, and if following proinflammatory<br></br>
+        Antibiotic therapy can be stopped when abdominal radiograph has normalized and signs and <br></br>
+        symptoms including WBC {'<'}25,000, platelets {'<'}150,000, and if following proinflammatory<br></br>
         mediator values normalize (e.g. for CRP, {'<'}1 mg/dl).
       </Panel>
 
@@ -237,8 +237,8 @@ function FAQ () {
       <Panel header="Do I need to start prophylaxis after a Urinary tract infection (UTI) in a NICU patient?" key="14">  
         <p>No. If there is a known congenital renal anomaly, discuss the need or not with Pediatric<br></br>
         Nephrologist. The incidence of recurrent UTI is not different with or without UTI prophylaxis in<br></br>
-        preterm infants. <br></br>
-        Aviles-Otaro 2021 et al. (<a href="https://pubmed.ncbi.nlm.nih.gov/33136069/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/33136069/</a>) <br></br>
+        preterm infants.<br></br>
+        Aviles-Otaro 2021 et al. (<a href="https://pubmed.ncbi.nlm.nih.gov/33136069/" target="_blank">https://pubmed.ncbi.nlm.nih.gov/33136069/</a>)<br></br>
         <br></br>
         Some studies have shown that probiotics may reduce recurrent UTIs in infants, but studies have <br></br>
         not been performed in the NICU.  More study is needed in this area related to type of <br></br>
@@ -272,27 +272,27 @@ function FAQ () {
               <tr>
                 <td>Penicillins</td>
                 <td>Adequate</td>
-                <td>Aqueous penicillin G reaches greater concentrations than procaine or benzathine penicillin.</td>
+                <td>Aqueous penicillin G<br></br>reaches greater<br></br>concentrations than<br></br>procaine or benzathine<br></br>penicillin.</td>
               </tr>
               <tr>
                 <td>Ampicillin</td>
                 <td>Good</td>
-                <td>Requires higher doses for meningitis</td>
+                <td>Requires higher doses for<br></br>meningitis</td>
               </tr>
               <tr>
                 <td>Nafcillin</td>
                 <td>Adequate</td>
-                <td>Use with MSSA and susceptible CoNS</td>
+                <td>Use with MSSA and<br></br>susceptible CoNS</td>
               </tr>
               <tr>
-                <td>1st and 2nd generation cephalosporins</td>
-                <td>Higher CSF concentrations vs other cephalosporins</td>
+                <td>1st and 2nd generation<br></br>cephalosporins</td>
+                <td>Higher CSF<br></br>concentrations vs other<br></br>cephalosporins</td>
                 <td>Except cefuroxime</td>
               </tr>
               <tr>
                 <td>3rd generation cephalosporins</td>
                 <td>Adequate</td>
-                <td>Ceftriaxone, cefotaxime, ceftazidime, cefixime and cefepime</td>
+                <td>Ceftriaxone, cefotaxime, <br></br>ceftazidime, cefixime and<br></br>cefepime</td>
               </tr>
               <tr>
                 <td>Carbapenems</td>
@@ -305,7 +305,7 @@ function FAQ () {
               </tr>
               <tr>
                 <td>Metronidazole</td>
-                <td>Favorable ('\n') (CNS {'>'} plasma)</td>
+                <td>Favorable<br></br>(CNS {'>'} plasma)</td>
               </tr>
               <tr>
                 <td>Rifampin (enteral)</td>
@@ -330,14 +330,14 @@ function FAQ () {
                 <td>Toxicities limit use</td>
               </tr>
               <tr>
-                <td>Clindamycin, daptomycin, macrolides, tetracyclines, and fluoroquinolones</td>
-                <td>Clindamycin and macrolides have poor CNS penetration in adults</td>
-                <td>Lack of pediatric data. Some adult data has limited their study in pediatrics.</td>
+                <td>Clindamycin, daptomycin,<br></br>macrolides, tetracyclines, and<br></br>fluoroquinolones</td>
+                <td>Clindamycin and<br></br>macrolides have poor<br></br>CNS penetration in<br></br>adults</td>
+                <td>Lack of pediatric data.<br></br>Some adult data has limited<br></br>their study in pediatrics.</td>
               </tr>
               <tr>
-                <td>Daptomycin, fluoroquinolones, and tetracyclines</td>
+                <td>Daptomycin, fluoroquinolones, and<br></br>tetracyclines</td>
                 <td></td>
-                <td>CNS penetration in adults, but concern for toxicities have limited pediatric data</td>
+                <td>CNS penetration in adults,<br></br>but concern for toxicities<br></br>have limited pediatric data</td>
               </tr>
             </tbody>
           </Table>
