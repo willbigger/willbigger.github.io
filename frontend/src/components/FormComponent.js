@@ -922,7 +922,9 @@ stored as state variables.
           {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />}
 
         </div>
-
+        <br/>
+        <br/>
+        <br/>
       </form >
 
       <br />
