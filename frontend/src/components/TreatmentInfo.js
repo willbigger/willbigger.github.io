@@ -51,7 +51,6 @@ const dosingParameters = {
     ],
     /* 5th Generation Cephalosporin */
     'Ceftaroline': [
-        ['', ''],
         ['≤2000 g (0-7 days)', '6 mg/kg q12 IV'],
         ['≤2000 g (>8 days) and all other patients', '9 mg/kg q12 IV'],
     ],
@@ -241,9 +240,13 @@ function getDosingParameter(medication) {
     }
 }
 
+/*
+Parse treatment string into a list of the relevant medications,
+then get the dosage tables for each medication
+*/
 function getAllDosingParameters(treatment) {
-    let treatmentList = treatment.split(', ');
-    treatmentList = treatmentList.flatMap(medication => {
+    let medicationList = treatment.split(', ');
+    medicationList = medicationList.flatMap(medication => {
         if (medication.toLowerCase() === '1st generation Cephalosporins'.toLowerCase()) {
             return ['Cefazolin', 'Cephalexin'];
         }
@@ -269,7 +272,7 @@ function getAllDosingParameters(treatment) {
             return medication;
         }
     });
-    return treatmentList.map(getDosingParameter);
+    return medicationList.map(getDosingParameter);
 }
 
 function TreatmentInfo({ treatment }) {
