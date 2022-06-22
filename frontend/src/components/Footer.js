@@ -19,16 +19,17 @@ function Footer() {
       </body>  
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
+      <div style={{height: '80px'}}></div>
       <Navbar className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
       <Container >
         </Container>
         <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <Nav.Link href="/" style={{text_decoration: "none"}, {color: 'white'}}>
+          <Nav.Link href="/" style={{text_decoration: "none", color: 'white'}}>
             <span >&copy; Copyright 2022 Neonatal Antibiotic Stewardship, All rights reserved</span>
             <img src={devhub} style={{width:60, marginTop: -7}}></img>
           </Nav.Link>
         </Navbar.Brand>
-        
+
       </Navbar>
       
     </div>
