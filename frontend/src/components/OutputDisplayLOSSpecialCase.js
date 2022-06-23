@@ -1,6 +1,6 @@
 import { Carousel} from 'react-bootstrap';
 import React from 'react';
-import OutputScaleSpec from './OutputScaleSpec1';
+import OutputScaleSpec1 from './OutputScaleSpec1';
 import './OutputScale.css';
 function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex }) {
   
@@ -59,41 +59,44 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
       <section>
         <h3>Antibiotic Treatment</h3>
         <dl>
-          <dt className='under'>Nafcillin or Oxacillin</dt>
+          <dt>Nafcillin or Oxacillin</dt>
           <dd>{NafcillinDose}</dd>
-          <dt className='under'>Gentamicin</dt>
+          <dt>Gentamicin</dt>
           <dd>{gentamicinDose}</dd>
         </dl>
       </section>
-
-      <h3>Alternative Antibiotic Treatment</h3>
+    
       <section>
-        <OutputScaleSpec activeIndex={carouselIndex} onSelect={handleSelect} />
-          <Carousel
-            activeIndex={carouselIndex}
-            controls={false}
-            slide={false}
-            fade={true}
-            indicators={false}
-            interval={null}
-            wrap={false}
-          >
-            <Carousel.Item>
-              <p></p>
-              <p className='under'>Ampicillin, Gentamicin</p>
-              <p>(Preferred if concern for gastrointestinal disease or urinary tract infection)</p>
-            </Carousel.Item >
-            <Carousel.Item>
-              <p></p>
-              <p className='under'>Vancomycin, Gentamicin</p>
-              <p>(Preferred coverage if MRSA colonization/previous infection)</p>
-            </Carousel.Item>
-          </Carousel>
+        <h3>Alternative Antibiotic Treatment</h3>
+        <OutputScaleSpec1 activeIndex={carouselIndex} onSelect={handleSelect} />
+        <br />
+        <Carousel
+          activeIndex={carouselIndex}
+          controls={false}
+          slide={false}
+          fade={true}
+          indicators={false}
+          interval={null}
+          wrap={false}
+        >
+          <Carousel.Item>
+            <dl>
+              <dt>Ampicillin, Gentamicin</dt>
+              <dd>(Preferred if concern for gastrointestinal disease or urinary tract infection)</dd>
+            </dl>
+          </Carousel.Item >
+          <Carousel.Item>
+            <dl>
+              <dt>Vancomycin, Gentamicin</dt>
+              <dd>(Preferred coverage if MRSA colonization/previous infection)</dd>
+            </dl>
+          </Carousel.Item>
+        </Carousel>
         
       </section>
 
 
-      <section className='center'>
+      <section>
         <h3>Special Notes</h3>
         <p>If ECMO or Therapeutic Hypothermia: </p>
         <p>one dose at 0 hours, another dose at 36 hours.</p>

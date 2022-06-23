@@ -216,7 +216,7 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.gestationalAgeDays && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -439,7 +439,7 @@ stored as state variables.
         <br />
         {/* Providing an error message if the user tries to submit 
         while the Gestational Age input is empty */}
-        {(status === 'invalid') && !(inputs.gestationalAgeWeeks && inputs.gestationalAgeDays) ?
+        {(status === 'invalid') && !inputs.gestationalAgeWeeks ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
         {(status === 'invalid') && (parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 < 20 || parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 > 45)  ?
           <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
@@ -590,7 +590,10 @@ stored as state variables.
                 onSelect={(event) => setInputs({ ...inputs, pathogen: event.replaceAll(' ', '_') })}
                 style={{ display: pathogenToggle ? 'block' : 'none' }}
               >
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Gram-positive Organisms</Dropdown.Item>
+
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-positive Organisms</Dropdown.Header>
+
                 
                 <Dropdown.Item eventKey="Gram Positive">Gram Positive Cocci</Dropdown.Item>
                 <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
@@ -600,7 +603,9 @@ stored as state variables.
                 <Dropdown.Item eventKey="Enterococcus">Enterococcus Fecalis</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Gram-negative Organisms</Dropdown.Item>
+
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-negative Organisms</Dropdown.Header>
 
                 <Dropdown.Item eventKey="Gram Negative Rods">Gram Negative Rods</Dropdown.Item>
                 <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
@@ -609,20 +614,27 @@ stored as state variables.
                 <Dropdown.Item eventKey="Pseudomonas">Pseudomonas Species</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Fungi-Candida Species</Dropdown.Item>
+
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Fungi-Candida Species</Dropdown.Header>
+
                 
                 <Dropdown.Item eventKey="Candida Albicans">Candida Albicans</Dropdown.Item>
                 <Dropdown.Item eventKey="Candida Parasilosis">Candida Parasilosis</Dropdown.Item>
                 <Dropdown.Item eventKey="Non Candida Albicans">Non Candida Albicans</Dropdown.Item>
 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Mold</Dropdown.Item>
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Mold</Dropdown.Header>
+
                 
                 <Dropdown.Item eventKey="Aspergillus">Aspergillus Species</Dropdown.Item>
                 <Dropdown.Item eventKey="Rhizopus">Rhizopus Species</Dropdown.Item>
                 
                 <Dropdown.Divider />
-                <Dropdown.Item style={{fontWeight: 'bold', fontSize: '1.5rem'}}>Other</Dropdown.Item>
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Other</Dropdown.Header>
+
                 <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
 
               </DropdownButton>
@@ -910,7 +922,9 @@ stored as state variables.
           {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />}
 
         </div>
-
+        <br/>
+        <br/>
+        <br/>
       </form >
 
       <br />

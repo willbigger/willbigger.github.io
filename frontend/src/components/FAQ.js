@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 // import React from 'react';
-//import { Collapse, Button } from 'antd';
+// import { Collapse, Button } from 'antd';
 // import "antd/dist/antd.css";
 import 'antd/dist/antd.min.css'
 // import Button from 'react-bootstrap/Button';
@@ -10,14 +10,11 @@ import Table from 'react-bootstrap/Table'
 const { Panel } = Collapse;
 
 // import Fade from 'react-bootstrap/Fade';
-
-//import Accordion from 'react-bootstrap/Accordion';
+// import Accordion from 'react-bootstrap/Accordion';
 
 // import { View, StyleSheet } from 'react-native';
 // import { Text } from 'react-native-paper';
 // import { Text, StyleSheet } from "react-native";
-
-// import Table from 'react-bootstrap/Table';
 
 // import flow from './aboutlogic'
 // <h5 style={{textAlign: "center", fontWeight: 'bold', backgroundColor: 'white'}}>Is it safe to only cover a period of 24 hours for Early-Onset Sepsis (EOS) evaluations?</h5>
@@ -27,10 +24,7 @@ const { Panel } = Collapse;
 // import { Text, StyleSheet } from "react-native";
 // import Card from 'react-bootstrap/Card'
 // import CardGroup from 'react-bootstrap/CardGroup'
-
 // import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-
-// https://react-bootstrap.github.io/components/accordion/
 
 // import classNames from "classnames";
 // import { accordionData } from './utils/content';
@@ -43,9 +37,10 @@ const { Panel } = Collapse;
 
 const fontStyles = ["normal", "italic", "bold"];
 
-// function BoldText({children}) {
-  // return <span style={{fontWeight: 'bold'}}>{children}</span>;
-// }
+/* function BoldText({children}) {
+  return <span style={{fontWeight: 'bold'}}>{children}</span>;
+} 
+*/
 
 /* const styles = StyleSheet.create({
   bold: {fontWeight: 'bold'},
@@ -55,8 +50,8 @@ const fontStyles = ["normal", "italic", "bold"];
 */ 
 
 function FAQ () {
-  const [open, setOpen] = useState(false);
   const { height, width } = useWindowDimensions();
+  
   return (
     <div style={{
       display: 'block', width: width*0.9, padding: 30
@@ -122,13 +117,11 @@ function FAQ () {
                 <p><a href="https://pubmed.ncbi.nlm.nih.gov/21163823/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/21163823/</a><br></br></p>
                 </td>
                 <td>Early and Late-Onset<br></br>Sepsis<br></br>Preterm and Full term<br></br>infants</td>
-                <td>TTP for Gram-negative<br></br>organisms was 11.17<br></br>hours (Q1-Q3: 8.84-<br></br>15.67). For Gram- <br></br> positive isolates, TTP <br></br> for CoNS was 26.67 <br></br> hours (Q1-Q3: 19.00- <br></br> 38.17), and for non- <br></br> CoNS, TTP was 12.83 <br></br> hours (Q1-Q3: 10.50- <br></br> 18.17, P {'<'} 0.001).</td>    
+                <td>TTP for Gram-negative<br></br>organisms was 11.17<br></br>hours (Q1-Q3: 8.84-<br></br>15.67). For Gram-<br></br>positive isolates, TTP<br></br>for CoNS was 26.67<br></br>hours (Q1-Q3: 19.00-<br></br>38.17), and for non-<br></br>CoNS, TTP was 12.83<br></br>hours (Q1-Q3: 10.50-<br></br>18.17, P{'<'}0.001).</td>    
             </tr>
           </tbody>
         </Table>
-
         <br></br>
-        
         <Table striped bordered hover size="sm">
           <tbody>
             <tr>
@@ -181,8 +174,8 @@ function FAQ () {
       </Panel>
 
       <Panel header="Do 3rd generation cephalosporins have pseudomonas coverage?" key="6">        
-        <span style={{ textAlign: "center", fontWeight: "bold"}}>Ceftazidime is the only 3rd generation cephalosporin with consistent Pseudomonas coverage</span><br></br>
-        that also has good cerebrospinal fluid penetration (CSF). (Cefoperazone also has<br></br>
+        <span style={{ textAlign: "center", fontWeight: "bold"}}>Ceftazidime is the only 3rd generation cephalosporin with consistent Pseudomonas</span><br></br>
+        <span style={{ textAlign: "center", fontWeight: "bold"}}>coverage</span> that also has good cerebrospinal fluid penetration (CSF). (Cefoperazone also has<br></br>
         pseudomonas coverage but not CSF penetration so is often not used.)  While ceftazidime and<br></br>
         other 3rd generation cephalosporins cover susceptible enteric gram-negative organisms (E coli,<br></br>
         Klebsiella, Enterobacter, Citrobacter, and Serratia for example), cefotaxime is not always<br></br>
@@ -195,15 +188,15 @@ function FAQ () {
       </Panel>
 
       <Panel header="Do Carbapenems have enterococcus faecium coverage?" key="8">  
-        <p>No. Meropenem and imipenem have good activity against gram-negative bacilli (including<br></br> 
-        Pseudomonas). <br></br>
+        No. Meropenem and imipenem have good activity against gram-negative bacilli (including<br></br> 
+        Pseudomonas).<br></br>
         <br></br>
         Gram-positive is limited and does not cover MRSA or Enterococcus Anaerobes including<br></br>
-        Bacteroides. <br></br>
+        Bacteroides.<br></br>
         <br></br>  
         Carbapenems is best reserved for ESBL-producing gram-negative bacilli. Narrower-spectrum<br></br>  
         agents should be used for other bacteria to attenuate the emergence of resistance against<br></br>  
-        carbapenems.</p>   
+        carbapenems.   
       </Panel>
 
       <Panel header="Ceftaroline is a 5th generation cephalosporin; what does it cover?" key="9">  
@@ -217,7 +210,7 @@ function FAQ () {
 
       <Panel header="How long should I treat necrotizing enterocolitis?" key="11">  
         NEC treatment should be guided initially by resolution of the patient's signs and symptoms.<br></br>
-        Antibiotic therapy can be stopped when abdominal radiograph has normalized and signs and <br></br>
+        Antibiotic therapy can be stopped when abdominal radiograph has normalized and signs and<br></br>
         symptoms including WBC {'<'}25,000, platelets {'<'}150,000, and if following proinflammatory<br></br>
         mediator values normalize (e.g. for CRP, {'<'}1 mg/dl).
       </Panel>
@@ -236,27 +229,27 @@ function FAQ () {
       </Panel>
 
       <Panel header="Do I need to start prophylaxis after a Urinary tract infection (UTI) in a NICU patient?" key="14">  
-        <p>No. If there is a known congenital renal anomaly, discuss the need or not with Pediatric<br></br>
+        No. If there is a known congenital renal anomaly, discuss the need or not with Pediatric<br></br>
         Nephrologist. The incidence of recurrent UTI is not different with or without UTI prophylaxis in<br></br>
         preterm infants.<br></br>
         Aviles-Otaro 2021 et al. (<a href="https://pubmed.ncbi.nlm.nih.gov/33136069/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/33136069/</a>)<br></br>
         <br></br>
-        Some studies have shown that probiotics may reduce recurrent UTIs in infants, but studies have <br></br>
-        not been performed in the NICU.  More study is needed in this area related to type of <br></br>
-        probiotic(s), dosage, duration and safety. <br></br> 
+        Some studies have shown that probiotics may reduce recurrent UTIs in infants, but studies have<br></br>
+        not been performed in the NICU.  More study is needed in this area related to type of<br></br>
+        probiotic(s), dosage, duration and safety.<br></br> 
         Sadeghi-Bojd . et. al 2020 (<a href="https://pubmed.ncbi.nlm.nih.gov/31100124/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/31100124/</a>);<br></br>
         Lee SJ et al. 2016 (<a href="​​https://pubmed.ncbi.nlm.nih.gov/27059742/" rel="noopener noreferrer">​​https://pubmed.ncbi.nlm.nih.gov/27059742/</a>);<br></br>
-        Que et al. 2021 (<a href="https://pubmed.ncbi.nlm.nih.gov/34853053/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/34853053/</a>)</p>
+        Que et al. 2021 (<a href="https://pubmed.ncbi.nlm.nih.gov/34853053/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/34853053/</a>)
       </Panel>
 
       <Panel header="Which antibiotics have the best Central Nervous System (CNS) penetration when I am concerned about Meningitis?" key="15">  
         <p>Nau et al. 2010 (<a href="https://pubmed.ncbi.nlm.nih.gov/20930076/" rel="noopener noreferrer">https://pubmed.ncbi.nlm.nih.gov/20930076/</a>)<br></br>  
           <br></br>  
-            Factors influence CNS drug penetration: <br></br>  
-            1. Small, lipophilic drugs with low protein binding translocate best across the blood brain barrier. <br></br>  
-            2. Circulating plasma drug concentrations are a driving force behind achievable CNS drug <br></br>  
-            concentrations. Changes occur with age and maturation. <br></br>
-            3. CNS drug penetration is influenced by the presence of meningeal inflammation or abscess. <br></br> </p>
+            Factors influence CNS drug penetration:<br></br>  
+            1. Small, lipophilic drugs with low protein binding translocate best across the blood brain barrier.<br></br>  
+            2. Circulating plasma drug concentrations are a driving force behind achievable CNS drug<br></br>  
+            concentrations. Changes occur with age and maturation.<br></br>
+            3. CNS drug penetration is influenced by the presence of meningeal inflammation or abscess.<br></br> </p>
             <Table striped bordered hover size="sm">
             <thead>
               <tr>
@@ -303,6 +296,7 @@ function FAQ () {
               <tr>
                 <td>Linezolid</td>
                 <td>High</td>
+                <td></td>
               </tr>
               <tr>
                 <td>Metronidazole</td>
@@ -332,7 +326,7 @@ function FAQ () {
               </tr>
               <tr>
                 <td>Clindamycin, daptomycin,<br></br>macrolides, tetracyclines, and<br></br>fluoroquinolones</td>
-                <td>Clindamycin and<br></br>macrolides have poor<br></br>CNS penetration in<br></br>adults</td>
+                <td>Clindamycin and <br></br> macrolides have poor <br></br> CNS penetration in <br></br> adults</td>
                 <td>Lack of pediatric data.<br></br>Some adult data has limited<br></br>their study in pediatrics.</td>
               </tr>
               <tr>
@@ -343,54 +337,54 @@ function FAQ () {
             </tbody>
           </Table>
       </Panel>
-
-      <Panel header="When do I draw a peak and trough?" key="16">  
+        
+      <Panel header="When do I draw a peak and trough?" key="16">
         <br></br>
         <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Antibiotic</th>
-              <th>Trough (mcg/ml)</th>
-              <th>Peak (mcg/ml)<br></br>(drawn 30 minutes<br></br>after end of infusion)</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Vancomycin</td>
-              <td>8-15</td>
-              <td>n/a</td>
-              <td><ul><li>Obtain peak if treating meningitis</li></ul><ul><li>Trough is drawn just prior to the 3rd dose</li></ul></td>
-            </tr>
-            <tr>
-              <td>Gentamicin</td>
-              <td>≤1.5</td>
-              <td>8-10</td>
-              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
-            </tr>
-            <tr>
-              <td>Amikacin</td>
-              <td>2-5</td>
-              <td>20-30</td>
-              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
-            </tr>
-            <tr>
-              <td>Tobramycin</td>
-              <td>≤1</td>
-              <td>5-12</td>
-              <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
-            </tr>
-          </tbody>
-          </Table>
-      </Panel>
+        <thead>
+          <tr>
+            <th>Antibiotic</th>
+            <th>Trough (mcg/ml)</th>
+            <th>Peak (mcg/ml) (drawn 30 minutes after end of infusion)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vancomycin</td>
+            <td>8-15</td>
+            <td>n/a</td>
+            <td><ul><li>Obtain peak if treating meningitis</li></ul><ul><li>Trough is drawn just prior to the 3rd dose</li></ul></td>
+          </tr>
+          <tr>
+            <td>Gentamicin</td>
+            <td>≤1.5</td>
+            <td>8-10</td>
+            <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
+          </tr>
+          <tr>
+            <td>Amikacin</td>
+            <td>2-5</td>
+            <td>20-30</td>
+            <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
+          </tr>
+          <tr>
+            <td>Tobramycin</td>
+            <td>≤1</td>
+            <td>5-12</td>
+            <td><ul><li>Trough is drawn just prior to the 2nd dose</li></ul></td>
+          </tr>
+        </tbody>
+        </Table>
+    </Panel>
 
-      <Panel header="Below are new additions (June 17 2022)?" key="17" style={{marginBottom:"175px", border:"175px"}}>  
-        Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
-        10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5<br></br> 
-        and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>  
-        <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20<br></br>in%20the%20trials.</a>
-      </Panel>
-    </Collapse>
+    <Panel header="Below are new additions (June 17 2022)" key="17" style={{marginBottom:"175px", border:"175px"}}>  
+      Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
+      10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5<br></br> 
+      and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>  
+      <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20<br></br>in%20the%20trials.</a>
+    </Panel>
+  </Collapse>
   </div>
   );
 }
@@ -402,7 +396,6 @@ function getWindowDimensions() {
     height
   };
 }
-
 
 function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -419,48 +412,52 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-// const styles = StyleSheet.create({
+export default FAQ; 
+
+/*const styles = StyleSheet.create({
   //bold: {fontWeight: 'bold'},
   //italic: {fontStyle: 'italic'},
   //underline: {textDecorationLine: 'underline'}
-//})
+}) 
+*/
 
-//const styles = StyleSheet.create({
-  //baseText: {
-    //fontWeight: 'bold'
-  //},
-  //innerText: {
-    //color: 'red'
-  //}
-//});
+/*const styles = StyleSheet.create({
+  baseText: {
+    fontWeight: 'bold'
+  },
+  innerText: {
+    color: 'red'
+  }
+}); 
+*/
 
+/*
+function ContextAwareToggle({ children, eventKey, callback }) {
+  const { activeEventKey } = useContext(AccordionContext);
 
-// function ContextAwareToggle({ children, eventKey, callback }) {
-  // const { activeEventKey } = useContext(AccordionContext);
+  const decoratedOnClick = useAccordionButton(
+    eventKey,
+    () => callback && callback(eventKey),
+  );
+  
+  const isCurrentEventKey = activeEventKey === eventKey;
 
-  // const decoratedOnClick = useAccordionButton(
-    // eventKey,
-    // () => callback && callback(eventKey),
-  // );
+  return (
+    <button
+      type="button"
+        style={{ backgroundColor: isCurrentEventKey ? 'pink' : 'lavender' }}
+        onClick={decoratedOnClick}
+      >
+      {children}
+      </button>
+  );
+}
+*/
 
-  // const isCurrentEventKey = activeEventKey === eventKey;
-
-  // return (
-    // <button
-      // type="button"
-      // style={{ backgroundColor: isCurrentEventKey ? 'pink' : 'lavender' }}
-      // onClick={decoratedOnClick}
-    // >
-      // {children}
-    // </button>
-  // );
-// }
-
-export default FAQ; 
-
-// <p>
-// <iframe width={width * 0.75} height={height * 0.5} src=" "></iframe>
-// </p>
+/*<p>
+    <iframe width={width * 0.75} height={height * 0.5} src=" "></iframe>
+  </p> 
+*/
 
 /*<Accordion.Item eventKey="6">
   <Accordion.Header style={{fontWeight: 'bold'}}>Do 4th generation cephalosporins have good anaerobic coverage?</Accordion.Header> 
@@ -470,9 +467,5 @@ export default FAQ;
   </Accordion.Item> 
 */
 
-/*
 
-*/
 
-/* 
-*/
