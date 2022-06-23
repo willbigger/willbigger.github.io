@@ -45,6 +45,10 @@
     margin: auto;
 }
 
+.treatment-info :last-child {
+    margin-bottom: 0;
+}
+
 .treatment-info .table th {
     text-align: center;
 }
