@@ -1,5 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import 'antd/dist/antd.min.css'
+import { Collapse } from 'antd';
+const { Panel } = Collapse;
 
 const dosingParameters = {
     'Acyclovir': [
@@ -221,22 +224,25 @@ const dosingParameters = {
 function getDosingParameter(medication) {
     if (dosingParameters.hasOwnProperty(medication)) {
         return (
-            <Table striped bordered>
-                <thead>
-                    <th colSpan='2'>{medication}</th>
-                </thead>
-                <tbody>{dosingParameters[medication].map(row => 
-                    <tr>{row.map(cell => 
-                        <td>{cell.split('\n').map(element => 
-                            <div>{element}</div>)}
-                        </td>)}
-                    </tr>)}
-                </tbody>
-            </Table>
+            <Panel header={`Dosage table for ${medication}`} key={medication}>
+                <Table striped bordered>
+                    <tbody>{dosingParameters[medication].map(row => 
+                        <tr>{row.map(cell => 
+                            <td>{cell.split('\n').map(element => 
+                                <div>{element}</div>)}
+                            </td>)}
+                        </tr>)}
+                    </tbody>
+                </Table>
+            </Panel>
         )
     }
     else {
-        return <p>No dosage table found for {medication}.</p>
+        return (
+            <Panel header={`Dosage table for ${medication}`} key={medication}>
+                <p>No dosage table found for {medication}.</p>
+            </Panel>
+        )
     }
 }
 
@@ -278,7 +284,9 @@ function getAllDosingParameters(treatment) {
 function TreatmentInfo({ treatment }) {
     return (
         <div className="treatment-info">
-            {getAllDosingParameters(treatment)}
+            <Collapse>
+                {getAllDosingParameters(treatment)}
+            </Collapse>
         </div>
     );
 }
