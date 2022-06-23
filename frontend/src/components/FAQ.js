@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 // import React from 'react';
 // import { Collapse, Button } from 'antd';
 // import "antd/dist/antd.css";
@@ -7,6 +7,7 @@ import 'antd/dist/antd.min.css'
 // import Collapse from 'react-bootstrap/Collapse';
 import { Collapse } from 'antd';
 import Table from 'react-bootstrap/Table'
+// import withWindowDimensions from './withWindowDimensions.jsx';
 const { Panel } = Collapse;
 // import useWindowDimensions from './hooks/useWindowDimensions';
 
@@ -364,7 +365,7 @@ function FAQ() {
           Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
           10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5<br></br>
           and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>
-          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher<br></br>%20doses%20are%204%20mg,bands%20used%20in%20the%20trials.</a>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/<br></br>#:~:text=Lower%20doses%20are%203%20mg,<br></br>with%20body%20weight%20%3E2.0%20kg.&text=Higher<br></br>%20doses%20are%204%20mg,bands%20used%20in%20the%20trials.</a>
         </Panel>
       </Collapse>
     </div>
@@ -394,18 +395,24 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
+/**
+* Add event listener
+*/
 function componentDidMount() {
   this.updateWindowDimensions();
-  window.addEventListener("resize", this.updateWindowDimensions);
+  window.addEventListener("resize", this.updateWindowDimensions.bind(this));
 }
 
+/**
+* Remove event listener
+*/
 function componentWillUnmount() {
-  window.removeEventListener("resize", this.updateWindowDimensions);
+  window.removeEventListener("resize", this.updateWindowDimensions.bind(this));
 }
 
 function updateWindowDimensions() {
   this.setState({ width: window.innerWidth, height: window.innerHeight });
-}
+};  
 
 export default FAQ;
 
