@@ -32,8 +32,6 @@ const { Panel } = Collapse;
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 // FAQ Page
-// https://react-bootstrap.github.io/components/accordion/ 
-// <Text style={{ fontSize: 10 }}> , fontSize: 10
 
 const fontStyles = ["normal", "italic", "bold"];
 
@@ -41,13 +39,6 @@ const fontStyles = ["normal", "italic", "bold"];
   return <span style={{fontWeight: 'bold'}}>{children}</span>;
 } 
 */
-
-/* const styles = StyleSheet.create({
-  bold: {fontWeight: 'bold'},
-  italic: {fontStyle: 'italic'},
-  underline: {textDecorationLine: 'underline'}
-}) 
-*/ 
 
 function FAQ () {
   const { height, width } = useWindowDimensions();
@@ -413,59 +404,6 @@ function useWindowDimensions() {
 }
 
 export default FAQ; 
-
-/*const styles = StyleSheet.create({
-  //bold: {fontWeight: 'bold'},
-  //italic: {fontStyle: 'italic'},
-  //underline: {textDecorationLine: 'underline'}
-}) 
-*/
-
-/*const styles = StyleSheet.create({
-  baseText: {
-    fontWeight: 'bold'
-  },
-  innerText: {
-    color: 'red'
-  }
-}); 
-*/
-
-/*
-function ContextAwareToggle({ children, eventKey, callback }) {
-  const { activeEventKey } = useContext(AccordionContext);
-
-  const decoratedOnClick = useAccordionButton(
-    eventKey,
-    () => callback && callback(eventKey),
-  );
-  
-  const isCurrentEventKey = activeEventKey === eventKey;
-
-  return (
-    <button
-      type="button"
-        style={{ backgroundColor: isCurrentEventKey ? 'pink' : 'lavender' }}
-        onClick={decoratedOnClick}
-      >
-      {children}
-      </button>
-  );
-}
-*/
-
-/*<p>
-    <iframe width={width * 0.75} height={height * 0.5} src=" "></iframe>
-  </p> 
-*/
-
-/*<Accordion.Item eventKey="6">
-  <Accordion.Header style={{fontWeight: 'bold'}}>Do 4th generation cephalosporins have good anaerobic coverage?</Accordion.Header> 
-  <Accordion.Body>
-  {'\t'}No. Excellent gram-negative activity, but does not cover anaerobic organisms.  
-  </Accordion.Body>
-  </Accordion.Item> 
-*/
 
 
 
