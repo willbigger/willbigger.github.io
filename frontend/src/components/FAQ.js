@@ -363,7 +363,7 @@ function FAQ() {
           Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
           10 mg for patients with body weight {'<'}2.5 kg, 16 mg for patients with body weight between 2.5<br></br>
           and 4 kg, and 30 mg for those with body weight {'>'}4 kg.<br></br>
-          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20<br></br>in%20the%20trials.</a>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%20in%20the%20trials." rel="noopener noreferrer">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7982486/#:~:text=Lower%20doses%20are%203%20mg,with%20body%20weight%20%3E2.0%20kg.&text=Higher%20doses%20are%204%20mg,bands%20used%<br></br>20in%20the%20trials.</a>
         </Panel>
       </Collapse>
     </div>
