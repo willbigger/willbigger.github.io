@@ -592,50 +592,46 @@ stored as state variables.
               >
 
 
-                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-positive Organisms</Dropdown.Header>
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-positive organisms</Dropdown.Header>
 
-                
-                <Dropdown.Item eventKey="Gram Positive">Gram Positive Cocci</Dropdown.Item>
-                <Dropdown.Item eventKey="CoNS">CoNS</Dropdown.Item>
-                <Dropdown.Item eventKey="Group B Streptococcus (GBS)">Group B Streptococcus (GBS)</Dropdown.Item>
+
+                <Dropdown.Item eventKey="Gram Positive">Gram-positive cocci</Dropdown.Item>
+                <Dropdown.Item eventKey="CoNS">CoNS (coagulase-negative Staphylococcus) species</Dropdown.Item>
+                <Dropdown.Item eventKey="Group B Streptococcus (GBS)">GBS (group B streptococci)</Dropdown.Item>
                 <Dropdown.Item eventKey="MSSA">Staphylococcus aureus (MSSA)</Dropdown.Item>
                 <Dropdown.Item eventKey="MRSA">Staphylococcus aureus (MRSA)</Dropdown.Item>
-                <Dropdown.Item eventKey="Enterococcus">Enterococcus Fecalis</Dropdown.Item>
-                
-                <Dropdown.Divider />
-
-
-                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-negative Organisms</Dropdown.Header>
-
-                <Dropdown.Item eventKey="Gram Negative Rods">Gram Negative Rods</Dropdown.Item>
-                <Dropdown.Item eventKey="E Coli">E Coli</Dropdown.Item>
-                <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
-                <Dropdown.Item eventKey="Enterobacter">Enterobacter Species</Dropdown.Item>
-                <Dropdown.Item eventKey="Pseudomonas">Pseudomonas Species</Dropdown.Item>
-                
-                <Dropdown.Divider />
-
-
-                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Fungi-Candida Species</Dropdown.Header>
-
-                
-                <Dropdown.Item eventKey="Candida Albicans">Candida Albicans</Dropdown.Item>
-                <Dropdown.Item eventKey="Candida Parasilosis">Candida Parasilosis</Dropdown.Item>
-                <Dropdown.Item eventKey="Non Candida Albicans">Non Candida Albicans</Dropdown.Item>
-
-                <Dropdown.Divider />
-
-                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Mold</Dropdown.Header>
-
-                
-                <Dropdown.Item eventKey="Aspergillus">Aspergillus Species</Dropdown.Item>
-                <Dropdown.Item eventKey="Rhizopus">Rhizopus Species</Dropdown.Item>
-                
-                <Dropdown.Divider />
-
-                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Other</Dropdown.Header>
-
+                <Dropdown.Item eventKey="Enterococcus">Enterococcus</Dropdown.Item>
+                <Dropdown.Item eventKey="Gram Positive Rods">Gram-positive rod</Dropdown.Item>
                 <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
+                
+                <Dropdown.Divider />
+
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Gram-negative organisms</Dropdown.Header>
+
+                <Dropdown.Item eventKey="Gram Negative Rods">Gram-negative rod</Dropdown.Item>
+                <Dropdown.Item eventKey="E Coli">Escherichia coli</Dropdown.Item>
+                <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
+                <Dropdown.Item eventKey="Enterobacter">Enterobacter species</Dropdown.Item>
+                <Dropdown.Item eventKey="Pseudomonas">Pseudomonas species</Dropdown.Item>
+                
+                <Dropdown.Divider />
+
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Fungi-Candida species</Dropdown.Header>
+
+                
+                <Dropdown.Item eventKey="Candida Albicans">Candida albicans</Dropdown.Item>
+                <Dropdown.Item eventKey="Candida Parasilosis">Candida parasilosis</Dropdown.Item>
+                <Dropdown.Item eventKey="Non Candida Albicans">Non-candida albicans</Dropdown.Item>
+
+                <Dropdown.Divider />
+
+                <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Molds</Dropdown.Header>
+
+                
+                <Dropdown.Item eventKey="Aspergillus">Aspergillus species</Dropdown.Item>
+                <Dropdown.Item eventKey="Rhizopus">Rhizopus species</Dropdown.Item>
 
               </DropdownButton>
 
