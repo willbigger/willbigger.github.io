@@ -57,7 +57,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
   return (
     <div>
       <section>
-        <h3>Antibiotic Treatment</h3>
+        <h3>Empiric Antibiotic</h3>
         <dl>
           <dt>Nafcillin or Oxacillin</dt>
           <dd>{NafcillinDose}</dd>
@@ -67,7 +67,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
       </section>
     
       <section>
-        <h3>Alternative Antibiotic Treatment</h3>
+        <h3>Alternative Empiric Coverage</h3>
         <OutputScaleSpec1 activeIndex={carouselIndex} onSelect={handleSelect} />
         <br />
         <Carousel
@@ -97,7 +97,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
 
 
       <section>
-        <h3>Special Notes</h3>
+        <h3>Additional Recommendations</h3>
         <p>If ECMO or Therapeutic Hypothermia: </p>
         <p>one dose at 0 hours, another dose at 36 hours.</p>
       </section>
