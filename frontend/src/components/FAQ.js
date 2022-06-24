@@ -359,7 +359,7 @@ function FAQ() {
               </tr>
             </tbody>
           </Table>
-        </Panel>
+        </Panel>  
 
         <Panel header="Below are new additions (June 17 2022)" key="17" style={{ marginBottom: "175px"}}>
           Gentamicin dosing in resource limited areas in one study has shown evidence for:<br></br>
