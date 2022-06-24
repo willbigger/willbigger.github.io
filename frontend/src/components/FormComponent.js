@@ -380,7 +380,7 @@ stored as state variables.
 
   return (
     
-    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', marginBottom: "100px", fontSize: "larger" }}>
+    <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', fontSize: "larger" }}>
       <FormComponentHeader />
       
       <ListGroup>
@@ -918,9 +918,6 @@ stored as state variables.
           {(status === "loaded") && <OutputWidget inputs={outputInputs} setOutputInputs={setOutputInputs} outputDisplay={outputDisplay} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />}
 
         </div>
-        <br/>
-        <br/>
-        <br/>
       </form >
 
       <br />
