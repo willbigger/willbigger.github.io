@@ -229,7 +229,7 @@ function getDosingParameter(medication) {
                     <tbody>{dosingParameters[medication].map(row =>
                         <tr>{row.map(cell =>
                             <td>{cell.split('\n').map(element =>
-                                <div>{element}</div>)}
+                                element === "" ? <div>&nbsp;</div> : <div>{element}</div>)}
                             </td>)}
                         </tr>)}
                     </tbody>
@@ -273,6 +273,9 @@ function getAllDosingParameters(treatment) {
         }
         else if (medication.toLowerCase() === 'Trimethoprim-sulfamethoxazole'.toLowerCase()) {
             return 'SMZ/TMP';
+        }
+        else if (medication.toLowerCase() === 'Piperacillin/tazobactam'.toLowerCase()) {
+            return 'Piperacillin-tazobactam';
         }
         else {
             return medication;

@@ -196,26 +196,38 @@ stored as state variables.
   inputs in console log for us to see.
   */
 
-  const onSubmit = (event) => {
+  const formValid = () => {
     console.log(inputs);
-    let validAge = true
-    let validWeight = true
-    if(inputs.os === "EOS") {
-      if (parseFloat(inputs.postnatalAge) >= 4) {
-        validAge = false
-      }
-    } else if (inputs.os === "LOS") {
-      if (parseFloat(inputs.postnatalAge) < 3) {
-        validAge = false
-      }
+    if (
+      // All fields are filled
+      !inputs.gestationalAgeWeeks || !inputs.postnatalAge || !inputs.birthWeight || !inputs.currentWeight
+      || !inputs.os || !inputs.pathogen || (pathogenToggle && !inputs.susceptible) || (inputs.infectionSite.size === 0) || !inputs.nec
+      // Must select an option from any dropdowns
+      || (inputs.pathogen === "Yes")
+      || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection === "")
+      || (inputs.nec === "Yes")
+      // Postnatal age must be ≤ 3 days for EOS
+      || (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) >= 4)
+      // Postnatal age must be ≥ 3 days for LOS
+      || (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3)
+      // Gestational age must be between 20 and 45 weeks
+      || (parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) < 20 * 7
+      || parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) > 45 * 7)
+      // Birth weight must be at least 200 grams
+      || (parseFloat(inputs.birthWeight) < 200)
+      // Current weight must be at least 200 grams
+      || (parseFloat(inputs.currentWeight) < 200)
+      // If the user selects a pathogen, the user cannot answer None as the site of infection
+      || (inputs.pathogen !== "No" && inputs.infectionSite.has("No"))
+    ) {
+      return false;
+    } else {
+      return true;
     }
-    if(parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) < 20 * 7 || parseFloat(inputs.gestationalAgeWeeks) * 7 + parseFloat(inputs.gestationalAgeDays) > 45 * 7) {
-      validAge = false
-    }
-    if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
-      validWeight = false
-    }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection !== "" : true ) && inputs.gestationalAgeWeeks && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+  }
+
+  const onSubmit = (event) => {
+    if (formValid()) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -276,7 +288,6 @@ stored as state variables.
     } else {
       setStatus('invalid')
     }
-
   }
 
 
@@ -439,9 +450,9 @@ stored as state variables.
         {/* Providing an error message if the user tries to submit
         while the Gestational Age input is empty */}
         {(status === 'invalid') && !inputs.gestationalAgeWeeks ?
-          <span style={{ color: "red" }}> Please fill in this field. </span> : null}
+          <span className="error"> Please fill in this field. </span> : null}
         {(status === 'invalid') && (parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 < 20 || parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7 > 45)  ?
-          <span style={{ color: "red" }}> Gestational age must be between 20 and 45 weeks. </span> : null}
+          <span className="error"> Gestational age must be between 20 and 45 weeks. </span> : null}
 
         <br />
         <label className="form-field" htmlFor="postnatalAge">Postnatal Age (at time of culture sent)</label>
@@ -462,11 +473,11 @@ stored as state variables.
         {/* Providing an error message if the user tries to submit
         while the Postnatal Age input is empty */}
         {(status === 'invalid') && !inputs.postnatalAge ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
         {(status === 'invalid') && (inputs.os === "EOS" && parseFloat(inputs.postnatalAge) > 3) ?
-          <span style={{ color: "red" }}>Postnatal age must be ≤ 3 days for EOS.</span> : null }
+          <span className="error">Postnatal age must be ≤ 3 days for EOS.</span> : null }
         {(status === 'invalid') && (inputs.os === "LOS" && parseFloat(inputs.postnatalAge) < 3) ?
-          <span style={{ color: "red" }}>Postnatal age must be ≥ 3 days for LOS.</span> : null }
+          <span className="error">Postnatal age must be ≥ 3 days for LOS.</span> : null }
         <br />
         <label className="form-field" htmlFor="birthWeight">Birth Weight</label>
         <br />
@@ -484,9 +495,9 @@ stored as state variables.
         {/* Providing an error message if the user tries to submit
         while the Birth Weight input is empty */}
         {(status === 'invalid') && !inputs.birthWeight ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
         {(status === 'invalid') && parseFloat(inputs.birthWeight) < 200 ?
-          <span style={{ color: "red" }}>Birth weight must be at least 200 grams. </span> : null}
+          <span className="error">Birth weight must be at least 200 grams. </span> : null}
 
         <br />
         <label className="form-field" htmlFor="currentWeight">Current Weight (at time of form completion)</label>
@@ -506,9 +517,9 @@ stored as state variables.
         {/* Providing an error message if the user tries to submit
         while the Current Weight input is empty */}
         {(status === 'invalid') && !inputs.currentWeight ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
         {(status === 'invalid') && parseFloat(inputs.currentWeight) < 200 ?
-          <span style={{ color: "red" }}>Current weight must be at least 200 grams.</span> : null}
+          <span className="error">Current weight must be at least 200 grams.</span> : null}
         <br/>
         </ListGroup.Item>
         <br/>
@@ -558,7 +569,7 @@ stored as state variables.
 
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
         </ListGroup.Item>
         <br />
         <br />
@@ -640,7 +651,7 @@ stored as state variables.
         {/* If the user selects Yes but doesn't specify
         something from the dropdown, provide this error. */}
         {(status === 'invalid') && (inputs.pathogen === "Yes") ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
 
         <br />
 
@@ -662,7 +673,7 @@ stored as state variables.
         </div>
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && !inputs.pathogen ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
 
         </ListGroup.Item>
         <br />
@@ -706,9 +717,9 @@ stored as state variables.
         </div>
 
         <br />
-        {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
+        {/* If the form is submitted and pathogen susceptibility isn't specified, print this. */}
         {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+          <span className="error">Please fill in this field.</span> : null}
 
         </ListGroup.Item>
         <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
@@ -803,10 +814,12 @@ stored as state variables.
 
         {/* If the form is submitted and no infection site
         is selected, print this. */}
-        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection === "")) ?
-          <span style={{ color: "red" }}>Please fill in this field.</span> : null}
+        {(status === 'invalid') && ((inputs.infectionSite.size === 0)) ?
+          <span className="error">Please fill in this field.</span> : null}
         {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection === "" ?
-          <p style={{ color: "red" }}>Blood needs CSF</p> : null}
+          <span className="error">Please fill in this field.<br />Blood needs CSF</span> : null}
+        {(status === 'invalid') && (inputs.pathogen !== "No" && inputs.infectionSite.has("No")) ?
+          <span className="error">Infection site must be specified when pathogen is isolated.</span> : null}
         </ListGroupItem>
         <br/>
       <br/>
@@ -847,7 +860,7 @@ stored as state variables.
         from the dropdown, give an error message. */}
         {
           (status === 'invalid') && (inputs.nec === "Yes") ?
-            <span style={{ color: "red" }}>Please fill in this field.</span> : null
+            <span className="error">Please fill in this field.</span> : null
         }
 
         <br />
@@ -871,7 +884,7 @@ stored as state variables.
         {/* If the form is submitted and NEC present isn't specified, print this. */}
         {
           (status === 'invalid') && !inputs.nec ?
-            <span style={{ color: "red" }}>Please fill in this field.</span> : null
+            <span className="error">Please fill in this field.</span> : null
         }
         <br />
         </ListGroupItem>
@@ -891,7 +904,7 @@ stored as state variables.
         {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
         {
         (status === 'invalid') && !termsAccepted ?
-          <span style={{ color: "red" }}>Please accept the terms and conditions.</span> : null
+          <span className="error">Please accept the terms and conditions.</span> : null
         }
         </ListGroupItem>
         <div className="btn-toolbar" style={{ justifyContent: 'center', display: 'flex' }}>
