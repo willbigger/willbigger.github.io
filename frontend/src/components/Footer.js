@@ -23,9 +23,9 @@ function Footer() {
       <Container >
         </Container>
         <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <Nav.Link href="/" style={{text_decoration: "none", color: 'white'}}>
+          <Nav.Link href="#" style={{text_decoration: "none", color: 'white'}}>
             <span >&copy; Copyright 2022 Neonatal Antibiotic Stewardship, All rights reserved</span>
-            <img src={devhub} style={{width:60, marginTop: -7}}></img>
+            <img src={devhub} style={{width:60, marginTop: -7}} alt=""></img>
           </Nav.Link>
         </Navbar.Brand>
 

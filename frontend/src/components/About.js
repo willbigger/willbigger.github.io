@@ -35,7 +35,7 @@ function About() {
             only one dose of gentamicin is needed to cover 24 hours and if 12-hour dosing is used for ampicillin, only 2 doses are needed to cover the 24-hour period.
             This web-app will help reduce the number of antibiotic doses required to cover the needed time period.
           </p>
-          <img src={flow} />
+          <img src={flow} alt="" />
         </div>
       </div>
     </div>

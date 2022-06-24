@@ -200,11 +200,11 @@ stored as state variables.
     console.log(inputs);
     let validAge = true
     let validWeight = true
-    if(inputs.os == "EOS") {
+    if(inputs.os === "EOS") {
       if (parseFloat(inputs.postnatalAge) >= 4) {
         validAge = false
       }
-    } else if (inputs.os == "LOS") {
+    } else if (inputs.os === "LOS") {
       if (parseFloat(inputs.postnatalAge) < 3) {
         validAge = false
       }
@@ -215,7 +215,7 @@ stored as state variables.
     if(parseFloat(inputs.birthWeight) < 200 || parseFloat(inputs.currentWeight) < 200) {
       validWeight = false
     }
-    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection != "" : true ) && inputs.gestationalAgeWeeks && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
+    if ((inputs.infectionSite.has("Blood") ? inputs.bloodDropdownSelection !== "" : true ) && inputs.gestationalAgeWeeks && inputs.postnatalAge && validAge && inputs.birthWeight && inputs.currentWeight && validWeight && inputs.os && (inputs.pathogen !== "Yes" && inputs.pathogen) && (inputs.pathogen === "No" || inputs.susceptible) && (inputs.infectionSite.size !== 0) && inputs.nec !== "Yes" && inputs.nec) {
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
@@ -374,7 +374,7 @@ stored as state variables.
         setInitialized(true);
       }
     },
-    [inputs, outputInputs, outputDisplay, status, pathogenToggle, bloodToggle, necToggle, termsAccepted, carouselIndex] // states to monitor
+    [initialized, inputs, outputInputs, outputDisplay, status, pathogenToggle, bloodToggle, necToggle, termsAccepted, carouselIndex] // states to monitor
   );
 
   return (
@@ -803,9 +803,9 @@ stored as state variables.
 
         {/* If the form is submitted and no infection site
         is selected, print this. */}
-        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "")) ?
+        {(status === 'invalid') && ((inputs.infectionSite.size === 0) || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection === "")) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "" ?
+        {(status === 'invalid') && inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection === "" ?
           <p style={{ color: "red" }}>Blood needs CSF</p> : null}
         </ListGroupItem>
         <br/>
@@ -905,7 +905,7 @@ stored as state variables.
         {/* If the form is valid, submitted, and loading, show a loading gif */}
         {(status === 'loading') ?
         <div className="success-message" style={{textAlign:"center", justifyContent:"center"}}>
-        <img src={loading} style={{width:50}}/>
+        <img src={loading} style={{width:50}} alt="Loading"/>
         </div> : null }
 
 
