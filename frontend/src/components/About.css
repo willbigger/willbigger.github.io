@@ -1,0 +1,26 @@
+.about {
+  margin: 25px 0;
+}
+
+.about h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.about-text {
+  background-color: white;
+  padding: 20px;
+  font-size: larger;
+  border-radius: .25rem;
+}
+
+.about img {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: .25rem;
+}
+
+.about-text :last-child {
+  margin-bottom: 0;
+}
