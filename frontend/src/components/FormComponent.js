@@ -4,10 +4,9 @@ import axios from "axios"; // for get request for output data
 
 import FormComponentHeader from './FormComponentHeader';
 import OutputWidget from './OutputWidget';
-// import Waiting from './Waiting';
 import SubmitButton from './SubmitButton';
 import ClearButton from './ClearButton';
-import loading from './wait'
+import loading from './wait.gif'
 
 import './FormComponent.css';
 
@@ -94,7 +93,7 @@ stored as state variables.
   Terms and conditions accepted toggle
    */
   const [termsAccepted, setTermsAccepted] = useState(false);
-  
+
   /*
   This state stores the most recently viewed antibiotic treatment
   */
@@ -185,15 +184,15 @@ stored as state variables.
 
   /*
   Handler for the submit variable.
-  First it prevents the automatic refresh so 
+  First it prevents the automatic refresh so
   that the user gets visual confirmation of submission.
-   
-  Then it checks that every input has been filled out 
+
+  Then it checks that every input has been filled out
   (for the checkbox ones, it makes sure that at least
-  one selection has been made). If the form is valid, 
+  one selection has been made). If the form is valid,
   it sets Valid to true.
-   
-  Then it sets Submitted to true and prints the 
+
+  Then it sets Submitted to true and prints the
   inputs in console log for us to see.
   */
 
@@ -283,9 +282,9 @@ stored as state variables.
 
   /*
   Handler for clicking the Clear button.
-  First it prevents the automatic refresh so 
+  First it prevents the automatic refresh so
   that the user gets visual confirmation of submission.
-   
+
   Then it resets Valid, Results, and Submitted and resets
   the form. It also sets all the inputs back to empty
   strings/arrays.
@@ -379,10 +378,10 @@ stored as state variables.
   );
 
   return (
-    
+
     <div className="form-container container d-flex flex-column min-vh-100 align-items-center" style={{ justifyContent: 'center', display: 'flex', fontSize: "larger" }}>
       <FormComponentHeader />
-      
+
       <ListGroup>
       <form className="nicu-form" id="input-form" onSubmit={onSubmit} style={{ fontSize: "smaller" }}>
       <ListGroup.Item>
@@ -435,9 +434,9 @@ stored as state variables.
           id="gestationalAgeDays"
           name="gestationalAgeDays"
         /><span className="form-field">&nbsp;days</span>
-        
+
         <br />
-        {/* Providing an error message if the user tries to submit 
+        {/* Providing an error message if the user tries to submit
         while the Gestational Age input is empty */}
         {(status === 'invalid') && !inputs.gestationalAgeWeeks ?
           <span style={{ color: "red" }}> Please fill in this field. </span> : null}
@@ -458,9 +457,9 @@ stored as state variables.
           id="postnatalAge"
           name="postnatalAge"
         /><span className="form-field">&nbsp;days</span>
-        
+
         < br />
-        {/* Providing an error message if the user tries to submit 
+        {/* Providing an error message if the user tries to submit
         while the Postnatal Age input is empty */}
         {(status === 'invalid') && !inputs.postnatalAge ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
@@ -482,7 +481,7 @@ stored as state variables.
           name="birthWeight"
         /><span className="form-field">&nbsp;grams</span>
         <br />
-        {/* Providing an error message if the user tries to submit 
+        {/* Providing an error message if the user tries to submit
         while the Birth Weight input is empty */}
         {(status === 'invalid') && !inputs.birthWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
@@ -504,7 +503,7 @@ stored as state variables.
           name="currentWeight"
         /><span className="form-field">&nbsp;grams</span>
         <br />
-        {/* Providing an error message if the user tries to submit 
+        {/* Providing an error message if the user tries to submit
         while the Current Weight input is empty */}
         {(status === 'invalid') && !inputs.currentWeight ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
@@ -533,7 +532,7 @@ stored as state variables.
             </div>
           </div>
         </div>
-        
+
         <br />
 
         {/* EOS/LOS input option 2: LOS */}
@@ -547,7 +546,7 @@ stored as state variables.
                 className="form-field"
                 id="os-LOS"
                 name="os"
-              // Notice that these radio buttons have the same name 
+              // Notice that these radio buttons have the same name
               //so that only one can be selected at a time
               />
               {' '}<label className="form-field" htmlFor="os-LOS">LOS (72 or more hours after birth)</label>
@@ -556,7 +555,7 @@ stored as state variables.
         </div>
         <br />
 
-        
+
         {/* If the form is submitted and the onset input is missing, print this. */}
         {(status === 'invalid') && !inputs.os ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
@@ -603,7 +602,7 @@ stored as state variables.
                 <Dropdown.Item eventKey="Enterococcus">Enterococcus</Dropdown.Item>
                 <Dropdown.Item eventKey="Gram Positive Rods">Gram-positive rod</Dropdown.Item>
                 <Dropdown.Item eventKey="Listeria">Listeria</Dropdown.Item>
-                
+
                 <Dropdown.Divider />
 
 
@@ -614,13 +613,13 @@ stored as state variables.
                 <Dropdown.Item eventKey="Klebsiella">Klebsiella</Dropdown.Item>
                 <Dropdown.Item eventKey="Enterobacter">Enterobacter species</Dropdown.Item>
                 <Dropdown.Item eventKey="Pseudomonas">Pseudomonas species</Dropdown.Item>
-                
+
                 <Dropdown.Divider />
 
 
                 <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Fungi-Candida species</Dropdown.Header>
 
-                
+
                 <Dropdown.Item eventKey="Candida Albicans">Candida albicans</Dropdown.Item>
                 <Dropdown.Item eventKey="Candida Parasilosis">Candida parasilosis</Dropdown.Item>
                 <Dropdown.Item eventKey="Non Candida Albicans">Non-candida albicans</Dropdown.Item>
@@ -629,7 +628,7 @@ stored as state variables.
 
                 <Dropdown.Header style={{fontWeight: 'bold', fontSize: '1.5rem', color: 'black'}}>Molds</Dropdown.Header>
 
-                
+
                 <Dropdown.Item eventKey="Aspergillus">Aspergillus species</Dropdown.Item>
                 <Dropdown.Item eventKey="Rhizopus">Rhizopus species</Dropdown.Item>
 
@@ -664,7 +663,7 @@ stored as state variables.
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && !inputs.pathogen ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-          
+
         </ListGroup.Item>
         <br />
 
@@ -710,7 +709,7 @@ stored as state variables.
         {/* If the form is submitted and pathogen isolation isn't specified, print this. */}
         {(status === 'invalid') && pathogenToggle && !inputs.susceptible ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
-        
+
         </ListGroup.Item>
         <br style={{ display: pathogenToggle ? 'inline' : 'none' }} />
 
@@ -802,7 +801,7 @@ stored as state variables.
           </div>
         </div>
 
-        {/* If the form is submitted and no infection site 
+        {/* If the form is submitted and no infection site
         is selected, print this. */}
         {(status === 'invalid') && ((inputs.infectionSite.size === 0) || (inputs.infectionSite.has("Blood") && inputs.bloodDropdownSelection == "")) ?
           <span style={{ color: "red" }}>Please fill in this field.</span> : null}
@@ -888,7 +887,7 @@ stored as state variables.
           className="form-field"/>
         {' '}<label className="form-field" htmlFor="terms-and-conditions" alignItems="center">I have read and accepted the <a href="/terms">terms and conditions</a> </label>
         <br/>
-        
+
         {/* If the form is submitted and the "terms and conditions" box isn't checked, print this. */}
         {
         (status === 'invalid') && !termsAccepted ?
@@ -904,7 +903,7 @@ stored as state variables.
           </div>
         </div>
         {/* If the form is valid, submitted, and loading, show a loading gif */}
-        {(status === 'loading') ? 
+        {(status === 'loading') ?
         <div className="success-message" style={{textAlign:"center", justifyContent:"center"}}>
         <img src={loading} style={{width:50}}/>
         </div> : null }

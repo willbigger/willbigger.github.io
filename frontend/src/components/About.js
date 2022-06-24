@@ -1,5 +1,5 @@
 import React from "react";
-import flow from './aboutlogic'
+import flow from './aboutlogic.png'
 import './About.css';
 
 // About page
