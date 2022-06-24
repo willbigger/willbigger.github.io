@@ -105,7 +105,7 @@ const dosingParameters = {
         ['At 48 weeks GA (any day)', '5 mg/kg/dose q24h'],
         ['ECMO (any day)', '4 mg/kg/dose q36h'],
         ['Therapeutic hypothermia (any day)', '4 mg/kg/dose q36h'],
-        ['Bacterial overgrowth', '4 mg/kg/dose PO q12h x 5-7 days'],            
+        ['Bacterial overgrowth', '4 mg/kg/dose PO q12h x 5-7 days'],
     ],
     /* Aminoglycosides */
     'Gentamicin or Tobramycin': [
@@ -134,11 +134,11 @@ const dosingParameters = {
         ['>= 35 weeks CGA', '7.5 mg/kg/dose q8h'],
         ['', ''],
         ['Bacterial overgrowth', '10 mg/kg/dose BID'],
-        ['', ''],        
+        ['', ''],
     ],
     'Micafungin': [
         ['IV', '10 mg/kg/day once daily'],
-        ['Prophylactic dosing', '2-3 mg/kg/dose once daily'],        
+        ['Prophylactic dosing', '2-3 mg/kg/dose once daily'],
     ],
     'Nafcillin': [
         ['<=2000g  & <= 7 days', '25 mg/kg IV/dose q12h'],
@@ -165,7 +165,7 @@ const dosingParameters = {
         ['Postnatal age 8 to 28 days', '450,000 - 500,000 units/kg/day, div Q6h'],
         ['Other susceptible organisms', ''],
         ['Postnatal age 0 to 7 days', '150,000 units/kg/day, divided Q8-12h'],
-        ['Postnatal age 8 to 28 days', '200,000 units/kg/day, divided Q6-8h'],        
+        ['Postnatal age 8 to 28 days', '200,000 units/kg/day, divided Q6-8h'],
     ],
     'Piperacillin-tazobactam': [
         ['< 29 weeks GA and < 29 days', '112.5 mg/kg/dose q12h IV'],
@@ -182,7 +182,7 @@ const dosingParameters = {
     /* Trimethoprim-sulfamethoxazole */
     'SMZ/TMP': [
         ['UTI Prophylaxis', '2 mg/kg PO once daily'],
-        ['Treatment', '3-6 mg/kg/dose PO BID x7-14 days'],        
+        ['Treatment', '3-6 mg/kg/dose PO BID x7-14 days'],
     ],
     'Tobramycin': [
         ['Inhaled', '40-80 mg Q12h']
@@ -197,13 +197,13 @@ const dosingParameters = {
         ['30-36 wks GA and >15 d', '15 mg/kg/dose q8h'],
         ['>36 wks GA and 0-8 d', '15 mg/kg/dose q12h'],
         ['>36 wks GA and >8 d', '15 mg/kg/dose q8h'],
-        ['> 44 wks GA', '15 mg/kg/dose q6h'],        
+        ['> 44 wks GA', '15 mg/kg/dose q6h'],
     ],
     'Voriconazole': [
         ['IV Loading dose', '6 mg/kg/dose x 2 doses'],
         ['IV Maintenance', '4 mg/kg/dose q12h'],
         ['PO loading dose', '8 mg/kg/dose x 2 doses'],
-        ['PO maintenance', '7 mg/kg/dose q12h'],        
+        ['PO maintenance', '7 mg/kg/dose q12h'],
     ],
     'Zidovudine': [
         ['ORAL PROPHYLAXIS', ''],
@@ -217,7 +217,7 @@ const dosingParameters = {
         ['', 'then 2.25 mg/kg q12h x 2 wks'],
         ['30 to 34 6/7 weeks PMA', '1.5 mg/kg q12h x 2 wks'],
         ['', 'then 2.25 mg/kg q12h x 4 wks'],
-        ['>= 35 weeks PMA', '3 mg/kg q12h x 6 wks'],        
+        ['>= 35 weeks PMA', '3 mg/kg q12h x 6 wks'],
     ],
 }
 
@@ -225,10 +225,10 @@ function getDosingParameter(medication) {
     if (dosingParameters.hasOwnProperty(medication)) {
         return (
             <Panel header={`Dosage table for ${medication}`} key={medication}>
-                <Table striped bordered>
-                    <tbody>{dosingParameters[medication].map(row => 
-                        <tr>{row.map(cell => 
-                            <td>{cell.split('\n').map(element => 
+                <Table striped bordered hover size="sm">
+                    <tbody>{dosingParameters[medication].map(row =>
+                        <tr>{row.map(cell =>
+                            <td>{cell.split('\n').map(element =>
                                 <div>{element}</div>)}
                             </td>)}
                         </tr>)}
@@ -284,7 +284,7 @@ function getAllDosingParameters(treatment) {
 function TreatmentInfo({ treatment }) {
     return (
         <div className="treatment-info">
-            <Collapse>
+            <Collapse ghost="true">
                 {getAllDosingParameters(treatment)}
             </Collapse>
         </div>

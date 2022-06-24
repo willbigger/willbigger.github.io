@@ -49,6 +49,10 @@
     margin-bottom: 0;
 }
 
-.treatment-info .table th {
+.treatment-info .ant-collapse {
+    font-size: smaller;
+}
+
+.treatment-info table th {
     text-align: center;
 }
