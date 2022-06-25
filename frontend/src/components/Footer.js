@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import devhub from './devhub.png'
 
 
@@ -19,10 +19,7 @@ function Footer() {
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
       <div style={{height: '80px'}}></div>
-      <Container >
       <Navbar className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
-        
-        
         <Navbar.Brand style={{color: '#F1F1EF'}}>
           <Nav.Link href="#" style={{text_decoration: "none", color: 'white'}}>
             <span >&copy; Copyright 2022 Neonatal Antibiotic Stewardship, All rights reserved</span>
@@ -30,7 +27,6 @@ function Footer() {
           </Nav.Link>
         </Navbar.Brand>
       </Navbar>
-      </Container>
     </div>
   );
 }
