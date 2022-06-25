@@ -6,12 +6,24 @@
     --choice-text: black;
 }
 
-.output-scale {
+.output-scale, .output-scale-special {
     display: grid;
     grid-auto-columns: 1fr;
     grid-auto-rows: 1fr;
     gap: 0.25em 1em;
     align-items: center;
+}
+
+.output-scale .btn,
+.output-scale-special .btn  {
+    text-align: center;
+    border: 2px dashed gray;
+}
+
+.output-scale .btn:not(:disabled):not(.disabled).active,
+.output-scale-special .btn:not(:disabled):not(.disabled).active {
+    border: 2px solid black;
+    font-weight: 500;
 }
 
 .output-scale .triangle {
@@ -44,7 +56,8 @@
         display: none;
     }
 
-    .choice-label {
+    .choice-label,
+    .output-scale-special .btn {
         grid-column: 1;
     }
 
@@ -84,7 +97,8 @@
         display: none;
     }
 
-    .choice-label {
+    .choice-label,
+    .output-scale-special .btn {
         grid-row: 1;
     }
 
@@ -116,16 +130,6 @@
 .choice-label {
     text-align: center;
     font-size: smaller;
-}
-
-.output-scale .btn {
-    text-align: center;
-    border: 2px dashed gray;
-}
-
-.output-scale .btn:not(:disabled):not(.disabled).active {
-    border: 2px solid black;
-    font-weight: 500;
 }
 
 .choice-1 {

@@ -1,13 +1,13 @@
-import { Carousel} from 'react-bootstrap';
 import React from 'react';
+import { Carousel } from 'react-bootstrap';
 import OutputScaleSpec1 from './OutputScaleSpec1';
-import './OutputScale.css';
+
 function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex }) {
-  
+
   const handleSelect = (selectedIndex) => {
     setCarouselIndex(selectedIndex);
   };
-  
+
   let gentamicinDose ="";
   if (inputs.gestationalAge<30&&inputs.postnatalAge>=0&&inputs.postnatalAge<=7) {
     gentamicinDose = "4mg/kg, one dose at 0 hours."
@@ -57,7 +57,7 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
   return (
     <div>
       <section>
-        <h3>Empiric Antibiotic</h3>
+        <h3>Empiric Antibiotics</h3>
         <dl>
           <dt>Nafcillin or Oxacillin</dt>
           <dd>{NafcillinDose}</dd>
@@ -65,9 +65,9 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
           <dd>{gentamicinDose}</dd>
         </dl>
       </section>
-    
+
       <section>
-        <h3>Alternative Empiric Coverage</h3>
+        <h3>Alternate Empiric Coverage</h3>
         <OutputScaleSpec1 activeIndex={carouselIndex} onSelect={handleSelect} />
         <br />
         <Carousel
@@ -92,21 +92,19 @@ function OutputDisplayLOSSpecialCase({ inputs , carouselIndex, setCarouselIndex 
             </dl>
           </Carousel.Item>
         </Carousel>
-        
       </section>
-
-
-      <section>
-        <h3>Additional Recommendations</h3>
-        <p>If ECMO or Therapeutic Hypothermia: </p>
-        <p>one dose at 0 hours, another dose at 36 hours.</p>
-      </section>
-
-      
 
       <section>
         <h3>Antibiotic Treatment Duration</h3>
         <p>48 hours</p>
+      </section>
+
+      <section>
+        <h3>Additional Recommendations</h3>
+        <p>
+          If ECMO or Therapeutic Hypothermia: <br />
+          one dose at 0 hours, another dose at 36 hours.
+        </p>
       </section>
     </div>
   )

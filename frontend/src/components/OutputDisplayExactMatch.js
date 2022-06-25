@@ -4,9 +4,6 @@ import Toggle from './Toggle';
 import OutputScale from './OutputScale';
 import TreatmentInfo from './TreatmentInfo';
 
-
-import './OutputScale.css';
-
 function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carouselIndex, setCarouselIndex }) {
   /* If there was an exact match, display them. */
 
@@ -33,14 +30,14 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carou
         <h3>Antibiotic Treatment</h3>
         <p>{outputDisplay.treatment}</p>
         <TreatmentInfo treatment={outputDisplay.treatment} />
-      </section>          
-      
+      </section>
+
       {/* culture or susceptibility results known */}
       <section className={susceptibilityKnown ? "" : "d-none"}>
         <h3>Spectrum</h3>
         <OutputScale activeIndex={carouselIndex} onSelect={handleSelect} />
       </section>
-      
+
       <section className={susceptibilityKnown ? "" : "d-none"}>
         <Carousel
           activeIndex={carouselIndex}
