@@ -20,7 +20,6 @@ function OutputDisplayExactMatch({ inputs, outputDisplay, setOutputInputs, carou
         onChecked="Culture and susceptibility results known"
         onUnchecked="Pending culture or susceptibility results"
         handleChange={(checked) => {
-          console.log(React.version);
           setOutputInputs({...inputs, susceptible: susceptibilityKnown ? "Pending" : "Known"});
         }}
       />
