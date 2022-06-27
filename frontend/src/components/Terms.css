@@ -1,0 +1,19 @@
+.terms {
+  margin: 25px 0;
+}
+
+.terms h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.terms-text {
+  background-color: white;
+  padding: 20px;
+  font-size: larger;
+  border-radius: .25rem;
+}
+
+.terms-text :last-child {
+  margin-bottom: 0;
+}

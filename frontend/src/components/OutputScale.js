@@ -13,8 +13,8 @@ function OutputScale({ activeIndex, onSelect }) {
     <div className="output-scale">
       <div className="triangle">
         <svg  viewBox="0 0 2 2" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path className="triangle-horizontal" d="M 0 1 L 2 0 V 2 Z" fill="currentColor"/>
-          <path className="triangle-vertical" d="M 1 0 L 0 2 H 2 Z" fill="currentColor"/>
+          <path className="triangle-horizontal" d="M 0 1.5 V 0.5 L 2 0 V 2 Z" fill="currentColor"/>
+          <path className="triangle-vertical" d="M 1.5 0 H 0.5 L 0 2 H 2 Z" fill="currentColor"/>
         </svg>
       </div>
       <div className="choice-label label-1">Narrowest</div>
