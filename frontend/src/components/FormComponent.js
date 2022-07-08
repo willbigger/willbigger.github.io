@@ -282,8 +282,8 @@ stored as state variables.
           });
         }
         const post_url = `${base_url}/create-input`;
-        console.log(JSON.stringify({...inputs, infectionSite: infectionSite, output_available: response.data.length === 1}))
-        axios.post(post_url, {...inputs, infectionSite: infectionSite, output_available: response.data.length === 1}).then((response) => console.log(response));
+        console.log(JSON.stringify({...inputs, gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7, infectionSite: infectionSite, output_available: response.data.length === 1}))
+        axios.post(post_url, {...inputs, gestationalAge: parseFloat(inputs.gestationalAgeWeeks) + parseFloat(inputs.gestationalAgeDays) / 7, infectionSite: infectionSite, output_available: response.data.length === 1}).then((response) => console.log(response));
       })
     } else {
       setStatus('invalid')
