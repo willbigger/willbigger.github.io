@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const inputSet = new mongoose.Schema({
+  timestamp: {
+    type: Date,
+    required: true,
+  },
   gestational_age: {
     type: Number,
     required: true,
@@ -41,6 +45,6 @@ const inputSet = new mongoose.Schema({
     type: Boolean,
     required: true
   }
-  
+
 });
 module.exports = mongoose.model("inputSet", inputSet);
