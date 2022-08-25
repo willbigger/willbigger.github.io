@@ -30,10 +30,10 @@ DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 app.get("/outputs", async (req, res) => {
   try {
     const docs = await Output.find({
-      time_sent:req.query.time_sent, 
-      pathogen_isolated:req.query.pathogen_isolated, 
-      site_of_infection:req.query.site_of_infection, 
-      abdominal_involvement:req.query.abdominal_involvement 
+      time_sent:req.query.time_sent,
+      pathogen_isolated:req.query.pathogen_isolated,
+      site_of_infection:req.query.site_of_infection,
+      abdominal_involvement:req.query.abdominal_involvement
     });
 
     res.send(docs);
@@ -45,6 +45,7 @@ app.get("/outputs", async (req, res) => {
 app.post("/create-input", async (req, res) => {
   try {
     const new_input = new InputSet({
+      timestamp: new Date(),
       gestational_age: req.body.gestationalAge,
       postnatal_age: req.body.postnatalAge,
       birth_weight: req.body.birthWeight,

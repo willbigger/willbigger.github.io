@@ -20,7 +20,14 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
     newWord = newWord.replace(/,\s*$/, "");
     return newWord
   }
-
+  function headerChecker(){
+    if (inputs.os === "LOS" && inputs.pathogen === "No" && (inputs.infectionSite.size === 1 && inputs.infectionSite.has("No")) && inputs.nec === "No") {
+      return "Recommended Antibiotics"
+    }
+    else{
+      return "Recommended Treatment "
+    }
+  }
   return (
     <div id="output-widget" className="container">
       {/* Presenting what the user inputted */}
@@ -77,7 +84,7 @@ function OutputWidget({ inputs, outputDisplay, setOutputInputs, carouselIndex, s
     
       <div className="row">
         <div className="col">
-          <h2>Recommended Treatment</h2>
+          <h2>{headerChecker()}</h2>
           <OutputDisplay inputs={inputs} outputDisplay={outputDisplay} setOutputInputs={setOutputInputs} carouselIndex={carouselIndex} setCarouselIndex={setCarouselIndex} />
         </div>
       </div>

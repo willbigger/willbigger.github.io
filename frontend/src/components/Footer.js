@@ -1,7 +1,6 @@
 import React from "react";
-import { Nav, Navbar, Container } from 'react-bootstrap';
-import logo from './logo';
-import devhub from './devhub'
+import { Nav, Navbar } from 'react-bootstrap';
+import devhub from './devhub.png'
 
 
 function Footer() {
@@ -16,22 +15,18 @@ function Footer() {
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      </body>  
+      </body>
       {/* bg="light" */}
       {/* style={{color: "232D4B"}} */}
       <div style={{height: '80px'}}></div>
       <Navbar className="navbar fixed-bottom" style={{backgroundColor: '#232D4B'}}>
-      <Container >
-        </Container>
         <Navbar.Brand style={{color: '#F1F1EF'}}>
-          <Nav.Link href="/" style={{text_decoration: "none", color: 'white'}}>
+          <Nav.Link href="#" style={{text_decoration: "none", color: 'white'}}>
             <span >&copy; Copyright 2022 Neonatal Antibiotic Stewardship, All rights reserved</span>
-            <img src={devhub} style={{width:60, marginTop: -7}}></img>
+            <img src={devhub} style={{width:60, marginTop: -7}} alt=""></img>
           </Nav.Link>
         </Navbar.Brand>
-
       </Navbar>
-      
     </div>
   );
 }
