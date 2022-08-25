@@ -231,7 +231,9 @@ stored as state variables.
       event.preventDefault(); // stops refresh
 
       // creating the right URL to go to
-      const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:8000";
+      // const base_url = process.env.REACT_APP_API_LOCATION || "http://localhost:8000";
+      const base_url =  "https://nicu-backend-development.herokuapp.com";
+
       const infectionSiteOrder = ["Peritoneal", "CSF", "Blood", "Urine", "Skin_with_Cellulitis"];
       let infectionSite = "No";
       for (let i = 0; i < infectionSiteOrder.length; i++) {
