@@ -1,5 +1,19 @@
 {
-  "dependencies": {
-    "react-pdf": "^5.7.2"
+  "name": "neonatal_antibiotic_stewardship",
+  "homepage": "https://neoabx.github.io",
+  "private": false, 
+
+  "dependencies" : {
+    "-": "0.0.1",
+    "gh-pages": "^4.0.0",
+    "react-pdf": "^5.7.2",
+    "save-dev": "0.0.1-security"
+  }, 
+
+  "scripts" : {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   }
 }
